@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Session categories</h1>
+
+<div id="session_categories">
+  <% @session_categories.each do |session_category| %>
+    <%= render session_category %>
+    <p>
+      <%= link_to "Show this session category", session_category %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New session category", new_session_category_path %>

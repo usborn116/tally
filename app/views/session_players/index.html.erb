@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Session players</h1>
+
+<div id="session_players">
+  <% @session_players.each do |session_player| %>
+    <%= render session_player %>
+    <p>
+      <%= link_to "Show this session player", session_player %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New session player", new_session_player_path %>

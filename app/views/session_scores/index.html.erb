@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Session scores</h1>
+
+<div id="session_scores">
+  <% @session_scores.each do |session_score| %>
+    <%= render session_score %>
+    <p>
+      <%= link_to "Show this session score", session_score %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New session score", new_session_score_path %>
