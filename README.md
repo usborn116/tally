@@ -8,3 +8,4 @@ Helpful docs:
 - RSpec "before" documentation: https://www.rubydoc.info/gems/rspec-core/RSpec%2FCore%2FHooks:before
 - Setting default RSpec formatting: https://stackoverflow.com/questions/40023188/can-i-set-rspec-format-documentation-as-the-default
 - RSpec Rails documentation: https://github.com/rspec/rspec-rails
+- ActiveRecord callbacks: https://guides.rubyonrails.org/active_record_callbacks.html#creating-an-object

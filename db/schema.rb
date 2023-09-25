@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_25_173946) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_25_184515) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -20,6 +20,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_25_173946) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "game_id", null: false
+    t.boolean "win"
     t.index ["game_id"], name: "index_categories_on_game_id"
   end
 
@@ -50,6 +51,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_25_173946) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "session_id", null: false
+    t.boolean "win"
     t.index ["session_id"], name: "index_session_categories_on_session_id"
   end
 
