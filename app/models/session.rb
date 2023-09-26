@@ -4,6 +4,8 @@ class Session < ApplicationRecord
     has_many :session_players, dependent: :destroy
     has_many :session_scores, dependent: :destroy
 
+    accepts_nested_attributes_for :session_players, :session_scores
+    
     after_create :create_categories
 
     def winner
