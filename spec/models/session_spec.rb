@@ -34,6 +34,7 @@ RSpec.describe Session, type: :model do
       @score2.update(amount: 3)
       expect(@player1.total_score).to eq(4)
       expect(@sesh.winner).to eq("#{@player1.name} wins this round of #{@game.name}!")
+      expect(@sesh.victor).to eq(@player1.name)
     end
     
     it 'finds player 2 as winner' do
@@ -41,6 +42,7 @@ RSpec.describe Session, type: :model do
       @score2.update(amount: 5)
       expect(@player2.total_score).to eq(5)
       expect(@sesh.winner).to eq("#{@player2.name} wins this round of #{@game.name}!")
+      expect(@sesh.victor).to eq(@player2.name)
     end
 
   end

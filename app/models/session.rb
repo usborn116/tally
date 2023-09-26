@@ -5,11 +5,12 @@ class Session < ApplicationRecord
     has_many :session_scores, dependent: :destroy
 
     accepts_nested_attributes_for :session_players, :session_scores
-    
+
     after_create :create_categories
 
     def winner
         result = self.session_players.map{|p| [p.name, p.total_score]}.to_h.max_by{|k,v| v}.first
+        self.update(victor: result)
         "#{result} wins this round of #{self.game.name}!"
     end
 
