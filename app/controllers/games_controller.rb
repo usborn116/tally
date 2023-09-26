@@ -8,6 +8,11 @@ class GamesController < ApplicationController
     render json: @games
   end
 
+  def user_games
+    @games = current_user.games.includes(:sessions)
+    render json: @games
+  end
+
   # GET /games/1 or /games/1.json
   def show
   end
