@@ -9,6 +9,7 @@ class SessionsController < ApplicationController
 
   # GET /sessions/1 or /sessions/1.json
   def show
+    render json: @session.to_json(:include => [:game, {:session_scores=> {:include => [:session_player, :session_category]}}])
   end
 
   # GET /sessions/new

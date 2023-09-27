@@ -9,7 +9,7 @@ export const Home = ({user}) => {
         <>
             <Link to={'/user'}>My User Details</Link>
             <h1>Welcome To Tally, {user ? user.name : 'friend'}!!!</h1>
-            <Games user={user}/>
+            <Games user={user} endpoint='games'/>
             <Players />
         </>
         

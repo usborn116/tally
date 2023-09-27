@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   resources :sessions
   resources :categories
   resources :games
+  get 'user_games', to: 'games#user_games'
+  get 'user_game/:id', to: 'games#user_game'
   resources :players
   devise_for :users
   root 'homepage#index'

@@ -9,12 +9,18 @@ class GamesController < ApplicationController
   end
 
   def user_games
-    @games = current_user.games.includes(:sessions)
-    render json: @games
+    @games = current_user.games
+    render json: @games.to_json(:include => {:sessions => {only: [:id, :date, :victor]}})
+  end
+
+  def user_game
+    @game = current_user.games.where(id: params[:id]).first
+    render json: @game.to_json(:include => [:categories, {:sessions => {only: [:id, :date, :victor]}}])
   end
 
   # GET /games/1 or /games/1.json
   def show
+    render json: @game
   end
 
   # GET /games/new
