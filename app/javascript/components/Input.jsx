@@ -1,6 +1,6 @@
 import React from "react";
 
-const Input = ({type, name, placeHolder, val = '', options = null}) => {
+const Input = ({type, name, placeHolder, value = '', options = null}) => {
 
     if (type == 'select') return (
         <select name={name} defaultValue={val}>
@@ -9,9 +9,16 @@ const Input = ({type, name, placeHolder, val = '', options = null}) => {
 
     )
 
+    if (type == 'checkbox') return (
+        <div className="input">
+            <input type={type} name={name} placeholder={placeHolder} defaultChecked={value}></input>
+        </div>
+
+    )
+
     return (
         <div className="input">
-            <input type={type} name={name} placeholder={placeHolder} defaultValue={val} style={type == 'hidden' ? {visibility: 'hidden'} : {display: 'block'}}></input>
+            <input type={type} name={name} placeholder={placeHolder} defaultValue={value} style={type == 'hidden' ? {visibility: 'hidden'} : {display: 'block'}}></input>
         </div>
     )
 };

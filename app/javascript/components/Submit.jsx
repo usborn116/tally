@@ -1,8 +1,8 @@
 import React from "react";
 
-const Submit = () => {
+const Submit = ({children}) => {
 
-    return <input type="submit" className="button" value="Submit"></input>
+    return <input type="submit" className="button" value={children ? children : "Submit"}></input>
 
 };
 

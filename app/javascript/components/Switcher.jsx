@@ -1,10 +1,10 @@
 import React from "react";
 
-const Switcher = ({setter, data}) => {
+const Switcher = ({setter, data, children}) => {
 
     return (
         <button className="button" onClick={() => data ? setter(false) : setter(true)}>
-            Create New
+            {children}
         </button>
     )
 

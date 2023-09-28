@@ -20,7 +20,6 @@ class GamesController < ApplicationController
 
   # GET /games/1 or /games/1.json
   def show
-    render json: @game
   end
 
   # GET /games/new
@@ -34,16 +33,12 @@ class GamesController < ApplicationController
 
   # POST /games or /games.json
   def create
-    @game = Game.new(game_params)
+    @game = current_user.games.new(game_params)
 
-    respond_to do |format|
-      if @game.save
-        format.html { redirect_to game_url(@game), notice: "Game was successfully created." }
-        format.json { render :show, status: :created, location: @game }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @game.errors, status: :unprocessable_entity }
-      end
+    if @game.save
+      render json: @game
+    else
+      render json: @game.errors, status: :unprocessable_entity
     end
   end
 
@@ -78,6 +73,6 @@ class GamesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def game_params
-      params.require(:game).permit(:name, :type, :gameplay_length, :player_number, :complexity)
+      params.require(:game).permit(:name, :game_category, :image, :category_count, :gameplay_length, :player_number, :complexity)
     end
 end

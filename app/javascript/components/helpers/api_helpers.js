@@ -19,3 +19,40 @@ export const getUser = async (setter) => {
     console.log('user', data)
     await setter(data)
 }
+
+export const newData = async (endpoint, info)=>{
+    try{
+        const response=await fetch(`${endpoint}`, {
+            method: 'post',
+            headers: {
+                "content-type": 'application/json',
+                "accept": "application/json",
+            },
+            body: JSON.stringify(info)
+        }) 
+        const data=await response.json()
+        if(!response.ok) throw data.error
+        console.log('new!', data)
+        return data
+    } catch (error){
+        console.log(error)
+    }
+}
+
+export const updateData = async (endpoint, info) => {
+    try{
+        const response=await fetch(`${endpoint}`, {
+            method: 'put',
+            headers: {
+                "content-type": 'application/json',
+                "accept": "application/json",
+            },
+            body: JSON.stringify(info)
+        }) 
+        const data=await response.json()
+        if(!response.ok) throw data.error
+        return data
+    } catch (error){
+        console.log(error)
+    }
+}

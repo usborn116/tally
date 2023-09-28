@@ -30,8 +30,6 @@ export const Sessions = ({data}) => {
         </Form>
         </>
     )
-
-    
     
     return (
         <>

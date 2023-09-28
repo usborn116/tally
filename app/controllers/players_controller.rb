@@ -23,16 +23,12 @@ class PlayersController < ApplicationController
 
   # POST /players or /players.json
   def create
-    @player = Player.new(player_params)
+    @player = current_user.players.new(player_params)
 
-    respond_to do |format|
-      if @player.save
-        format.html { redirect_to player_url(@player), notice: "Player was successfully created." }
-        format.json { render :show, status: :created, location: @player }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @player.errors, status: :unprocessable_entity }
-      end
+    if @player.save
+      render json: @player
+    else
+      render json: @player.errors, status: :unprocessable_entity
     end
   end
 
