@@ -24,38 +24,27 @@ class SessionScoresController < ApplicationController
   def create
     @session_score = SessionScore.new(session_score_params)
 
-    respond_to do |format|
-      if @session_score.save
-        format.html { redirect_to session_score_url(@session_score), notice: "Session score was successfully created." }
-        format.json { render :show, status: :created, location: @session_score }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @session_score.errors, status: :unprocessable_entity }
-      end
+    if @session_score.save
+      render json: @session_score
+    else
+      render json: @session_score.errors, status: :unprocessable_entity
     end
   end
 
   # PATCH/PUT /session_scores/1 or /session_scores/1.json
   def update
-    respond_to do |format|
       if @session_score.update(session_score_params)
-        format.html { redirect_to session_score_url(@session_score), notice: "Session score was successfully updated." }
-        format.json { render :show, status: :ok, location: @session_score }
+        render json: @session_score
       else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @session_score.errors, status: :unprocessable_entity }
+        render json: @session_score.errors, status: :unprocessable_entity
       end
-    end
   end
 
   # DELETE /session_scores/1 or /session_scores/1.json
   def destroy
     @session_score.destroy
 
-    respond_to do |format|
-      format.html { redirect_to session_scores_url, notice: "Session score was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    render json: {message: 'okay'}
   end
 
   private

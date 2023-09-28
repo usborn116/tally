@@ -24,27 +24,19 @@ class SessionPlayersController < ApplicationController
   def create
     @session_player = SessionPlayer.new(session_player_params)
 
-    respond_to do |format|
       if @session_player.save
-        format.html { redirect_to session_player_url(@session_player), notice: "Session player was successfully created." }
-        format.json { render :show, status: :created, location: @session_player }
+        render json: @session_player
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @session_player.errors, status: :unprocessable_entity }
+        render json: @session_player.errors, status: :unprocessable_entity
       end
-    end
   end
 
   # PATCH/PUT /session_players/1 or /session_players/1.json
   def update
-    respond_to do |format|
-      if @session_player.update(session_player_params)
-        format.html { redirect_to session_player_url(@session_player), notice: "Session player was successfully updated." }
-        format.json { render :show, status: :ok, location: @session_player }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @session_player.errors, status: :unprocessable_entity }
-      end
+    if @session_player.update(session_player_params)
+      render json: @session_player
+    else
+      render json: @session_player.errors, status: :unprocessable_entity
     end
   end
 
@@ -52,10 +44,7 @@ class SessionPlayersController < ApplicationController
   def destroy
     @session_player.destroy
 
-    respond_to do |format|
-      format.html { redirect_to session_players_url, notice: "Session player was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    render json: {message: 'okay'}
   end
 
   private

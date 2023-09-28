@@ -44,14 +44,10 @@ class GamesController < ApplicationController
 
   # PATCH/PUT /games/1 or /games/1.json
   def update
-    respond_to do |format|
-      if @game.update(game_params)
-        format.html { redirect_to game_url(@game), notice: "Game was successfully updated." }
-        format.json { render :show, status: :ok, location: @game }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @game.errors, status: :unprocessable_entity }
-      end
+    if @game.update(game_params)
+      render json: @game
+    else
+      render json: @game.errors, status: :unprocessable_entity
     end
   end
 
@@ -59,10 +55,7 @@ class GamesController < ApplicationController
   def destroy
     @game.destroy
 
-    respond_to do |format|
-      format.html { redirect_to games_url, notice: "Game was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    render json: {status: 'successful'}
   end
 
   private

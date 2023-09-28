@@ -1,13 +1,11 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { getData, newData } from "./helpers/api_helpers";
-import { Button } from "./Button";
 import { Link } from "react-router-dom"
 import Form from "./Form";
 import Input from "./Input";
 import Submit from "./Submit";
 import Switcher from "./Switcher";
-import NewCategory from "./NewCategory";
 
 export default Games = ({user, endpoint}) => {
 
@@ -20,7 +18,7 @@ export default Games = ({user, endpoint}) => {
     
     const list = data.map((p) => (
         <div key={p.name}>
-            <Link to={`${p.id}`}>{p.name}</Link>
+            {endpoint == 'games' ? <div key={p.id}>{p.name}</div> : <Link to={`${p.id}`}>{p.name}</Link>}
         </div>
 
     ))

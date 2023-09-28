@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import Player from "./Player";
 import { useState, useEffect } from "react";
 import { getData } from "./helpers/api_helpers";
 import Form from "./Form";
@@ -17,7 +17,10 @@ export const Players = () => {
         getData('/players', setData)
     }, [create])
 
-    const list = data.map(p => <div key={p.id}>{p.name}</div>)
+    const list = data.map(p => (
+        <Player key={p.id} data={p} setData={setData}/>
+        )
+    )
     
     return (
         <>

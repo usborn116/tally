@@ -1,15 +1,17 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { getData } from "./helpers/api_helpers";
+import { getData, newData } from "./helpers/api_helpers";
 import { Link } from "react-router-dom"
 import Form from "./Form";
 import Input from "./Input";
 import Submit from "./Submit";
 import Switcher from "./Switcher";
 
-export const Sessions = ({data}) => {
+export const Sessions = ({data, game_id, setter}) => {
 
-    const [create, setCreate] = useState(false)
+    useEffect(() => {
+        setter(() => true)
+    }, [])
 
     const list = data.map((p) => (
         <div key={p.id}>
@@ -19,22 +21,15 @@ export const Sessions = ({data}) => {
     ))
 
     date = new Date().toDateString()
-
-    if (create) return (
-        <>
-        <Switcher setter={setCreate} data={create}/>
-        <Form endpoint="sessions" item='session'>
-                <h2>Day of Session: {date}</h2>
-                <Input type="hidden" name="date" value={date}/>
-                <Submit/>
-        </Form>
-        </>
-    )
     
     return (
         <>
             <h2>Sessions</h2>
-            <Switcher setter={setCreate} data={create}/>
+            <Form endpoint="sessions" item='session' updater={newData} setToggle={setter}>
+                <Input type="hidden" name="date" value={date}/>
+                <Input type="hidden" name="game_id" value={game_id}/>
+                <Submit>Create New Session</Submit>
+            </Form>
             {list}
         </>
 

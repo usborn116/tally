@@ -25,27 +25,19 @@ class SessionsController < ApplicationController
   def create
     @session = Session.new(session_params)
 
-    respond_to do |format|
-      if @session.save
-        format.html { redirect_to session_url(@session), notice: "Session was successfully created." }
-        format.json { render :show, status: :created, location: @session }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @session.errors, status: :unprocessable_entity }
-      end
+    if @session.save
+      render json: @session
+    else
+      render json: @session.errors, status: :unprocessable_entity
     end
   end
 
   # PATCH/PUT /sessions/1 or /sessions/1.json
   def update
-    respond_to do |format|
-      if @session.update(session_params)
-        format.html { redirect_to session_url(@session), notice: "Session was successfully updated." }
-        format.json { render :show, status: :ok, location: @session }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @session.errors, status: :unprocessable_entity }
-      end
+    if @session.update(session_params)
+      render json: @session
+    else
+      render json: @session.errors, status: :unprocessable_entity
     end
   end
 
@@ -53,10 +45,7 @@ class SessionsController < ApplicationController
   def destroy
     @session.destroy
 
-    respond_to do |format|
-      format.html { redirect_to sessions_url, notice: "Session was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    render json: {message: 'okay'}
   end
 
   private
@@ -67,6 +56,6 @@ class SessionsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def session_params
-      params.require(:session).permit(:date)
+      params.require(:session).permit(:date, :game_id)
     end
 end
