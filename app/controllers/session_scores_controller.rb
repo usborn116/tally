@@ -55,6 +55,6 @@ class SessionScoresController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def session_score_params
-      params.require(:session_score).permit(:amount)
+      params.require(:session_score).permit(:amount, :session_category_id, :session_player_id)
     end
 end

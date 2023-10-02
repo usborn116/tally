@@ -24,7 +24,7 @@ class SessionPlayersController < ApplicationController
   def create
     @session_player = SessionPlayer.new(session_player_params)
 
-      if @session_player.save
+      if @session_player.save!
         render json: @session_player
       else
         render json: @session_player.errors, status: :unprocessable_entity
@@ -55,6 +55,6 @@ class SessionPlayersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def session_player_params
-      params.require(:session_player).permit(:name)
+      params.require(:session_player).permit(:name, :session_id)
     end
 end

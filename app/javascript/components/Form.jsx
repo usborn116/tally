@@ -13,13 +13,11 @@ const Form = ({endpoint, item, updater, id, setter = null, setLoading = null, se
             gameplay_length: data.gameplay_length, player_number: data.player_number, complexity: data.complexity, 
             category_count: data.category_count}}
         if(item == 'category'){info[item] = { name: data.name, point_based: data.point_based, game_id: data.game_id}}
-        if(item == 'player'){info[item] = { name: data.name }}
-        if(item == 'session'){info[item] = { date: data.date, game_id: data.game_id }}
+        if(item == 'player' || item == 'session_player'){info[item] = { name: data.name, session_id: data.session_id }}
+        if(item == 'session'){info[item] = { date: data.date, game_id: data.game_id }} 
         const response =  await updater(`/${endpoint}${id ? `/${id}` : ''}`, info)
         console.log(response)
-        console.log(item)
         if (item=='game' && !id) {
-            console.log('this happened')
             window.location.href = `${window.location.href}/${response.id}`
         }
         setToggle ? setToggle(false) : ''

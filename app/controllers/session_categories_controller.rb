@@ -55,6 +55,6 @@ class SessionCategoriesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def session_category_params
-      params.require(:session_category).permit(:name, :point_based)
+      params.require(:session_category).permit(:name, :point_based, :session_id)
     end
 end
