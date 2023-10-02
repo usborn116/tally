@@ -7,6 +7,7 @@ export const getData= async (endpoint, setter)=>{
         const data=await response.json()
         console.log('data',data)
         setter(() => data)
+        return data
     }
     catch(error){
         console.log(error)

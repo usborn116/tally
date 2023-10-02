@@ -8,7 +8,7 @@ class SessionScoresController < ApplicationController
   end
 
   # GET /session_scores/1 or /session_scores/1.json
-  def show
+  def show 
   end
 
   # GET /session_scores/new
@@ -55,6 +55,6 @@ class SessionScoresController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def session_score_params
-      params.require(:session_score).permit(:amount, :session_category_id, :session_player_id)
+      params.require(:session_score).permit(:amount, :session_category_id, :session_player_id, :session_id)
     end
 end

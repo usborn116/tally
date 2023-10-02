@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :games
   get 'user_games', to: 'games#user_games'
   get 'user_game/:id', to: 'games#user_game'
+  get 'session_winner/:id', to: 'sessions#get_winner'
   resources :players
   devise_for :users
   root 'homepage#index'

@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  before_action :set_session, only: %i[ show edit update destroy ]
+  before_action :set_session, only: %i[ show edit update destroy get_winner ]
   before_action :authenticate_user!
 
   # GET /sessions or /sessions.json
@@ -12,6 +12,10 @@ class SessionsController < ApplicationController
     @players = current_user.players
     @sesh = JSON.parse(@session.to_json(:include => [:game, :session_players, :session_categories, {:session_scores=> {:include => [:session_player, :session_category]}}]))
     render json: {session: @sesh, players: @players }
+  end
+
+  def get_winner
+    render json: {message: @session.winner }
   end
 
   # GET /sessions/new
