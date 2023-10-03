@@ -20,7 +20,7 @@ export const Session = () => {
 
     useEffect(() => {
         getData(`/sessions/${id}`, setData)
-    }, [create, addPlayers, editDate])
+    }, [create, addPlayers, editDate, enterScores])
 
     const add = [...Array(numPlayers)].map((x, i) => (
         <div key={i}>
@@ -35,7 +35,14 @@ export const Session = () => {
 
     const handleChange = (e) => {
         setNumPlayers(Number(e.target.value));
-      };
+    };
+
+    const handleCalculate = async (e) => {
+        e.preventDefault()
+        const response = await getData(`/session_winner/${data?.session?.id}`, setData)
+        alert(response.message)
+        setEnterScores(false)
+    };
 
     const players = data?.session?.session_players?.map((player) => (
         <div key={player.id}>
@@ -49,29 +56,23 @@ export const Session = () => {
         </div>
     ))
     
-    const scores = data?.session?.session_scores?.map((score) => (
-        <div key={score.id}>
-            <div>{score?.session_player?.name}</div>
-            <div>{score?.session_category?.name}</div>
-            <div>{score?.amount}</div>
-        </div>
-    ))
-
-    const add_scores = data?.session?.session_categories?.map((c) => (
-        <div key={c.id}>
-        <h4>{c.name} Scores</h4>
-        {data?.session?.session_players?.map((p) => (
-            <Form key={p.id} endpoint="session_scores" item='session_score' updater={newData} setter={setData}>
-                <h4>{p.name}</h4>
-                <Input type="number" name="amount"/>
-                <Input type="hidden" name="session_id" value={data?.session?.id} />
-                <Input type="hidden" name="session_category_id" value={c.id} />
-                <Input type="hidden" name="session_player_id" value={p.id} />
+    const scores = data?.session?.session_scores?.map((score) => !enterScores ? 
+        (
+            <div key={score.id}>
+                <div>{score?.session_player?.name}</div>
+                <div>{score?.session_category?.name}</div>
+                <div>{score?.amount}</div>
+            </div>
+        ) :
+        (
+            <Form key={score.id} id={score.id} endpoint="session_scores" item='session_score' updater={updateData} setter={setData}>
+                <h4>{score?.session_player?.name}</h4>
+                <h5>{score?.session_category?.name}</h5>
+                <Input type="number" name="amount" value={score.amount}/>
                 <Submit>Save</Submit>
             </Form>
-        ))}
-        </div>
-    ))
+        )
+    )
 
     return (
         <>
@@ -102,8 +103,8 @@ export const Session = () => {
             {categories}
             <h3>Scores</h3>
             <Switcher setter={setEnterScores} data={enterScores}>Enter Scores</Switcher>
-            { !enterScores ? <>{scores}</> : <>{add_scores}</>}
-            <Button endpoint={`/session_winner/${data?.session?.id}`} setData={setData}>Calculate Score</Button>
+            {scores}
+            <Button endpoint={`/session_winner/${data?.session?.id}`} setData={setData} handler={handleCalculate}>Calculate Score</Button>
             <div>Winner: {data?.session?.victor}</div>
         </>
         
