@@ -18,8 +18,6 @@ export const Session = () => {
     const [editDate, setEditDate] = useState(false)
     const [enterScores, setEnterScores] = useState(false)
 
-    console.log('RENDER!!!!')
-
     useEffect(() => {
         getData(`/sessions/${id}`, setData)
     }, [create, addPlayers, editDate, enterScores])
@@ -65,9 +63,9 @@ export const Session = () => {
             <div>{c?.name}</div>
             {c?.session_scores?.map((score) => !enterScores ? 
             (
-                <>
+                <div key={score.id}>
                     <div>{score.amount}</div>
-                </> 
+                </div> 
             ) : (
                 <Form submitter={true} key={score.id} id={score.id} endpoint="session_scores" item='session_score' updater={updateData} setter={setData}>
                     <Input type="number" name="amount" value={score.amount}/>
