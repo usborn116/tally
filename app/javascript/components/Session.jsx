@@ -18,6 +18,8 @@ export const Session = () => {
     const [editDate, setEditDate] = useState(false)
     const [enterScores, setEnterScores] = useState(false)
 
+    console.log('RENDER!!!!')
+
     useEffect(() => {
         getData(`/sessions/${id}`, setData)
     }, [create, addPlayers, editDate, enterScores])
@@ -38,6 +40,7 @@ export const Session = () => {
     };
 
     const handleCalculate = async (e) => {
+        setEnterScores(true)
         e.preventDefault()
         const response = await getData(`/session_winner/${data?.session?.id}`, setData)
         alert(response.message)
@@ -60,32 +63,21 @@ export const Session = () => {
     const scores2 = data?.session?.session_categories?.map((c) => (
         <div key={c.id} className="row" style={{gridTemplateColumns: `repeat(${data?.session?.session_players?.length + 1}, 1fr)`}}>
             <div>{c?.name}</div>
-            {c?.session_scores?.map((s) => (
+            {c?.session_scores?.map((score) => !enterScores ? 
+            (
                 <>
-                    <div>{s.amount}</div>
-                </>
+                    <div>{score.amount}</div>
+                </> 
+            ) : (
+                <Form submitter={true} key={score.id} id={score.id} endpoint="session_scores" item='session_score' updater={updateData} setter={setData}>
+                    <Input type="number" name="amount" value={score.amount}/>
+                    <Submit nobutton={true}>Save</Submit>
+                </Form>
+            )
                 
-            ))}
+            )}
         </div>
     ))
-    
-    const scores = data?.session?.session_scores?.map((score) => !enterScores ? 
-        (
-            <div key={score.id}>
-                <div>{score?.session_player?.name}</div>
-                <div>{score?.session_category?.name}</div>
-                <div>{score?.amount}</div>
-            </div>
-        ) :
-        (
-            <Form submitter='focusout' key={score.id} id={score.id} endpoint="session_scores" item='session_score' updater={updateData} setter={setData}>
-                <h4>{score?.session_player?.name}</h4>
-                <h5>{score?.session_category?.name}</h5>
-                <Input type="number" name="amount" value={score.amount}/>
-                <Submit nobutton={true}>Save</Submit>
-            </Form>
-        )
-    )
 
     return (
         <>
