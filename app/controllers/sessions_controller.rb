@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
   # GET /sessions/1 or /sessions/1.json
   def show
     @players = current_user.players
-    @sesh = JSON.parse(@session.to_json(:include => [:game, :session_players, :session_categories, {:session_scores=> {:include => [:session_player, :session_category]}}]))
+    @sesh = JSON.parse(@session.to_json(:include => [:game, :session_players, {:session_categories => {:include => [:session_scores]}}, {:session_scores=> {:include => [:session_player, :session_category]}}]))
     render json: {session: @sesh, players: @players }
   end
 

@@ -3,14 +3,12 @@ require 'rails_helper'
 RSpec.describe Session, type: :model do
   before(:context) do
     @user = @user = User.last || User.create(name:'Usertest', email: 'user_email@email.com', password:'userpassword')
-    @game = @user.games.create
+    @game = @user.games.create(name: 'Game 1')
     @cat1 = @game.categories.create(name: 'Copied Cat 1', point_based: true)
     @cat2 = @game.categories.create(name: 'Copied Cat 2', point_based: false)
     @sesh = @game.sessions.create
     @player1 = @sesh.session_players.create(name: 'Usborn')
     @player2 = @sesh.session_players.create(name: 'Ashley')
-    @score1 = @player1.session_scores.create(amount: 0, session_category_id: @cat1.id, session_id: @sesh.id)
-    @score2 = @player2.session_scores.create(amount: 0, session_category_id: @cat1.id, session_id: @sesh.id)
   end
 
   context 'when a session is created' do
@@ -20,9 +18,12 @@ RSpec.describe Session, type: :model do
     end
 
     it 'all session scores belong to a session, player and session category' do
-      expect(@score1.session_id).not_to be(nil)
-      expect(@score1.session_category_id).not_to be(nil)
-      expect(@score1.session_player_id).not_to be(nil)
+      @scores = @player1.session_scores + @player2.session_scores
+      @scores.each do |score|
+        expect(score.session_id).not_to be(nil)
+        expect(score.session_category_id).not_to be(nil)
+        expect(score.session_player_id).not_to be(nil)
+      end
     end
 
   end
@@ -30,19 +31,29 @@ RSpec.describe Session, type: :model do
   context 'after both players have scores' do
 
     it 'finds player 1 as winner' do
-      @score1.update(amount: 4)
-      @score2.update(amount: 3)
+      @player1.session_scores.each{|s| s.update(amount: 2)}
+      @player2.session_scores.each{|s| s.update(amount: 1)}
       expect(@player1.total_score).to eq(4)
       expect(@sesh.winner).to eq("#{@player1.name} wins this round of #{@game.name}!")
       expect(@sesh.victor).to eq(@player1.name)
     end
     
     it 'finds player 2 as winner' do
-      @score1.update(amount: 4)
-      @score2.update(amount: 5)
-      expect(@player2.total_score).to eq(5)
+      @player1.session_scores.each{|s| s.update(amount: 1)}
+      @player2.session_scores.each{|s| s.update(amount: 3)}
+      expect(@player2.total_score).to eq(6)
+      expect(@player1.total_score).to eq(2)
       expect(@sesh.winner).to eq("#{@player2.name} wins this round of #{@game.name}!")
       expect(@sesh.victor).to eq(@player2.name)
+    end
+
+    it 'finds ties' do
+      @player1.session_scores.each{|s| s.update(amount: 1)}
+      @player2.session_scores.each{|s| s.update(amount: 1)}
+      expect(@player2.total_score).to eq(2)
+      expect(@player1.total_score).to eq(2)
+      expect(@sesh.winner).to start_with("Tied between: ")
+      expect(@sesh.victor).to eq('Tied')
     end
 
   end

@@ -4,7 +4,7 @@ class SessionScoresController < ApplicationController
 
   # GET /session_scores or /session_scores.json
   def index
-    @session_scores = SessionScore.all
+    @session_scores = SessionScore.includes(:session_category, :session_player)
   end
 
   # GET /session_scores/1 or /session_scores/1.json

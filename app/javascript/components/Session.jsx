@@ -44,6 +44,7 @@ export const Session = () => {
         setEnterScores(false)
     };
 
+
     const players = data?.session?.session_players?.map((player) => (
         <div key={player.id}>
             <div>{player?.name}</div>
@@ -53,6 +54,18 @@ export const Session = () => {
     const categories = data?.session?.session_categories?.map((c) => (
         <div key={c.id}>
             <div>{c?.name}</div>
+        </div>
+    ))
+
+    const scores2 = data?.session?.session_categories?.map((c) => (
+        <div key={c.id} className="row" style={{gridTemplateColumns: `repeat(${data?.session?.session_players?.length + 1}, 1fr)`}}>
+            <div>{c?.name}</div>
+            {c?.session_scores?.map((s) => (
+                <>
+                    <div>{s.amount}</div>
+                </>
+                
+            ))}
         </div>
     ))
     
@@ -65,11 +78,11 @@ export const Session = () => {
             </div>
         ) :
         (
-            <Form key={score.id} id={score.id} endpoint="session_scores" item='session_score' updater={updateData} setter={setData}>
+            <Form submitter='focusout' key={score.id} id={score.id} endpoint="session_scores" item='session_score' updater={updateData} setter={setData}>
                 <h4>{score?.session_player?.name}</h4>
                 <h5>{score?.session_category?.name}</h5>
                 <Input type="number" name="amount" value={score.amount}/>
-                <Submit>Save</Submit>
+                <Submit nobutton={true}>Save</Submit>
             </Form>
         )
     )
@@ -103,7 +116,15 @@ export const Session = () => {
             {categories}
             <h3>Scores</h3>
             <Switcher setter={setEnterScores} data={enterScores}>Enter Scores</Switcher>
-            {scores}
+            <div className="table">
+                <div className="headers" 
+                    style={{gridTemplateColumns: `repeat(${data?.session?.session_players?.length + 1}, 1fr)`}}
+                >
+                    <div></div>
+                    {data?.session?.session_players?.map(p => <div key={p.id}>{p.name}</div>)}
+                </div>
+            {scores2}
+            </div>
             <Button endpoint={`/session_winner/${data?.session?.id}`} setData={setData} handler={handleCalculate}>Calculate Score</Button>
             <div>Winner: {data?.session?.victor}</div>
         </>

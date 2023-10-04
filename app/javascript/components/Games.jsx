@@ -39,8 +39,6 @@ export default Games = ({user, endpoint}) => {
         </Form>
         </>
     )
-
-    
     
     return (
         <>

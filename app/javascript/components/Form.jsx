@@ -1,6 +1,6 @@
 import React, {useRef} from "react";
 
-const Form = ({endpoint, item, updater, id, setter = null, setLoading = null, setError, setToggle, children, setUser}) => {
+const Form = ({submitter = null, endpoint, item, updater, id, setter = null, setLoading = null, setError, setToggle, children, setUser}) => {
 
     const formRef = useRef()
 
@@ -28,7 +28,7 @@ const Form = ({endpoint, item, updater, id, setter = null, setLoading = null, se
 
     return (
         <div className="form">
-            <form ref={formRef} onSubmit={onSubmit}>
+            <form ref={formRef} onBlur={submitter ? onSubmit : ''} onSubmit={onSubmit}>
                 {children}
             </form>
         </div>

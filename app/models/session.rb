@@ -1,17 +1,21 @@
 class Session < ApplicationRecord
     belongs_to :game
-    has_many :session_categories, dependent: :destroy
-    has_many :session_players, dependent: :destroy
-    has_many :session_scores, dependent: :destroy
+    has_many :session_categories,  -> { order(name: :asc) }, dependent: :destroy
+    has_many :session_players,  -> { order(id: :asc) }, dependent: :destroy
+    has_many :session_scores, -> { order(id: :asc)}, dependent: :destroy
 
     accepts_nested_attributes_for :session_players, :session_scores
 
     after_create :create_categories
 
     def winner
-        result = self.session_players.map{|p| [p.name, p.total_score]}.to_h.max_by{|k,v| v}.first
-        self.update(victor: result)
-        "#{result} wins this round of #{self.game.name}!"
+        max = -1
+        result = self.session_players.sort_by(&:total_score).reverse.select do |p|
+            max = [max, p.total_score].max
+            p.total_score >= max
+        end
+        result.length == 1 ? self.update(victor: result.first.name) : self.update(victor: 'Tied')
+        result.length == 1 ? "#{result.first.name} wins this round of #{self.game.name}!" :  "Tied between: #{result.map{|p| p.name}.join(", ")}"
     end
 
     private
