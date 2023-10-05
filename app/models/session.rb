@@ -9,11 +9,8 @@ class Session < ApplicationRecord
     after_create :create_categories
 
     def winner
-        max = -1
-        result = self.session_players.sort_by(&:total_score).reverse.select do |p|
-            max = [max, p.total_score].max
-            p.total_score >= max
-        end
+        max = self.session_players.map(&:total_score).max
+        result = self.session_players.select {|p| p.total_score == max}
         result.length == 1 ? self.update(victor: result.first.name) : self.update(victor: 'Tied')
         result.length == 1 ? "#{result.first.name} wins this round of #{self.game.name}!" :  "Tied between: #{result.map{|p| p.name}.join(", ")}"
     end
