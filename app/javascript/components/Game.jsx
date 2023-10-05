@@ -22,7 +22,10 @@ export const Game = ({user, usergames = true}) => {
         getData(`/user_game/${id}`, setData)
     }, [toggle, edit, create, newSession])
 
-    const categorySection = data?.categories?.map(c => <Category key={c.id} data={c} setData={setData} toggle={toggle} setToggle={setToggle} />)
+    const categorySection = data?.categories?.map(c => (
+        <Category key={c.id} data={c} setData={setData} />
+        )
+    )
 
     if (edit) return (
         <>
@@ -34,7 +37,7 @@ export const Game = ({user, usergames = true}) => {
                 <Input type="text" name="gameplay_length" value={data?.gameplay_length}  />
                 <Input type="text" name="player_number" value={data?.player_number}  />
                 <Input type="text" name="complexity" value={data?.complexity} />
-                <Submit/>
+                <Submit />
         </Form>
         </>
     )

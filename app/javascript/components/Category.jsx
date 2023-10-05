@@ -8,15 +8,16 @@ import Switcher from "./Switcher";
 
 export default Category = ({data, setData}) => {
 
-    const [toggle, setToggle] = useState(true)
-
     return (
         <>
-        <Form endpoint="categories" item='category' id={data.id} updater={updateData} setter={setData} setToggle={setToggle}>
+        <Form submitter={true} endpoint="categories" item='category' id={data.id} updater={updateData} 
+        setter={setData} style={{gridTemplateColumns: `repeat(3, 1fr)`}} className="row">
             <Input type="text" name="name" value={data.name}/>
-            <div>Points Based?</div>
-            <Input type="checkbox" name="point_based" value={data.point_based} />
-            <Submit>Save</Submit>
+            <div className="linked">
+                <div>Points Based?</div>
+                <Input type="checkbox" name="point_based" value={data.point_based} />
+            </div>
+            <Submit nobutton={true}>Save</Submit>
         </Form>
         </>
     )

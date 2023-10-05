@@ -1,6 +1,14 @@
-import React from "react";
+import React, {useState} from "react";
 
 const Input = ({type, name, placeHolder, value = '', options = null}) => {
+
+    const [checked, setChecked] = useState(value)
+
+    console.log(`${name}`, checked)
+
+    const handleChange = (e) => {
+        setChecked(e.target.checked)
+    }
 
     if (type == 'select' || type == 'select_text') return (
         <select className='input' name={name} defaultValue={value}>
@@ -11,7 +19,7 @@ const Input = ({type, name, placeHolder, value = '', options = null}) => {
 
     else if (type == 'checkbox') return (
         <div className="input">
-            <input type={type} name={name} placeholder={placeHolder} defaultChecked={value}></input>
+            <input type={type} name={name} onChange={handleChange} defaultChecked={value} defaultValue={checked}></input>
         </div>
 
     )

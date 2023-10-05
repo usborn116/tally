@@ -25,10 +25,10 @@ export const Session = () => {
     const add = [...Array(numPlayers)].map((x, i) => (
         <div key={i}>
             <div>Player {i + 1}</div>
-            <Form endpoint="session_players" item='session_player' updater={newData} setter={setData} setToggle={setAddPlayers}>
+            <Form submitter={true} endpoint="session_players" item='session_player' updater={newData} setter={setData}>
                 <Input type="select_text" name="name" options={data.players}/>
                 <Input type="hidden" name="session_id" value={data?.session?.id} />
-                <Submit>Save</Submit>
+                <Submit nobutton={true}>Save</Submit>
             </Form>
         </div>
     ))
@@ -79,13 +79,13 @@ export const Session = () => {
 
     return (
         <>
-            <Switcher setter={setCreate} data={create}>Add New Player</Switcher>
+            <Switcher setter={setCreate} data={create}>{create ? 'Done Adding' : 'Add New Player'}</Switcher>
             {create ? 
             <Form endpoint="players" item='player' updater={newData} setter={setData} setToggle={setCreate}>
                 <Input type="text" name="name" value={data.name}/>
                 <Submit>Save</Submit>
             </Form> : ''}
-            <Switcher setter={setAddPlayers} data={addPlayers}>Add Players to Game</Switcher>
+            <Switcher setter={setAddPlayers} data={addPlayers}>{addPlayers ? 'Done Adding' : 'Add Player to Game'}</Switcher>
             {addPlayers ?
             <>
             <h3>How many players are you adding?</h3>

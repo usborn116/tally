@@ -1,6 +1,6 @@
 import React, {useRef} from "react";
 
-const Form = ({submitter = null, endpoint, item, updater, id, setter = null, setLoading = null, setError, setToggle, children, setUser}) => {
+const Form = ({submitter = null, className = null, style = null, endpoint, item, updater, id, setter = null, setLoading = null, setError, setToggle, children, setUser}) => {
 
     const formRef = useRef()
 
@@ -12,11 +12,12 @@ const Form = ({submitter = null, endpoint, item, updater, id, setter = null, set
         if(item == 'game'){info[item] = { name: data.name, game_category: data.game_category, image: data.image, 
             gameplay_length: data.gameplay_length, player_number: data.player_number, complexity: data.complexity, 
             category_count: data.category_count}}
-        if(item == 'category'){info[item] = { name: data.name, point_based: data.point_based, game_id: data.game_id}}
+        if(item == 'category'){info[item] = { name: data.name, point_based: data.point_based || false, game_id: data.game_id}}
         if(item == 'player' || item == 'session_player'){info[item] = { name: data.name, session_id: data.session_id }}
         if(item == 'session'){info[item] = { date: data.date, game_id: data.game_id }} 
         if(item == 'session_score'){info[item] = { amount: data.amount, session_id: data.session_id, 
             session_category_id: data.session_category_id, session_player_id: data.session_player_id }} 
+        console.log(info)
         const response =  await updater(`/${endpoint}${id ? `/${id}` : ''}`, info)
         console.log(response)
         if (item=='game' && !id) {
@@ -26,9 +27,11 @@ const Form = ({submitter = null, endpoint, item, updater, id, setter = null, set
 
     }
 
+    const empty = () => null
+
     return (
         <div className="form">
-            <form ref={formRef} onBlur={submitter ? onSubmit : ''} onSubmit={onSubmit}>
+            <form className={className} style={style} ref={formRef} onBlur={submitter ? onSubmit : empty} onSubmit={onSubmit}>
                 {children}
             </form>
         </div>

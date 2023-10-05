@@ -1,6 +1,6 @@
 import React from "react";
 
-const Submit = ({children, nobutton = null}) => {
+const Submit = ({children, nobutton = false}) => {
 
     if (nobutton) return <></>
 
