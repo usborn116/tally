@@ -8,6 +8,7 @@ export const Home = ({user}) => {
     return (
         <>
             <Link to={'/user'}>My User Details</Link>
+            <Link to={'/mygames'}>My Games</Link>
             <h1>Welcome To Tally, {user ? user.name : 'friend'}!!!</h1>
             <Games user={user} endpoint='games'/>
             <Players />

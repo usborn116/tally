@@ -1,16 +1,19 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { getData, newData } from "./helpers/api_helpers";
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import Form from "./Form";
 import Input from "./Input";
 import Submit from "./Submit";
 import Switcher from "./Switcher";
+import { Button } from "./Button";
 
 export default Games = ({user, endpoint}) => {
 
     const [data, setData] = useState([])
     const [create, setCreate] = useState(false)
+
+    const navigate = useNavigate()
 
     useEffect(() => {
         getData(`/${endpoint}`, setData)
@@ -25,6 +28,7 @@ export default Games = ({user, endpoint}) => {
 
     if (create) return (
         <>
+        
         <Switcher setter={setCreate} data={create}>See Games</Switcher>
         <Form endpoint="games" item='game' updater={newData} setter={setData} setToggle={setCreate}>
                 <Input type="text" name="name" placeHolder='Name' />
@@ -42,7 +46,8 @@ export default Games = ({user, endpoint}) => {
     
     return (
         <>
-            <h2>{endpoint == 'user_games' ? 'My ' : ''}Games</h2>
+            <Button handler={() => navigate(-1)}>Back</Button>
+            <h2>{endpoint == 'user_games' ? 'My ' : 'All '}Games</h2>
             <Switcher setter={setCreate} data={create}>Add New Game</Switcher>
             <br></br>
             <br></br>

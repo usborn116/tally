@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import { Button } from "./Button";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import Form from "./Form";
 import Input from "./Input";
 import Submit from "./Submit";
@@ -9,6 +9,9 @@ import { newData, getData, updateData } from "./helpers/api_helpers";
 
 
 export const Session = () => {
+
+    const navigate = useNavigate()
+
     const id = useParams().id
 
     const [data, setData] = useState([])
@@ -79,6 +82,7 @@ export const Session = () => {
 
     return (
         <>
+            <Button handler={() => navigate(-1)}>Back</Button>
             <Switcher setter={setCreate} data={create}>{create ? 'Done Adding' : 'Add New Player'}</Switcher>
             {create ? 
             <Form endpoint="players" item='player' updater={newData} setter={setData} setToggle={setCreate}>

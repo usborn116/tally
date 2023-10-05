@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import { useParams, useLocation } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { Sessions } from "./Sessions";
 import { getData, updateData, newData } from "./helpers/api_helpers";
 import Form from "./Form";
@@ -7,10 +7,13 @@ import Submit from "./Submit";
 import Input from "./Input";
 import Switcher from "./Switcher";
 import Category from "./Category";
+import { Button } from "./Button";
 
 
 export const Game = ({user, usergames = true}) => {
     const id = useParams().id
+
+    const navigate = useNavigate()
 
     const [data, setData] = useState([])
     const [toggle, setToggle] = useState(false)
@@ -45,6 +48,7 @@ export const Game = ({user, usergames = true}) => {
 
     return (
         <>
+            <Button handler={() => navigate(-1)}>Back</Button>
             <Switcher setter={setEdit} data={edit}>Edit Game Details</Switcher>
             <div>{data?.name}</div>
             <img src={data?.image}></img>
