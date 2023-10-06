@@ -50,9 +50,7 @@ export const Session = () => {
 
 
     const players = data?.session?.session_players?.map((player) => (
-        <div key={player.id}>
-            <div>{player?.name}</div>
-        </div>
+        <div key={player.id}>{player?.name}</div>
     ))
 
     const categories = data?.session?.session_categories?.map((c) => (
@@ -79,6 +77,15 @@ export const Session = () => {
             )}
         </div>
     ))
+
+    const totals = (
+        <div className="row" style={{gridTemplateColumns: `repeat(${data?.session?.session_players?.length + 1}, 1fr)`}}>
+            <div>TOTALS</div>
+            {data?.session?.session_players?.map((p) => (
+                <div key={p.id} >{p.session_scores?.map(s => s.amount).reduce((a, v) => a + v)}</div>
+            ))}
+        </div>
+    )
 
     return (
         <>
@@ -115,9 +122,10 @@ export const Session = () => {
                     style={{gridTemplateColumns: `repeat(${data?.session?.session_players?.length + 1}, 1fr)`}}
                 >
                     <div></div>
-                    {data?.session?.session_players?.map(p => <div key={p.id}>{p.name}</div>)}
+                    {players}
                 </div>
             {scores2}
+            {totals}
             </div>
             <Button endpoint={`/session_winner/${data?.session?.id}`} setData={setData} handler={handleCalculate}>Calculate Score</Button>
             <div>Winner: {data?.session?.victor}</div>
