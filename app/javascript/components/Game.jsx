@@ -30,6 +30,10 @@ export const Game = ({user, usergames = true}) => {
         )
     )
 
+    const leaderboard = data?.results?.map(r => (
+        <div>{r.player} : {r.wins}</div>
+    ))
+
     if (edit) return (
         <>
         <Switcher setter={setEdit} data={edit}>See Game Details</Switcher>
@@ -44,7 +48,6 @@ export const Game = ({user, usergames = true}) => {
         </Form>
         </>
     )
-
 
     return (
         <>
@@ -67,6 +70,10 @@ export const Game = ({user, usergames = true}) => {
                 <Input type="hidden" name="game_id" value={data?.id} />
                 <Submit>Save</Submit>
             </Form> : ''}
+            <h3>Win History</h3>
+            <div className="table">
+                {leaderboard}
+            </div>
             {usergames && data?.sessions ? <Sessions data={data?.sessions} game_id={data?.id} setter={setNewSession} /> : ''}
         </>
         

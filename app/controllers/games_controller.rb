@@ -1,5 +1,5 @@
 class GamesController < ApplicationController
-  before_action :set_game, only: %i[ show edit update destroy ]
+  before_action :set_game, only: %i[ show edit update destroy most_winner ]
   before_action :authenticate_user!, only: %i[new show edit create update destroy]
 
   # GET /games or /games.json
@@ -15,7 +15,20 @@ class GamesController < ApplicationController
 
   def user_game
     @game = current_user.games.where(id: params[:id]).first
-    render json: @game.to_json(:include => [:categories, {:sessions => {only: [:id, :date, :victor]}}])
+    @result = JSON.parse(@game.to_json(:include => [:categories, {:sessions => {only: [:id, :date, :victor]}}]))
+    @result['results'] = @game&.sessions&.map(&:victor)&.tally&.sort_by{|k, v| v}&.reverse&.map do |item|
+      {player: item.first, wins: item.last}
+  end
+=begin        
+    @results = @game&.sessions&.map(&:victor)&.tally&.sort_by{|k, v| v}&.reverse&.map do |item|
+      {player: item.first, wins: item.last}
+    end
+    @game[results] = @results
+    @game = JSON.parse(@game.to_json(:include => [:categories, {:sessions => {only: [:id, :date, :victor]}}]))
+    #render json: @game.to_json(:include => [:categories, {:sessions => {only: [:id, :date, :victor]}}])
+   render json: {game: @game, results: @results}
+=end 
+    render json: @result
   end
 
   # GET /games/1 or /games/1.json

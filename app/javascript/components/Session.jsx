@@ -25,6 +25,16 @@ export const Session = () => {
         getData(`/sessions/${id}`, setData)
     }, [create, addPlayers, editDate, enterScores])
 
+    const handleChange = (e) => setNumPlayers(Number(e.target.value));
+
+    const handleCalculate = async (e) => {
+        setEnterScores(true)
+        e.preventDefault()
+        const response = await getData(`/session_winner/${data?.session?.id}`, setData)
+        alert(response.message)
+        setEnterScores(false)
+    };
+
     const add = [...Array(numPlayers)].map((x, i) => (
         <div key={i}>
             <div>Player {i + 1}</div>
@@ -36,22 +46,7 @@ export const Session = () => {
         </div>
     ))
 
-    const handleChange = (e) => {
-        setNumPlayers(Number(e.target.value));
-    };
-
-    const handleCalculate = async (e) => {
-        setEnterScores(true)
-        e.preventDefault()
-        const response = await getData(`/session_winner/${data?.session?.id}`, setData)
-        alert(response.message)
-        setEnterScores(false)
-    };
-
-
-    const players = data?.session?.session_players?.map((player) => (
-        <div key={player.id}>{player?.name}</div>
-    ))
+    const players = data?.session?.session_players?.map((player) => <div key={player.id}>{player?.name}</div>)
 
     const categories = data?.session?.session_categories?.map((c) => (
         <div key={c.id}>
@@ -99,9 +94,9 @@ export const Session = () => {
             <Switcher setter={setAddPlayers} data={addPlayers}>{addPlayers ? 'Done Adding' : 'Add Player to Game'}</Switcher>
             {addPlayers ?
             <>
-            <h3>How many players are you adding?</h3>
-            <input type="number" defaultValue={numPlayers} onChange={handleChange}></input>
-            {add}
+                <h3>How many players are you adding?</h3>
+                <input type="number" defaultValue={numPlayers} onChange={handleChange}></input>
+                {add}
             </>
              : ''}
             <div>{data?.session?.game?.name}</div>
