@@ -8,12 +8,14 @@ import Submit from "./Submit";
 import Switcher from "./Switcher";
 import { Button } from "./Button";
 
-export default Games = ({endpoint}) => {
+export default Games = ({user, endpoint, setError}) => {
 
     const [data, setData] = useState([])
     const [create, setCreate] = useState(false)
 
     const navigate = useNavigate()
+
+    if (!user && endpoint=='user_games') navigate('/login')
 
     useEffect(() => {
         getData(`/${endpoint}`, setData)

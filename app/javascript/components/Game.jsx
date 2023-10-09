@@ -8,12 +8,18 @@ import Input from "./Input";
 import Switcher from "./Switcher";
 import Category from "./Category";
 import { Button } from "./Button";
+import { useSetUser } from "./helpers/useSetUser";
 
 
 export const Game = ({usergames = true}) => {
+
+    const {user, setUser, loading, setLoading, error, setError} = useSetUser()
+
     const id = useParams().id
 
     const navigate = useNavigate()
+
+    if (!user) navigate('/login')
 
     const [data, setData] = useState([])
     const [edit, setEdit] = useState(false)

@@ -6,6 +6,7 @@ import Input from "./Input";
 import Submit from "./Submit";
 import Switcher from "./Switcher";
 import { newData, getData, updateData } from "./helpers/api_helpers";
+import { useSetUser } from "./helpers/useSetUser";
 
 
 export const Session = () => {
@@ -13,6 +14,10 @@ export const Session = () => {
     const navigate = useNavigate()
 
     const id = useParams().id
+
+    const {user, setUser, loading, setLoading, error, setError} = useSetUser()
+
+    if (!user) navigate('/login')
 
     const [data, setData] = useState([])
     const [numPlayers, setNumPlayers] = useState(0)
