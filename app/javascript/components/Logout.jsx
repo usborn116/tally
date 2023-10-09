@@ -2,9 +2,13 @@ import React, {useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import { getUser } from "./helpers/api_helpers";
 
-const Logout = ({setError = null, setUser = null, setLoading}) => {
+const Logout = ({setError = null, setUser = null, setLoading, loading}) => {
 
-    const [notLoggedOut, setNotLoggedOut] = useState(true)
+    useEffect(() => {
+        setLoading(true)
+        getUser(setUser)
+        setLoading(false)
+    }, [])
 
     const navigate = useNavigate();
 
@@ -25,12 +29,11 @@ const Logout = ({setError = null, setUser = null, setLoading}) => {
 
     const handleClick = async (e) =>{
         e.preventDefault()
+        setLoading(true)
         await logout()
         await getUser(setUser)
-        setLoading(true)
-        alert(`Logged Out!`)
         setLoading(false)
-        navigate('/')
+        alert(`Logged Out!`)
     }
 
     return <button className="button" onClick={handleClick}>Log Out</button>
