@@ -17,8 +17,8 @@ export const Home = ({user, setUser, setLoading}) => {
 
     return (
         <>
-            <Link to={'/user'}>My User Details</Link>
-            <Link to={'/mygames'}>My Games</Link>
+            {user ? <Link to={'/user'}>My User Details</Link> : ''}
+            {user ? <Link to={'/mygames'}>My Games</Link> : ''}
             {user ? <Logout setLoading={setLoading}/> : <Link to={'/login'}>Log In</Link>}
             <h1>Welcome To Tally, {user?.name || 'friend'}!!!</h1>
             <Games user={user} endpoint='games'/>

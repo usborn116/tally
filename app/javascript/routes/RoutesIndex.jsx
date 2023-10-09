@@ -8,6 +8,7 @@ import { Game } from "../components/Game";
 import { Session } from "../components/Session";
 import { Login } from "../components/Login";
 import Logout from "../components/Logout";
+import { Error } from "../components/Error";
 
 export default RoutesIndex = ({user, setUser, error, setError, setLoading}) => {
 
@@ -21,6 +22,7 @@ export default RoutesIndex = ({user, setUser, error, setError, setLoading}) => {
         <Route path="/game_session/:id" element={<Session />} />
         <Route path="/login" element={<Login user={user} setUser={setUser}/>} />
         <Route path="/logout" element={<Logout setLoading={setLoading}/>} />
+        <Route path="/*" element={<Error message="There's nothing at this URL!" />} />
       </Routes>
     </Router>
   );
