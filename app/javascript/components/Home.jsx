@@ -1,13 +1,11 @@
 import React, {useEffect} from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Players } from "./Players";
 import Games from "./Games";
 import Logout from "./Logout";
 import { getUser } from "./helpers/api_helpers";
 
 export const Home = ({user, setUser, setLoading}) => {
-
-    const navigate = useNavigate()
 
     useEffect(() => {
         setLoading(true)

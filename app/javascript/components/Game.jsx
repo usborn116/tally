@@ -10,20 +10,19 @@ import Category from "./Category";
 import { Button } from "./Button";
 
 
-export const Game = ({user, usergames = true}) => {
+export const Game = ({usergames = true}) => {
     const id = useParams().id
 
     const navigate = useNavigate()
 
     const [data, setData] = useState([])
-    const [toggle, setToggle] = useState(false)
     const [edit, setEdit] = useState(false)
     const [create, setCreate] = useState(false)
     const [newSession, setNewSession] = useState(false)
 
     useEffect(() => {
         getData(`/user_game/${id}`, setData)
-    }, [toggle, edit, create, newSession])
+    }, [edit, create, newSession])
 
     const categorySection = data?.categories?.map(c => (
         <Category key={c.id} data={c} setData={setData} />

@@ -1,7 +1,5 @@
 import React from "react";
 import RoutesIndex from "../routes/RoutesIndex";
-import { useState, useEffect } from "react";
-import { getUser } from "./helpers/api_helpers";
 import { useSetUser } from "./helpers/useSetUser";
 
 export default App = () => {

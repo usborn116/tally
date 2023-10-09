@@ -6,7 +6,7 @@ import { logIn, signup, getUser } from "./helpers/api_helpers";
 import Switcher from "./Switcher";
 import {useNavigate} from 'react-router-dom'
 
-export const Login = ({user, setUser}) => {
+export const Login = ({setUser}) => {
 
     const navigate = useNavigate()
 

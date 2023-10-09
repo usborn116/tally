@@ -8,7 +8,7 @@ import Submit from "./Submit";
 import Switcher from "./Switcher";
 import { Button } from "./Button";
 
-export default Games = ({user, endpoint}) => {
+export default Games = ({endpoint}) => {
 
     const [data, setData] = useState([])
     const [create, setCreate] = useState(false)

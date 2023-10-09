@@ -1,11 +1,10 @@
 import React from "react";
-import { useState, useEffect } from "react";
-import { getData, newData } from "./helpers/api_helpers";
+import { useEffect } from "react";
+import { newData } from "./helpers/api_helpers";
 import { Link } from "react-router-dom"
 import Form from "./Form";
 import Input from "./Input";
 import Submit from "./Submit";
-import Switcher from "./Switcher";
 
 export const Sessions = ({data, game_id, setter}) => {
 

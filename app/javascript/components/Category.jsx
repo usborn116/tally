@@ -3,8 +3,6 @@ import Form from "./Form";
 import Input from "./Input";
 import Submit from "./Submit";
 import { updateData } from "./helpers/api_helpers";
-import { useState } from "react";
-import Switcher from "./Switcher";
 
 export default Category = ({data, setData}) => {
 
