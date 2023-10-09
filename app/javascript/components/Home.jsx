@@ -1,17 +1,28 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, {useEffect} from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Players } from "./Players";
 import Games from "./Games";
+import Logout from "./Logout";
+import { getUser } from "./helpers/api_helpers";
 
-export const Home = ({user}) => {
+export const Home = ({user, setUser, setLoading}) => {
+
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        setLoading(true)
+        getUser(setUser)
+        setLoading(false)
+    }, [])
 
     return (
         <>
             <Link to={'/user'}>My User Details</Link>
             <Link to={'/mygames'}>My Games</Link>
-            <h1>Welcome To Tally, {user ? user.name : 'friend'}!!!</h1>
+            {user ? <Logout setLoading={setLoading}/> : <Link to={'/login'}>Log In</Link>}
+            <h1>Welcome To Tally, {user?.name || 'friend'}!!!</h1>
             <Games user={user} endpoint='games'/>
-            <Players />
+            {user ? <Players /> : ''}
         </>
         
 

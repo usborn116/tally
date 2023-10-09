@@ -1,6 +1,7 @@
 import React, {useRef} from "react";
+import { form_object } from "./helpers/form_helpers";
 
-const Form = ({submitter = null, className = null, style = null, endpoint, item, updater, id, setter = null, setLoading = null, setError, setToggle, children, setUser}) => {
+const Form = ({submitter = null, navigate = null, className = null, style = null, endpoint, item, updater, id, setter = null, setLoading = null, setError, setToggle, children, setUser}) => {
 
     const formRef = useRef()
 
@@ -8,22 +9,14 @@ const Form = ({submitter = null, className = null, style = null, endpoint, item,
         e.preventDefault()
         const formData=new FormData(formRef.current)
         const data=Object.fromEntries(formData)
-        const info = {}
-        if(item == 'game'){info[item] = { name: data.name, game_category: data.game_category, image: data.image, 
-            gameplay_length: data.gameplay_length, player_number: data.player_number, complexity: data.complexity, 
-            category_count: data.category_count}}
-        if(item == 'category'){info[item] = { name: data.name, point_based: data.point_based || false, game_id: data.game_id}}
-        if(item == 'player' || item == 'session_player'){info[item] = { name: data.name, session_id: data.session_id }}
-        if(item == 'session'){info[item] = { date: data.date, game_id: data.game_id }} 
-        if(item == 'session_score'){info[item] = { amount: data.amount, session_id: data.session_id, 
-            session_category_id: data.session_category_id, session_player_id: data.session_player_id }} 
-        console.log(info)
+        let info = {}
+        info = form_object(item, info, data)
         const response =  await updater(`/${endpoint}${id ? `/${id}` : ''}`, info)
-        console.log(response)
         if (item=='game' && !id) {
             window.location.href = `${window.location.href}/${response.id}`
         }
         setToggle ? setToggle(false) : ''
+        navigate ? navigate('/') : ''
 
     }
 

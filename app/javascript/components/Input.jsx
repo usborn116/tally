@@ -4,8 +4,6 @@ const Input = ({type, name, placeHolder, value = '', options = null}) => {
 
     const [checked, setChecked] = useState(value)
 
-    console.log(`${name}`, checked)
-
     const handleChange = (e) => {
         setChecked(e.target.checked)
     }

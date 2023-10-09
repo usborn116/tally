@@ -17,7 +17,7 @@ export const Players = () => {
         getData('/players', setData)
     }, [create])
 
-    const list = data.map(p => (
+    const list = data?.map(p => (
         <Player key={p.id} data={p} setData={setData}/>
         )
     )

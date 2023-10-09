@@ -3,6 +3,6 @@ class HomepageController < ApplicationController
   end
 
   def get_user
-    render json: current_user || nil
+    render json: current_user || false
   end
 end

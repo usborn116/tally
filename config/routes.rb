@@ -9,7 +9,11 @@ Rails.application.routes.draw do
   get 'user_game/:id', to: 'games#user_game'
   get 'session_winner/:id', to: 'sessions#get_winner'
   resources :players
-  devise_for :users
+  devise_for :users,
+    controllers: {
+      sessions: 'users/sessions',
+      registrations: 'users/registrations'
+    }
   root 'homepage#index'
   get 'get_user', to: 'homepage#get_user'
   get '/*path' => 'homepage#index'
