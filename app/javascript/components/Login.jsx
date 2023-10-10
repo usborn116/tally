@@ -5,6 +5,7 @@ import Submit from "./Submit";
 import { logIn, signup, getUser } from "./helpers/api_helpers";
 import Switcher from "./Switcher";
 import {useNavigate} from 'react-router-dom'
+import { useError } from "./helpers/useError";
 
 export const Login = ({setUser}) => {
 
@@ -12,6 +13,9 @@ export const Login = ({setUser}) => {
 
     const [existing, setExisting] = useState(true)
     const [notLoggedIn, setNotLoggedIn] = useState(true)
+
+    const {error, setError} = useError()
+    if (error) return <Error />
 
     useEffect(() => {
         async () => {

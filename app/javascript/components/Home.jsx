@@ -5,11 +5,11 @@ import Games from "./Games";
 import Logout from "./Logout";
 import { getUser } from "./helpers/api_helpers";
 
-export const Home = ({user, setUser, setLoading}) => {
+export const Home = ({user, setUser, setLoading, setError}) => {
 
     useEffect(() => {
         setLoading(true)
-        getUser(setUser)
+        getUser(setUser, setError)
         setLoading(false)
     }, [])
 

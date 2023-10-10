@@ -8,9 +8,9 @@ export default Player = ({data, setData}) => {
 
     return (
         <>
-        <Form endpoint="players" item='player' id={data.id} updater={updateData} setter={setData}>
+        <Form submitter={true} endpoint="players" item='player' id={data.id} updater={updateData} setter={setData}>
             <Input type="text" name="name" value={data.name}/>
-            <Submit>Save</Submit>
+            <Submit nobutton={true}>Save</Submit>
         </Form>
         </>
     )

@@ -7,15 +7,19 @@ import Submit from "./Submit";
 import Switcher from "./Switcher";
 import { newData, getData, updateData } from "./helpers/api_helpers";
 import { useSetUser } from "./helpers/useSetUser";
+import { useError } from "./helpers/useError";
 
 
 export const Session = () => {
 
     const navigate = useNavigate()
 
+    const {error, setError} = useError()
+    if (error) return <Error />
+
     const id = useParams().id
 
-    const {user, setUser, loading, setLoading, error, setError} = useSetUser()
+    const {user, setUser, loading, setLoading} = useSetUser()
 
     if (!user) navigate('/login')
 
@@ -27,7 +31,7 @@ export const Session = () => {
     const [enterScores, setEnterScores] = useState(false)
 
     useEffect(() => {
-        getData(`/sessions/${id}`, setData)
+        getData(`/sessions/${id}`, setData, setError)
     }, [create, addPlayers, editDate, enterScores])
 
     const handleChange = (e) => setNumPlayers(Number(e.target.value));
@@ -35,7 +39,7 @@ export const Session = () => {
     const handleCalculate = async (e) => {
         setEnterScores(true)
         e.preventDefault()
-        const response = await getData(`/session_winner/${data?.session?.id}`, setData)
+        const response = await getData(`/session_winner/${data?.session?.id}`, setData, setError)
         alert(response.message)
         setEnterScores(false)
     };
@@ -43,7 +47,7 @@ export const Session = () => {
     const add = [...Array(numPlayers)].map((x, i) => (
         <div key={i}>
             <div>Player {i + 1}</div>
-            <Form submitter={true} endpoint="session_players" item='session_player' updater={newData} setter={setData}>
+            <Form submitter={true} endpoint="session_players" item='session_player' updater={newData} setter={setData} setError={setError}>
                 <Input type="select_text" name="name" options={data.players}/>
                 <Input type="hidden" name="session_id" value={data?.session?.id} />
                 <Submit nobutton={true}>Save</Submit>
@@ -68,7 +72,8 @@ export const Session = () => {
                     <div>{score.amount}</div>
                 </div> 
             ) : (
-                <Form submitter={true} key={score.id} id={score.id} endpoint="session_scores" item='session_score' updater={updateData} setter={setData}>
+                <Form submitter={true} key={score.id} id={score.id} endpoint="session_scores" item='session_score' 
+                    updater={updateData} setter={setData} setError={setError}>
                     <Input type="number" name="amount" value={score.amount}/>
                     <Submit nobutton={true}>Save</Submit>
                 </Form>
@@ -92,7 +97,7 @@ export const Session = () => {
             <Button handler={() => navigate(-1)}>Back</Button>
             <Switcher setter={setCreate} data={create}>{create ? 'Done Adding' : 'Add New Player'}</Switcher>
             {create ? 
-            <Form endpoint="players" item='player' updater={newData} setter={setData} setToggle={setCreate}>
+            <Form endpoint="players" item='player' updater={newData} setter={setData} setToggle={setCreate} setError={setError}>
                 <Input type="text" name="name" value={data.name}/>
                 <Submit>Save</Submit>
             </Form> : ''}
@@ -107,7 +112,8 @@ export const Session = () => {
             <div>{data?.session?.game?.name}</div>
             <Switcher setter={setEditDate} data={editDate}>Change Date</Switcher>
             {editDate ? 
-            <Form endpoint="sessions" item='session' id={data?.session?.id} updater={updateData} setter={setData} setToggle={setEditDate}>
+            <Form endpoint="sessions" item='session' id={data?.session?.id} updater={updateData} 
+                setter={setData} setToggle={setEditDate} setError={setError}>
                 <Input type="date" name="date" value={data?.session?.date}/>
                 <Submit>Save</Submit>
             </Form> :  <div>{data?.session?.date}</div>}

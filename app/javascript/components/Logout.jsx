@@ -1,8 +1,12 @@
 import React, {useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import { getUser } from "./helpers/api_helpers";
+import { useError } from "./helpers/useError";
 
-const Logout = ({setError = null, setUser = null, setLoading, loading}) => {
+const Logout = ({setUser = null, setLoading, loading}) => {
+
+    const {error, setError} = useError()
+    if (error) return <Error />
 
     useEffect(() => {
         setLoading(true)
@@ -12,7 +16,7 @@ const Logout = ({setError = null, setUser = null, setLoading, loading}) => {
 
     const navigate = useNavigate();
 
-    const logout = async (errorSetter)=>{
+    const logout = async (setError)=>{
         try{
             await fetch(`/users/sign_out`, {
                 method: 'delete',
@@ -23,7 +27,7 @@ const Logout = ({setError = null, setUser = null, setLoading, loading}) => {
             }) 
         } catch (error){
             console.log('error!', error)
-            //errorSetter('Error!')
+            setError({message: 'Error logging out!'})
         }
     }
 

@@ -8,12 +8,10 @@ import Input from "./Input";
 import Switcher from "./Switcher";
 import Category from "./Category";
 import { Button } from "./Button";
-import { useSetUser } from "./helpers/useSetUser";
+import { useError } from "./helpers/useError";
+import { Error } from "./Error";
 
-
-export const Game = ({usergames = true}) => {
-
-    const {user, setUser, loading, setLoading, error, setError} = useSetUser()
+export const Game = () => {
 
     const id = useParams().id
 
@@ -21,13 +19,17 @@ export const Game = ({usergames = true}) => {
 
     if (!user) navigate('/login')
 
+    const {error, setError} = useError()
+
     const [data, setData] = useState([])
     const [edit, setEdit] = useState(false)
     const [create, setCreate] = useState(false)
     const [newSession, setNewSession] = useState(false)
 
+    console.log('error!!!', error)
+
     useEffect(() => {
-        getData(`/user_game/${id}`, setData)
+        getData(`/user_game/${id}`, setData, setError)
     }, [edit, create, newSession])
 
     const categorySection = data?.categories?.map(c => (
@@ -36,13 +38,15 @@ export const Game = ({usergames = true}) => {
     )
 
     const leaderboard = data?.results?.map(r => (
-        <div>{r.player} : {r.wins}</div>
+        <div key={r.id}>{r.player} : {r.wins}</div>
     ))
+
+    if (error) return (<Error message={error}/>)
 
     if (edit) return (
         <>
         <Switcher setter={setEdit} data={edit}>See Game Details</Switcher>
-        <Form endpoint="games" item='game' id={data.id} updater={updateData} setter={setData} setToggle={setEdit}>
+        <Form endpoint="games" item='game' id={data.id} updater={updateData} setter={setData} setToggle={setEdit} setError={setError}>
                 <Input type="text" name="name" value={data?.name} />
                 <Input type="text" name="game_category" value={data?.game_category}  />
                 <Input type="text" name="image" value={data?.image}  />
@@ -79,7 +83,7 @@ export const Game = ({usergames = true}) => {
             <div className="table">
                 {leaderboard}
             </div>
-            {usergames && data?.sessions ? <Sessions data={data?.sessions} game_id={data?.id} setter={setNewSession} /> : ''}
+            {data?.sessions ? <Sessions data={data?.sessions} game_id={data?.id} setter={setNewSession} /> : ''}
         </>
         
 

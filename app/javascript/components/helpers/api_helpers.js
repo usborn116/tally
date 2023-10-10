@@ -1,4 +1,4 @@
-export const getData= async (endpoint, setter)=>{
+export const getData= async (endpoint, setter, setError)=>{
     try {
         const response=await fetch(`${endpoint}`)
         if (response.status > 400){
@@ -11,18 +11,28 @@ export const getData= async (endpoint, setter)=>{
     }
     catch(error){
         console.log(error)
+        await setError(String(error))
     }
 }
 
-export const getUser = async (setter) => {
-    const response = await fetch('/get_user')
-    const data=await response.json()
-    console.log('user', data)
-    setter ? await setter(data) : null
-    return data
+export const getUser = async (setter, setError) => {
+    try {
+        const response = await fetch('/get_user')
+        if (response.status > 400){
+            throw new Error(`${response.status}: ${response.statusText}`)
+        }
+        const data=await response.json()
+        console.log('user',data)
+        setter ? await setter(data) : null
+        return data
+    }
+    catch(error){
+        console.log(error)
+        setError(() => error)
+    }
 }
 
-export const newData = async (endpoint, info)=>{
+export const newData = async (endpoint, info, setError)=>{
     try{
         const response=await fetch(`${endpoint}`, {
             method: 'post',
@@ -38,10 +48,11 @@ export const newData = async (endpoint, info)=>{
         return data
     } catch (error){
         console.log(error)
+        setError(() => error)
     }
 }
 
-export const updateData = async (endpoint, info) => {
+export const updateData = async (endpoint, info, setError) => {
     try{
         const response=await fetch(`${endpoint}`, {
             method: 'put',
@@ -56,10 +67,11 @@ export const updateData = async (endpoint, info) => {
         return data
     } catch (error){
         console.log(error)
+        setError(() => error)
     }
 }
 
-export const logIn = async(endpoint, info, setter, errorSetter) => {
+export const logIn = async(endpoint, info, setError) => {
     try{
         const response=await fetch(`${endpoint}`, {
             method: 'post',
@@ -70,16 +82,15 @@ export const logIn = async(endpoint, info, setter, errorSetter) => {
             body: JSON.stringify(info) 
         }) 
         const data=await response.json()
-        //setter(() => data)
         if(!response.ok) throw data.error
 
     } catch (error){
         console.log(error)
-        //errorSetter(error)
+        setError(error)
     }
 }
 
-export const signup=async (endpoint, info, setter, loader, errorSetter)=>{
+export const signup=async (endpoint, info, errorSetter )=>{
     try{
         const response=await fetch(endpoint, {
             method: 'post',
@@ -90,10 +101,9 @@ export const signup=async (endpoint, info, setter, loader, errorSetter)=>{
             body: JSON.stringify(info)
         }) 
         const data=await response.json()
-        //setter(() => data)
         if(!response.ok) throw data.error
     } catch (error){
         console.log("error", error)
-        //errorSetter(error)
+        errorSetter(error)
     }
 }

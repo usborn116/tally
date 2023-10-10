@@ -7,8 +7,13 @@ import Input from "./Input";
 import Submit from "./Submit";
 import Switcher from "./Switcher";
 import { Button } from "./Button";
+import { useSetUser } from "./helpers/useSetUser";
+import { useError } from "./helpers/useError";
 
-export default Games = ({user, endpoint, setError}) => {
+export default Games = ({user, endpoint}) => {
+
+    const {error, setError} = useError()
+    if (error) return <Error />
 
     const [data, setData] = useState([])
     const [create, setCreate] = useState(false)
@@ -18,7 +23,7 @@ export default Games = ({user, endpoint, setError}) => {
     if (!user && endpoint=='user_games') navigate('/login')
 
     useEffect(() => {
-        getData(`/${endpoint}`, setData)
+        getData(`/${endpoint}`, setData, setError)
     }, [create])
     
     const list = data.map((p) => (
@@ -32,7 +37,7 @@ export default Games = ({user, endpoint, setError}) => {
         <>
         
         <Switcher setter={setCreate} data={create}>See Games</Switcher>
-        <Form endpoint="games" item='game' updater={newData} setter={setData} setToggle={setCreate}>
+        <Form endpoint="games" item='game' updater={newData} setter={setData} setToggle={setCreate} setError={setError}>
                 <Input type="text" name="name" placeHolder='Name' />
                 <Input type="text" name="game_category" placeHolder='Game Category' />
                 <Input type="text" name="image" placeHolder='Image URL' />
@@ -48,10 +53,9 @@ export default Games = ({user, endpoint, setError}) => {
     
     return (
         <>
-            <Button handler={() => navigate(-1)}>Back</Button>
+            {endpoint == 'user_games' ? <Button handler={() => navigate(-1)}>Back</Button> : ''}
             <h2>{endpoint == 'user_games' ? 'My ' : 'All '}Games</h2>
-            <Switcher setter={setCreate} data={create}>Add New Game</Switcher>
-            <br></br>
+            {endpoint == 'user_games' ? <Switcher setter={setCreate} data={create}>Add New Game</Switcher> : ''}
             <br></br>
             {list}
             
