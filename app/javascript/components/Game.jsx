@@ -10,8 +10,11 @@ import Category from "./Category";
 import { Button } from "./Button";
 import { useError } from "./helpers/useError";
 import { Error } from "./Error";
+import { useSetUser } from "./helpers/useSetUser";
 
 export const Game = () => {
+
+    const { user } = useSetUser()
 
     const id = useParams().id
 

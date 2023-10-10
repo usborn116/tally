@@ -42,7 +42,7 @@ export const getUser = async (setter, setError) => {
 
 export const newData = async (endpoint, info, setError)=>{
     try{
-        const response=await fetch(`${endpoint}zzz`, {
+        const response=await fetch(`${endpoint}`, {
             method: 'post',
             headers: {
                 "content-type": 'application/json',
