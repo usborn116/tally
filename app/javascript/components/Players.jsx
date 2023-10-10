@@ -8,13 +8,13 @@ import Input from "./Input";
 import Switcher from "./Switcher";
 import { newData } from "./helpers/api_helpers";
 
-export const Players = () => {
+export const Players = ({homeError = null}) => {
 
     const [data, setData] = useState([])
     const [create, setCreate] = useState(false)
 
     useEffect(() => {
-        getData('/players', setData)
+        getData('/players', setData, homeError)
     }, [create])
 
     const list = data?.map(p => (

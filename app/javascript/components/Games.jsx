@@ -7,24 +7,28 @@ import Input from "./Input";
 import Submit from "./Submit";
 import Switcher from "./Switcher";
 import { Button } from "./Button";
-import { useSetUser } from "./helpers/useSetUser";
 import { useError } from "./helpers/useError";
+import { Error } from "./Error";
+import { useSetUser } from "./helpers/useSetUser";
 
-export default Games = ({user, endpoint}) => {
+export default Games = ({endpoint, homeError = null}) => {
+
+    const navigate = useNavigate()
+
+    const {user, setUser} = useSetUser()
 
     const {error, setError} = useError()
-    if (error) return <Error />
 
     const [data, setData] = useState([])
     const [create, setCreate] = useState(false)
 
-    const navigate = useNavigate()
-
     if (!user && endpoint=='user_games') navigate('/login')
 
     useEffect(() => {
-        getData(`/${endpoint}`, setData, setError)
+        getData(`/${endpoint}`, setData, homeError || setError)
     }, [create])
+
+    console.log('onpage', error)
     
     const list = data.map((p) => (
         <div key={p.name}>
@@ -32,6 +36,8 @@ export default Games = ({user, endpoint}) => {
         </div>
 
     ))
+
+    if (error) return (<Error message={error}/>)
 
     if (create) return (
         <>

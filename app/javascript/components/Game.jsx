@@ -26,8 +26,6 @@ export const Game = () => {
     const [create, setCreate] = useState(false)
     const [newSession, setNewSession] = useState(false)
 
-    console.log('error!!!', error)
-
     useEffect(() => {
         getData(`/user_game/${id}`, setData, setError)
     }, [edit, create, newSession])

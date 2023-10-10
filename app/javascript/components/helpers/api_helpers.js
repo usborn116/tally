@@ -1,3 +1,7 @@
+const errorHandler = async (error, endpoint) => {
+    return await error?.message?.match(/is not valid JSON/) ? {message: `${endpoint} not found`} : error
+}
+
 export const getData= async (endpoint, setter, setError)=>{
     try {
         const response=await fetch(`${endpoint}`)
@@ -6,12 +10,15 @@ export const getData= async (endpoint, setter, setError)=>{
         }
         const data=await response.json()
         console.log('data',data)
-        setter(() => data)
+        await setter(() => data)
         return data
     }
     catch(error){
+        error = await errorHandler(error, endpoint)
         console.log(error)
-        await setError(String(error))
+        console.log('from fun', error.message)
+        await setError(error.message)
+        return error
     }
 }
 
@@ -28,13 +35,14 @@ export const getUser = async (setter, setError) => {
     }
     catch(error){
         console.log(error)
-        setError(() => error)
+        error = errorHandler(error, endpoint)
+        await setError(error.message)
     }
 }
 
 export const newData = async (endpoint, info, setError)=>{
     try{
-        const response=await fetch(`${endpoint}`, {
+        const response=await fetch(`${endpoint}zzz`, {
             method: 'post',
             headers: {
                 "content-type": 'application/json',

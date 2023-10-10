@@ -8,6 +8,7 @@ import Switcher from "./Switcher";
 import { newData, getData, updateData } from "./helpers/api_helpers";
 import { useSetUser } from "./helpers/useSetUser";
 import { useError } from "./helpers/useError";
+import { Error } from "./Error";
 
 
 export const Session = () => {
@@ -15,7 +16,6 @@ export const Session = () => {
     const navigate = useNavigate()
 
     const {error, setError} = useError()
-    if (error) return <Error />
 
     const id = useParams().id
 
@@ -91,6 +91,8 @@ export const Session = () => {
             ))}
         </div>
     )
+
+    if (error) return <Error message={error}/>
 
     return (
         <>

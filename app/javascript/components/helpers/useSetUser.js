@@ -8,7 +8,7 @@ export function useSetUser() {
     const [error, setError] = useState(null)
 
     useEffect(() => {
-        getUser(setUser)
+        getUser(setUser, setError)
     }, [loading, error])
 
     const response = {loading: loading, setLoading: setLoading, user: user, setUser: setUser, error: error, setError: setError }
