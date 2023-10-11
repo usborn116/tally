@@ -15,7 +15,7 @@ export default Games = ({endpoint, homeError = null}) => {
 
     const navigate = useNavigate()
 
-    const {user, setUser} = useSetUser()
+    const {user} = useSetUser()
 
     const {error, setError} = useError()
 

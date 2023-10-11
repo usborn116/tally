@@ -19,7 +19,7 @@ export const Session = () => {
 
     const id = useParams().id
 
-    const {user, setUser, loading, setLoading} = useSetUser()
+    const {user} = useSetUser()
 
     if (!user) navigate('/login')
 

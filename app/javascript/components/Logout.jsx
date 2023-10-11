@@ -5,9 +5,8 @@ import { useError } from "./helpers/useError";
 
 const Logout = ({setUser = null, setLoading, loading}) => {
 
-    const {error, setError} = useError()
-    if (error) return <Error />
-
+    const {error} = useError()
+    
     useEffect(() => {
         setLoading(true)
         getUser(setUser)
@@ -39,6 +38,8 @@ const Logout = ({setUser = null, setLoading, loading}) => {
         setLoading(false)
         alert(`Logged Out!`)
     }
+
+    if (error) return <Error />
 
     return <button className="button" onClick={handleClick}>Log Out</button>
 
