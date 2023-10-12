@@ -19,7 +19,7 @@ const Header = ({setUser, user}) => {
             <div className="right-bar">
                 <Link to="/mygames" className="button">My Games</Link>
                 <Link to="/user" className="button">Profile</Link>
-                {user ? <Logout /> : <Link to={'/login'}>Log In</Link>}
+                {user ? <Logout setUser={setUser}/> : <Link className="button" to={'/login'}>Log In</Link>}
             </div>
         </div>
     )

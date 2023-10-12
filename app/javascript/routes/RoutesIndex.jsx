@@ -10,6 +10,7 @@ import { Login } from "../components/Login";
 import Logout from "../components/Logout";
 import { Error } from "../components/Error";
 import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 export default RoutesIndex = ({user, setUser, error, setError, setLoading, loading}) => {
 
@@ -26,6 +27,7 @@ export default RoutesIndex = ({user, setUser, error, setError, setLoading, loadi
         <Route path="/logout" element={<Logout setLoading={setLoading} setError={setError}/>} />
         <Route path="/*" element={<Error message="There's nothing at this URL!" />} />
       </Routes>
+      <Footer />
     </Router>
   );
 }
