@@ -2,41 +2,66 @@
 @import './forms.css.scss';
 @import './buttons.css.scss';
 
-//colors: 93748A (magenta)
-//9F9FAD (cool gray)
-//AECFDF (columbia blue)
-//94FBAB (light green)
-//87BBA2 (cambridge blue)
-//210B2C (dark purple)
-//E0DFD5 alabaster
+//colors: 
+//#93748A (magenta)
+//#9F9FAD (cool gray)
+//#AECFDF (columbia blue)
+//#94FBAB (light green)
+//#87BBA2 (cambridge blue)
+//#210B2C (dark purple)
+//#E0DFD5 alabaster
+//#313638 ONYX
+//#4A5759 outer space
 
 body{
     margin: 0;
     min-height: 100vh;
     font-family: 'Gabarito', sans-serif;
+    display: flex;
+    flex-direction: column;
 }
 
-.nav{
+.main{
+    min-height: 100vh;
+}
+
+.nav, .footer{
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     align-items: center;
     justify-content: end;
-    background-color: #87BBA2;
+    background-color: #4A5759;
+}
+
+.footer{
+    margin-bottom: 0;
+    position: absolute;
+    bottom: 0;
+    width: 100vw;
+    height: 2.5rem;
 }
 
 .left-bar, .right-bar, .center-bar{
     display: flex;
     justify-content: center;
+    align-items: center;
     padding: 2px;
 }
 
 .center-bar{
-    color: #210B2C;
+    color: white;
 }
 
 .right-bar{
     gap: 5%;
     padding-right: 10px;
+    color: white;
+}
+
+.footer > .right-bar{
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
 }
 
 .notice, .alert{
