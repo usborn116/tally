@@ -6,21 +6,18 @@ import Logout from "./Logout";
 import { getUser } from "./helpers/api_helpers";
 import { Error } from "./Error";
 
-export const Home = ({user, setUser, setLoading, setError, error}) => {
+export const Home = ({user, setUser, loading, setLoading, setError, error}) => {
 
     useEffect(() => {
         setLoading(true)
         getUser(setUser, setError)
         setLoading(false)
-    }, [])
+    }, [loading])
 
     if (error) return (<Error message={error}/>)
 
     return (
         <>
-            {user ? <Link to={'/user'}>My User Details</Link> : ''}
-            {user ? <Link to={'/mygames'}>My Games</Link> : ''}
-            {user ? <Logout setLoading={setLoading}/> : <Link to={'/login'}>Log In</Link>}
             <h1>Welcome To Tally, {user?.name || 'friend'}!!!</h1>
             <Games user={user} homeError={setError} endpoint='games'/>
             {user ? <Players homeError={setError} /> : ''}

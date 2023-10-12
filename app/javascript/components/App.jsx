@@ -8,7 +8,7 @@ export default App = () => {
 
     return (
         <>
-            <RoutesIndex user={user} setUser={setUser} error={error} setError={setError} setLoading={setLoading}/>
+            <RoutesIndex user={user} setUser={setUser} loading={loading} error={error} setError={setError} setLoading={setLoading}/>
         </>
     )
 }

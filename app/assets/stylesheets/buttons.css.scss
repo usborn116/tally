@@ -1,0 +1,19 @@
+.button{
+    display: flex;
+    text-decoration: none;
+    padding: 15px;
+    color: white;
+    text-align: center;
+    align-items: center;
+    font-size: 20px;
+}
+
+button.button{
+    border: none;
+    background-color: transparent;
+    font-family: 'Gabarito', sans-serif;
+}
+
+.button:hover{
+    color: lightblue;
+}

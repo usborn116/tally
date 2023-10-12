@@ -6,7 +6,7 @@ export const Button = ({name = null, endpoint, children, handler = null, setData
 
     return (
         <>
-            <button onClick={handler || ''}>{children ? children : `Create New ${name}`}</button>
+            <button className="button" onClick={handler || ''}>{children ? children : `Create New ${name}`}</button>
         </>
         
 

@@ -2,8 +2,11 @@ import React, {useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import { getUser } from "./helpers/api_helpers";
 import { useError } from "./helpers/useError";
+import { useSetUser } from "./helpers/useSetUser";
 
-const Logout = ({setUser = null, setLoading, loading}) => {
+const Logout = ({setUser = null}) => {
+
+    const {setLoading} = useSetUser()
 
     const {error} = useError()
     
@@ -12,8 +15,6 @@ const Logout = ({setUser = null, setLoading, loading}) => {
         getUser(setUser)
         setLoading(false)
     }, [])
-
-    const navigate = useNavigate();
 
     const logout = async (setError)=>{
         try{
