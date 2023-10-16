@@ -3,7 +3,7 @@ import React from "react";
 const Switcher = ({setter, data, children}) => {
 
     return (
-        <button className="button" onClick={() => data ? setter(false) : setter(true)}>
+        <button className="body-button" onClick={() => data ? setter(false) : setter(true)}>
             {children}
         </button>
     )

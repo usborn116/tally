@@ -10,6 +10,7 @@ import { Button } from "./Button";
 import { useError } from "./helpers/useError";
 import { Error } from "./Error";
 import { useSetUser } from "./helpers/useSetUser";
+import { GameListing } from "./GameListing";
 
 export default Games = ({endpoint, homeError = null}) => {
 
@@ -31,9 +32,10 @@ export default Games = ({endpoint, homeError = null}) => {
     console.log('onpage', error)
     
     const list = data.map((p) => (
-        <div key={p.name}>
-            {endpoint == 'games' ? <div key={p.id}>{p.name}</div> : <Link to={`${p.id}`}>{p.name}</Link>}
-        </div>
+        <GameListing key={p.id} data={p} endpoint={endpoint} />
+        //<div key={p.name}>
+        //    {endpoint == 'games' ? <div key={p.id}>{p.name}</div> : <Link to={`${p.id}`}>{p.name}</Link>}
+        //</div>
 
     ))
 
@@ -58,14 +60,14 @@ export default Games = ({endpoint, homeError = null}) => {
     )
     
     return (
-        <>
+        <div className="data">
             {endpoint == 'user_games' ? <Button handler={() => navigate(-1)}>Back</Button> : ''}
             <h2>{endpoint == 'user_games' ? 'My ' : 'All '}Games</h2>
             {endpoint == 'user_games' ? <Switcher setter={setCreate} data={create}>Add New Game</Switcher> : ''}
             <br></br>
             {list}
             
-        </>
+        </div>
 
     )
 

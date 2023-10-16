@@ -1,4 +1,4 @@
-.button{
+button, .button{
     display: flex;
     text-decoration: none;
     padding: 15px;
@@ -18,7 +18,13 @@ button.button{
     color: #94FBAB ;
 }
 
-input.button{
+.body-button:hover{
+    background-color: #93748A;
+    color: white;
+    border-radius: 10px;
+}
+
+input.button, .body-button{
     color: #93748A;
     border:none;
     background-color: transparent;

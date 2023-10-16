@@ -18,6 +18,7 @@ const Input = ({type, name, placeHolder, value = '', options = null}) => {
     else if (type == 'checkbox') return (
         <div className="input">
             <input type={type} name={name} onChange={handleChange} defaultChecked={value} defaultValue={checked}></input>
+            <p className="checkmark">✓</p>
         </div>
 
     )
@@ -25,6 +26,7 @@ const Input = ({type, name, placeHolder, value = '', options = null}) => {
     else return (
         <div className="input">
             <input type={type} name={name} placeholder={placeHolder} defaultValue={value} style={type == 'hidden' ? {visibility: 'hidden'} : {display: 'block'}}></input>
+            <p className="checkmark">✓</p>
         </div>
     )
 };

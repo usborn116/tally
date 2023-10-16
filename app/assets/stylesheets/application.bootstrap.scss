@@ -35,7 +35,7 @@ body{
 
 .footer{
     margin-bottom: 0;
-    position: absolute;
+    position: fixed;
     bottom: 0;
     width: 100vw;
     height: 2.5rem;
@@ -68,3 +68,29 @@ body{
     height: 0px;
     display: hidden;
 }
+
+.home{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.home-table{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    padding-bottom: 5px;
+    margin: 3%;
+}
+
+@media (max-width: 768px) {
+    .home-table {
+        grid-template-columns: 1fr;
+    }
+    .nav{
+        grid-template-columns: 1fr;
+    }
+    .footer{
+        position: relative;
+    }
+  }

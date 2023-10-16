@@ -1,0 +1,31 @@
+.input{
+    display: flex;
+    height: fit-content;
+    justify-content: center;
+    align-items: center;
+    gap: 3px;
+}
+
+input{
+    height: fit-content;
+}
+
+input:focus + .checkmark{
+    background-color: yellow;
+    color: #313638;
+}
+
+.checkmark{
+    display: flex;
+    font-size: 10px;
+    justify-content: center;
+    border-radius: 50%;
+    height: 12px;
+    width: 12px;
+    background-color: #94FBAB;
+    color: white;
+}
+
+.submit{
+    font-size: 20px;
+}

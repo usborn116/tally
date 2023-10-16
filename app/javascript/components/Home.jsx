@@ -17,11 +17,13 @@ export const Home = ({user, setUser, loading, setLoading, setError, error}) => {
     if (error) return (<Error message={error}/>)
 
     return (
-        <>
-            <h1>Welcome To Tally, {user?.name || 'friend'}!!!</h1>
-            <Games user={user} homeError={setError} endpoint='games'/>
-            {user ? <Players homeError={setError} /> : ''}
-        </>
+        <div className="home">
+            <h1>Welcome To Tally, {user?.name || 'friend'}!</h1>
+            <div className="home-table">
+                <Games user={user} homeError={setError} endpoint='games'/>
+                {user ? <Players homeError={setError} /> : ''}
+            </div>
+        </div>
         
 
     )

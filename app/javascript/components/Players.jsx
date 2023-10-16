@@ -23,17 +23,16 @@ export const Players = ({homeError = null}) => {
     )
     
     return (
-        <>
+        <div className="data">
             <h2>Your Players</h2>
-            <Switcher setter={setCreate} data={create}>Add New Player</Switcher>
             {create ? 
             <Form endpoint="players" item='player' updater={newData} setter={setData} setToggle={setCreate}>
                 <Input type="text" name="name" value={data.name}/>
                 <Submit>Save</Submit>
             </Form> : ''}
             {list}
-            
-        </>
+            <Switcher setter={setCreate} data={create}>Add New Player</Switcher>
+        </div>
 
     )
 
