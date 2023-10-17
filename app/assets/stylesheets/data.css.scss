@@ -5,12 +5,12 @@
     align-items: center;
     min-height: fit-content;
     padding-bottom: 5px;
+    margin-bottom: 4%;
 }
 
 .game-data{
     display: flex;
-    grid-template-columns: repeat(2, 1fr);
-    column-gap: 3px;
+    gap: 5%;
     margin-bottom: 4px;
     align-items: flex-start;
     justify-content: flex-start;
@@ -29,15 +29,18 @@ img{
     display: flex;
     flex-direction: column;
     align-items: center;
-    //margin-left: 2%;
-    //margin-right: 2%;
-    //margin-top: 0px;
-    //width: 90vw;
-    //gap: 3vh;
 }
 
 .headers{
     display:grid
+}
+
+.top{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10%;
+    width: 100%;
 }
 
 .row{

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { getUser } from './api_helpers';
 
-export function useSetUser() {
+export const useSetUser = () => {
 
     const [loading, setLoading] = useState(false)
     const [user, setUser] = useState(null)

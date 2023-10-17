@@ -77,14 +77,13 @@ body{
 }
 
 .home-table{
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    padding-bottom: 5px;
-    margin: 3%;
+    display: flex;
+    padding: 5%;
 }
 
 @media (max-width: 768px) {
     .home-table {
+        display: grid;
         grid-template-columns: 1fr;
     }
     .nav{

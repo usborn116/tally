@@ -23,13 +23,11 @@ export default Games = ({endpoint, homeError = null}) => {
     const [data, setData] = useState([])
     const [create, setCreate] = useState(false)
 
-    if (!user && endpoint=='user_games') navigate('/login')
+    //if (!user && endpoint=='user_games') navigate('/login')
 
     useEffect(() => {
         getData(`/${endpoint}`, setData, homeError || setError)
     }, [create])
-
-    console.log('onpage', error)
     
     const list = data.map((p) => (
         <GameListing key={p.id} data={p} endpoint={endpoint} />
@@ -61,12 +59,11 @@ export default Games = ({endpoint, homeError = null}) => {
     
     return (
         <div className="data">
-            {endpoint == 'user_games' ? <Button handler={() => navigate(-1)}>Back</Button> : ''}
-            <h2>{endpoint == 'user_games' ? 'My ' : 'All '}Games</h2>
-            {endpoint == 'user_games' ? <Switcher setter={setCreate} data={create}>Add New Game</Switcher> : ''}
-            <br></br>
+            <div className="top">
+                <h2>{endpoint == 'user_games' ? 'My ' : 'All '}Games</h2>
+                {endpoint == 'user_games' ? <Switcher setter={setCreate} data={create}>Add New Game</Switcher> : ''}
+            </div>
             {list}
-            
         </div>
 
     )
