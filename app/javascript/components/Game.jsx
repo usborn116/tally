@@ -60,32 +60,41 @@ export const Game = () => {
     )
 
     return (
-        <>
-            <Button handler={() => navigate(-1)}>Back</Button>
-            <Switcher setter={setEdit} data={edit}>Edit Game Details</Switcher>
-            <div>{data?.name}</div>
-            <img src={data?.image}></img>
-            <div>Category: {data?.game_category}</div>
-            <div>Playtime: {data?.gameplay_length}</div>
-            <div>Players Supported: {data?.player_number}</div>
-            <div>Complexity: {data?.complexity}/5</div>
-            <h4>Categories</h4>
-            {categorySection}
-            <Switcher setter={setCreate} data={create}>Add New Category</Switcher>
-            {create ? 
-            <Form endpoint="categories" item='category' updater={newData} setter={setData} setToggle={setCreate}>
-                <Input type="text" name="name" placeHolder='Category Name'/>
-                <div>Points Based?</div>
-                <Input type="checkbox" name="point_based" />
-                <Input type="hidden" name="game_id" value={data?.id} />
-                <Submit>Save</Submit>
-            </Form> : ''}
-            <h3>Win History</h3>
-            <div className="table">
-                {leaderboard}
+        <div className="table">
+            <div className="top">
+                <div className="data">
+                    <Switcher setter={setEdit} data={edit}>Edit Game Details</Switcher>
+                    <div>{data?.name}</div>
+                    <img src={data?.image}></img>
+                    <div>Category: {data?.game_category}</div>
+                    <div>Playtime: {data?.gameplay_length}</div>
+                    <div>Players Supported: {data?.player_number}</div>
+                    <div>Complexity: {data?.complexity}/5</div>
+                </div>
+                <div className="data">
+                    <h4>Categories</h4>
+                    {categorySection}
+                    <Switcher setter={setCreate} data={create}>Add New Category</Switcher>
+                    {create ? 
+                    <Form endpoint="categories" item='category' updater={newData} setter={setData} setToggle={setCreate}>
+                        <Input type="text" name="name" placeHolder='Category Name'/>
+                        <div>Points Based?</div>
+                        <Input type="checkbox" name="point_based" />
+                        <Input type="hidden" name="game_id" value={data?.id} />
+                        <Submit>Save</Submit>
+                    </Form> : ''}
+                </div>
+                <div className="data">
+                <h3>Win History</h3>
+                    <div className="table">
+                        {leaderboard}
+                    </div>
+                </div>
             </div>
-            {data?.sessions ? <Sessions data={data?.sessions} game_id={data?.id} setter={setNewSession} /> : ''}
-        </>
+            <div className="row">
+                {data?.sessions ? <Sessions data={data?.sessions} game_id={data?.id} setter={setNewSession} /> : ''}
+            </div>
+        </div>
         
 
     )

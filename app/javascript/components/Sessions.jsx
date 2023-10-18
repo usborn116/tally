@@ -22,7 +22,7 @@ export const Sessions = ({data, game_id, setter}) => {
     date = new Date().toDateString()
     
     return (
-        <>
+        <div className="table">
             <h2>Sessions</h2>
             <Form endpoint="sessions" item='session' updater={newData} setToggle={setter}>
                 <Input type="hidden" name="date" value={date}/>
@@ -30,7 +30,7 @@ export const Sessions = ({data, game_id, setter}) => {
                 <Submit>Create New Session</Submit>
             </Form>
             {list}
-        </>
+        </div>
 
     )
 
