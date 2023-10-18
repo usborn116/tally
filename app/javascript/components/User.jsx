@@ -13,13 +13,16 @@ export const User = () => {
         setLoading(false)
     }, [loading])
 
+    console.log(user)
+
     //if (!user) return <h1>Not Signed In</h1>
     return ( user && 
-        <>  
-            <Button handler={() => navigate(-1)}>Back</Button>
-            <h1>{user.name}</h1>
-            <h1>{user.email}</h1>
-        </>
+        <div className="data user-data">  
+            <h1>Name: {user.name}</h1>
+            <h2>Email: {user.email}</h2>
+            <h2>Total Games: {user.games.length}</h2>
+            <h2>Total Sessions Played: {user.games.map(g => g.sessions.length).reduce((a, v) => a + v)}</h2>
+        </div>
         
 
     )

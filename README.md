@@ -15,3 +15,4 @@ Helpful docs:
 - Handle non-click events in React: https://legacy.reactjs.org/docs/handling-events.html
 - Using SASS in Rails: https://stackoverflow.com/questions/73417883/loaderror-cannot-load-such-file-sassc
 - HTML Events: https://www.w3schools.com/jsref/dom_obj_event.asp
+- CSS Media queries: https://stackoverflow.com/questions/66045259/css-grid-two-columns-on-desktop-and-1-column-on-mobile
