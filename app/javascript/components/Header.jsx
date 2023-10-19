@@ -17,8 +17,8 @@ const Header = ({setUser, user}) => {
                 <h1>Tally</h1>
             </div>
             <div className="right-bar">
-                <Link to="/mygames" className="button">My Games</Link>
-                <Link to="/user" className="button">Profile</Link>
+                {user ? <Link to="/mygames" className="button">My Games</Link> : ''}
+                {user ? <Link to="/user" className="button">Profile</Link> : ''}
                 {user ? <Logout setUser={setUser}/> : <Link className="button" to={'/login'}>Log In</Link>}
             </div>
         </div>

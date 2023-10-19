@@ -1,9 +1,10 @@
 .input{
     display: flex;
     height: fit-content;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    gap: 3px;
+    gap: 6px;
+    width: 100%;
 }
 
 input{
@@ -28,4 +29,26 @@ input:focus + .checkmark{
 
 .submit{
     font-size: 20px;
+    margin-top: 5px;
+}
+
+.form > form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5%;
+}
+
+.field{
+    display: flex;
+    gap: 2px;
+    align-self: center;
+    align-items: center;
+}
+
+.create-data{
+    margin-top: 5vh;
+    gap: 5px;
+    margin-left: 2vw;
+    margin-right: 2vw;
 }

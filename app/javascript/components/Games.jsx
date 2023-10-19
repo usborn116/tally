@@ -31,30 +31,25 @@ export default Games = ({endpoint, homeError = null}) => {
     
     const list = data.map((p) => (
         <GameListing key={p.id} data={p} endpoint={endpoint} />
-        //<div key={p.name}>
-        //    {endpoint == 'games' ? <div key={p.id}>{p.name}</div> : <Link to={`${p.id}`}>{p.name}</Link>}
-        //</div>
 
     ))
 
     if (error) return (<Error message={error}/>)
 
     if (create) return (
-        <>
-        
-        <Switcher setter={setCreate} data={create}>See Games</Switcher>
+        <div className="data create-data">
+        <Switcher setter={setCreate} data={create}>See All Games</Switcher>
         <Form endpoint="games" item='game' updater={newData} setter={setData} setToggle={setCreate} setError={setError}>
                 <Input type="text" name="name" placeHolder='Name' />
                 <Input type="text" name="game_category" placeHolder='Game Category' />
                 <Input type="text" name="image" placeHolder='Image URL' />
-                <Input type="text" name="gameplay_length" placeHolder='Playtime Length (e.g. 30-45 minutes)' />
+                <Input type="text" name="gameplay_length" placeHolder='Playtime Length (e.g. 30-45 minutes)'/>
                 <Input type="text" name="player_number" placeHolder='Player Number Range (e.g. 2-4 Players)' />
                 <Input type="text" name="complexity" placeHolder='Complexity'/>
-                <h2>Number of Categories</h2>
                 <Input type="integer" name="category_count" placeHolder='Number of Categories'/>
                 <Submit/>
         </Form>
-        </>
+        </div>
     )
     
     return (

@@ -25,15 +25,15 @@ export const Login = ({setUser}) => {
     }, [notLoggedIn])
 
     const form = existing ? 
-    <>
+    <div className="data">
     <h1>Log In</h1>
     <Form endpoint="users/sign_in" item='login' updater={logIn} setter={setUser} setToggle={setNotLoggedIn} navigate={navigate}>
             <Input type="email" name="email" placeHolder='email address'/>
             <Input type="password" name="password" placeHolder='password' />
             <Submit/>
     </Form>
-    </> : 
-    <>
+    </div> : 
+    <div className="data">
     <h1>Sign Up</h1>
     <Form endpoint="users" item='signup' updater={signup} setter={setUser} setToggle={setNotLoggedIn} navigate={navigate}>
             <Input type="text" name="name" placeHolder='name'/>
@@ -42,13 +42,13 @@ export const Login = ({setUser}) => {
             <Input type="password" name="password_confirmation" placeHolder='confirm password' />
             <Submit/>
     </Form>
-    </>
+    </div>
 
     return (
-        <>
+        <div className="data create-data">
         <Switcher setter={setExisting} data={existing}>{existing ? 'Sign Up' : 'Log In'}</Switcher>
         {form}
-        </>
+        </div>
     )
 
 };

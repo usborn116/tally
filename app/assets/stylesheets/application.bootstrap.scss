@@ -82,6 +82,9 @@ body{
 }
 
 @media (max-width: 768px) {
+    body{
+        min-height: 100vh;
+    }
     .home-table {
         display: grid;
         grid-template-columns: 1fr;
