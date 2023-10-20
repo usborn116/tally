@@ -16,7 +16,7 @@ export default RoutesIndex = ({user, setUser, error, setError, setLoading, loadi
 
   return (
     <Router>
-      <Header setUser={setUser} user={user} />
+      <Header setUser={setUser} user={user} setLoading={setLoading} />
       <Routes>
         <Route path='/' element={<Home user={user} loading={loading} setLoading={setLoading} setUser={setUser} error={error} setError={setError}/>} />
         <Route path="/user" element={<User user={user} setError={setError}/>} />

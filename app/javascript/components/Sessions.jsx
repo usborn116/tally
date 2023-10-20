@@ -13,8 +13,9 @@ export const Sessions = ({data, game_id, setter}) => {
     }, [])
 
     const list = data.map((p) => (
-        <div key={p.id}>
-            <Link to={'/game_session/' + p.id}>{p.date} | Winner: {p.victor}</Link>
+        <div key={p.id} className="entry">
+            <Link className='link' to={'/game_session/' + p.id}>{p.date}</Link>
+            <div className="game-details">Winner: {p.victor}</div>
         </div>
 
     ))
@@ -22,13 +23,15 @@ export const Sessions = ({data, game_id, setter}) => {
     date = new Date().toDateString()
     
     return (
-        <div className="table">
-            <h2>Sessions</h2>
-            <Form endpoint="sessions" item='session' updater={newData} setToggle={setter}>
-                <Input type="hidden" name="date" value={date}/>
-                <Input type="hidden" name="game_id" value={game_id}/>
-                <Submit>Create New Session</Submit>
-            </Form>
+        <div className="data session-details">
+            <div className="row">
+                <h2>Sessions</h2>
+                <Form endpoint="sessions" item='session' updater={newData} setToggle={setter}>
+                    <Input type="hidden" name="date" value={date}/>
+                    <Input type="hidden" name="game_id" value={game_id}/>
+                    <Submit>+ New Session</Submit>
+                </Form>
+            </div>
             {list}
         </div>
 

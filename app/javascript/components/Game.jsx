@@ -20,7 +20,7 @@ export const Game = () => {
 
     const navigate = useNavigate()
 
-    if (!user) navigate('/login')
+    //if (!user) navigate('/login')
 
     const {error, setError} = useError()
 
@@ -39,61 +39,67 @@ export const Game = () => {
     )
 
     const leaderboard = data?.results?.map(r => (
-        <div key={r.id}>{r.player} : {r.wins}</div>
+        <div className='entry' key={r.id}>
+            <div>{r.player}</div>
+            <div>{r.wins}</div>
+        </div>
     ))
 
     if (error) return (<Error message={error}/>)
 
     if (edit) return (
-        <>
+        <div className="data">
         <Switcher setter={setEdit} data={edit}>See Game Details</Switcher>
         <Form endpoint="games" item='game' id={data.id} updater={updateData} setter={setData} setToggle={setEdit} setError={setError}>
-                <Input type="text" name="name" value={data?.name} />
-                <Input type="text" name="game_category" value={data?.game_category}  />
-                <Input type="text" name="image" value={data?.image}  />
-                <Input type="text" name="gameplay_length" value={data?.gameplay_length}  />
-                <Input type="text" name="player_number" value={data?.player_number}  />
-                <Input type="text" name="complexity" value={data?.complexity} />
+                <Input type="text" name="name" value={data?.name} placeHolder='Name' />
+                <Input type="text" name="game_category" value={data?.game_category} placeHolder='Category' />
+                <Input type="text" name="image" value={data?.image} placeHolder='Image URL' />
+                <Input type="text" name="gameplay_length" value={data?.gameplay_length} placeHolder='Gameplay Length' />
+                <Input type="text" name="player_number" value={data?.player_number} placeHolder='# Of Players' />
+                <Input type="text" name="complexity" value={data?.complexity} placeHolder='Complexity'/>
                 <Submit />
         </Form>
-        </>
+        </div>
     )
 
     return (
-        <div className="table">
-            <div className="top">
-                <div className="data">
-                    <Switcher setter={setEdit} data={edit}>Edit Game Details</Switcher>
-                    <div>{data?.name}</div>
+        <div className="table game-table">
+            <div className="top-game">
+                <div className="data game-details">
+                    <h3>{data?.name}</h3>
                     <img src={data?.image}></img>
                     <div>Category: {data?.game_category}</div>
                     <div>Playtime: {data?.gameplay_length}</div>
                     <div>Players Supported: {data?.player_number}</div>
                     <div>Complexity: {data?.complexity}/5</div>
+                    <Switcher setter={setEdit} data={edit}>Edit Game Details</Switcher>
                 </div>
-                <div className="data">
-                    <h4>Categories</h4>
+                <div className="data game-details">
+                    <h3>Categories</h3>
                     {categorySection}
                     <Switcher setter={setCreate} data={create}>Add New Category</Switcher>
                     {create ? 
-                    <Form endpoint="categories" item='category' updater={newData} setter={setData} setToggle={setCreate}>
-                        <Input type="text" name="name" placeHolder='Category Name'/>
-                        <div>Points Based?</div>
-                        <Input type="checkbox" name="point_based" />
-                        <Input type="hidden" name="game_id" value={data?.id} />
-                        <Submit>Save</Submit>
-                    </Form> : ''}
+                    <div className="category-row">
+                        <Form endpoint="categories" item='category' updater={newData} setter={setData} setToggle={setCreate}
+                        style={{gridTemplateColumns: `repeat(4, 1fr)`}} className="row">
+                            <Input type="text" name="name" value='Category Name'/>
+                            <div className="linked">
+                                <div>Points Based?</div>
+                                <Input type="checkbox" name="point_based" />
+                                <Input type="hidden" name="game_id" value={data?.id} />
+                            </div>
+                            <Submit>Save</Submit>
+                        </Form> 
+                    </div> : ''}
                 </div>
-                <div className="data">
-                <h3>Win History</h3>
-                    <div className="table">
+                <div className="data game-details">
+                <h3>Leaderboard</h3>
+                    <div className="data">
                         {leaderboard}
                     </div>
                 </div>
             </div>
-            <div className="row">
-                {data?.sessions ? <Sessions data={data?.sessions} game_id={data?.id} setter={setNewSession} /> : ''}
-            </div>
+            {data?.sessions ? <Sessions data={data?.sessions} game_id={data?.id} setter={setNewSession} /> : ''}
         </div>
         
 

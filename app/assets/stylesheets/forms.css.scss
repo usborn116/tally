@@ -52,3 +52,37 @@ input:focus + .checkmark{
     margin-left: 2vw;
     margin-right: 2vw;
 }
+
+.linked{
+    display: flex;
+    font-size: 14px;
+}
+
+.category-row{
+    display: flex;
+    justify-content: flex-start;
+}
+
+.category-row > .form > form{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 8px;
+    justify-content: flex-start;
+    width: 100%;
+    gap: 0px;
+    align-items: center;
+}
+
+.category-row > .form > form > .input{
+    justify-content: flex-start;
+    gap: 0px;
+}
+
+.category-row > .form > form > .submit{
+    font-size: 14px;
+}
+
+.session-details > .row > .form > form > .submit{
+    font-size: 16px;
+    padding: 0;
+}

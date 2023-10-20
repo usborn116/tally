@@ -6,6 +6,7 @@
     min-height: fit-content;
     padding-bottom: 5px;
     margin-bottom: 4%;
+    margin-top: 3px;
 }
 
 .user-data{
@@ -36,6 +37,10 @@ img{
     align-items: center;
 }
 
+.game-table{
+    align-items: flex-start;
+}
+
 .headers{
     display:grid
 }
@@ -55,3 +60,76 @@ img{
 .linked{
     display: flex
 }
+
+.top-game{
+    display: grid;
+    grid-template-columns: 1.25fr 1.75fr 1fr;
+    margin: 2vw;
+}
+
+.game-details, .session-details{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4%;
+}
+
+.session-details{
+    margin: 2vw;
+    width: 50%;
+}
+
+.session-details > .row{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    gap: 10%;
+    margin-bottom: 5%;
+}
+
+.session-details > .row > h2{
+    margin: 0;
+}
+
+.game-details > h3{
+    margin-top: 0;
+}
+
+.game-details > .data{
+    width: 100%;
+    align-items: flex-start;
+}
+
+.entry{
+    display: flex;
+    width: 90%;
+    justify-content: space-between;
+    font-size: 15px;
+}
+
+.entry > .link{
+    text-decoration: none;
+    color: #93748A;
+}
+
+.game-details > .body-button{
+    font-size: 16px;
+    padding: 0;
+}
+
+.game-details > .body-button:hover, 
+.category-row > .form > form > .submit:hover, 
+.session-details > .row > .form > form > .submit:hover{
+    color: #AECFDF;
+    background-color: transparent;
+}
+
+@media (max-width: 768px) {
+    .top-game{
+        grid-template-columns: 1fr;
+    }
+    .session-details{
+        width: 100%;
+    }
+  }

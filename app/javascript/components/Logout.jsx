@@ -4,9 +4,7 @@ import { getUser } from "./helpers/api_helpers";
 import { useError } from "./helpers/useError";
 import { useSetUser } from "./helpers/useSetUser";
 
-const Logout = ({setUser = null}) => {
-
-    const {loading, setLoading} = useSetUser()
+const Logout = ({setUser, setLoading}) => {
 
     const {error} = useError()
     
@@ -14,7 +12,7 @@ const Logout = ({setUser = null}) => {
         setLoading(true)
         getUser(setUser)
         setLoading(false)
-    }, [loading])
+    }, [])
 
     const logout = async (setError)=>{
         try{

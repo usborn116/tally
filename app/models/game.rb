@@ -1,6 +1,6 @@
 class Game < ApplicationRecord
     has_many :categories,  -> { order(:name => :asc) }, dependent: :destroy
-    has_many :sessions, dependent: :destroy
+    has_many :sessions, -> { order(:date => :desc) }, dependent: :destroy
     belongs_to :user
 
     accepts_nested_attributes_for :categories

@@ -11,7 +11,7 @@ export default Category = ({data, setData}) => {
     if (error) return <Error />
 
     return (
-        <>
+        <div className="category-row">
         <Form submitter={true} endpoint="categories" item='category' id={data.id} updater={updateData} 
         setter={setData} style={{gridTemplateColumns: `repeat(3, 1fr)`}} className="row" setError={setError}>
             <Input type="text" name="name" value={data.name}/>
@@ -21,7 +21,7 @@ export default Category = ({data, setData}) => {
             </div>
             <Submit nobutton={true}>Save</Submit>
         </Form>
-        </>
+        </div>
     )
 
 

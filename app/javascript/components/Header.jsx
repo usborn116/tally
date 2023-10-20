@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Logout from "./Logout";
 import { Button } from "./Button";
 
-const Header = ({setUser, user}) => {
+const Header = ({setUser, user, setLoading}) => {
 
     const navigate = useNavigate()
     const [home, setHome] = useState(false)
@@ -19,7 +19,7 @@ const Header = ({setUser, user}) => {
             <div className="right-bar">
                 {user ? <Link to="/mygames" className="button">My Games</Link> : ''}
                 {user ? <Link to="/user" className="button">Profile</Link> : ''}
-                {user ? <Logout setUser={setUser}/> : <Link className="button" to={'/login'}>Log In</Link>}
+                {user ? <Logout setUser={setUser} setLoading={setLoading}/> : <Link className="button" to={'/login'}>Log In</Link>}
             </div>
         </div>
     )

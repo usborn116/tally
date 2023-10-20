@@ -21,7 +21,7 @@ export const Session = () => {
 
     const {user} = useSetUser()
 
-    if (!user) navigate('/login')
+    //if (!user) navigate('/login')
 
     const [data, setData] = useState([])
     const [numPlayers, setNumPlayers] = useState(0)
