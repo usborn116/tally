@@ -9,7 +9,8 @@ const Input = ({type, name, placeHolder, value = '', options = null}) => {
     }
 
     if (type == 'select' || type == 'select_text') return (
-        <select className='input' name={name} defaultValue={value}>
+        <select className='input' name={name} defaultValue={value || ''}>
+            <option value=''></option>
             {options?.map(op => <option key={op.id} value={type == 'select_text' ? op.name : op.id}>{op.month_name || op.name}</option> )}
         </select>
 

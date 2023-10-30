@@ -11,7 +11,7 @@ const Form = ({submitter = null, navigate = null, className = null, style = null
         const data=Object.fromEntries(formData)
         let info = {}
         info = form_object(item, info, data)
-        const response =  await updater(`/${endpoint}${id ? `/${id}` : ''}`, info, setError)
+        const response =  info[item].name !== '' ? await updater(`/${endpoint}${id ? `/${id}` : ''}`, info, setError) : null
         if (item=='game' && !id) {
             window.location.href = `${window.location.href}/${response.id}`
         }

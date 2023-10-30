@@ -131,6 +131,7 @@ export const Session = () => {
                     </div>
                     : ''}
                 </div>
+                
                 { addPlayers || create ? '' : 
                 <div className="scores game-details">
                     <div className="game-data">
