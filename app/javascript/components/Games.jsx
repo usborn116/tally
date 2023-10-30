@@ -22,6 +22,7 @@ export default Games = ({endpoint, homeError = null}) => {
 
     const [data, setData] = useState([])
     const [create, setCreate] = useState(false)
+    const [search, setSearch] = useState('')
 
     useEffect(() => {
         getData(`/${endpoint}`, setData, homeError || setError)

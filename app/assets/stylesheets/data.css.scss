@@ -3,7 +3,6 @@
     flex-direction: column;
     gap: 3px;
     align-items: center;
-    flex: 0 0 fit-content;
     padding-bottom: 5px;
     margin-bottom: 4%;
     margin-top: 3px;
@@ -206,6 +205,9 @@ img{
 }
 
 @media (max-width: 500px) {
+    .game-details{
+        gap: 0;
+    }
     .table{
         margin-bottom: 0px;
         padding-bottom: 3px;
@@ -215,15 +217,18 @@ img{
     }
     .session-details{
         height: 100%;
+        gap: 0;
     }
     .session-data{
         grid-template-columns: 1fr;
     }
     .player-section{
+        height: fit-content;
         border-right: none;
         border-bottom: 2px solid #4A5759;
     }
     .scores{
         margin-left: 0px;
+        margin-top: 0;
     }
   }
