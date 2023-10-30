@@ -37,7 +37,6 @@ img{
     width: 100%;
     gap: 8px;
     margin-bottom: 16px;
-    min-width: 100vw;
 }
 
 .table .row{
@@ -207,7 +206,7 @@ img{
         grid-template-columns: 1fr;
     }
     .session-details{
-        flex: 0 0 100%;
+        height: 100%;
     }
     .session-data{
         grid-template-columns: 1fr;
@@ -215,6 +214,7 @@ img{
     .player-section{
         border-right: none;
         border-bottom: 2px solid #4A5759;
+        margin-bottom: 1vh;
     }
     .scores{
         margin-left: 0px;
