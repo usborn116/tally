@@ -116,7 +116,6 @@ export const Session = () => {
                 <div className="player-section game-details">
                     <h3>Players</h3>
                     {players}
-                    <br></br>
                     <Switcher setter={setCreate} data={create}>{create ? 'Done Adding' : '+ Player to Account'}</Switcher>
                     {create ? 
                     <Form endpoint="players" item='player' updater={newData} setter={setData} setToggle={setCreate} setError={setError}>
@@ -124,7 +123,6 @@ export const Session = () => {
                         <Submit >Save</Submit>
                     </Form> : ''}
                     <Switcher setter={setAddPlayers} data={addPlayers}>{addPlayers ? 'Done Adding' : '+ Player(s) to Game'}</Switcher>
-                    <br></br>
                     {addPlayers ?
                     <div className="data">
                         <div># Players</div>
@@ -133,7 +131,7 @@ export const Session = () => {
                     </div>
                     : ''}
                 </div>
-                { addPlayers ? '' : 
+                { addPlayers || create ? '' : 
                 <div className="scores game-details">
                     <div className="game-data">
                         <h3>Scores</h3>

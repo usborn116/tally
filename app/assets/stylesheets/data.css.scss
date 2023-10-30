@@ -182,6 +182,9 @@ img{
 
 .player-section{
     border-right: 2px solid #4A5759;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 2vh;
 }
 
 .player-section .input{
@@ -191,17 +194,22 @@ img{
 .player-section .body-button{
     gap: 0px;
     width: 100%;
-    padding: 0;
+    padding: 1px;
     text-align: left;
     font-size: 15px;
 }
 
 .scores{
+    display: flex;
     margin-left: 2vw;
-    justify-content: center;
+    margin-top: 2vh;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 500px) {
+    .table{
+        margin-bottom: 0px;
+        padding-bottom: 3px;
+    }
     .top-game, .top-session{
         grid-template-columns: 1fr;
     }
@@ -214,10 +222,8 @@ img{
     .player-section{
         border-right: none;
         border-bottom: 2px solid #4A5759;
-        margin-bottom: 1vh;
     }
     .scores{
         margin-left: 0px;
-        margin-top: 2vh;
     }
   }
