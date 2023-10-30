@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import { Button } from "./Button";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Navigate } from "react-router-dom";
 import Form from "./Form";
 import Input from "./Input";
 import Submit from "./Submit";
@@ -14,6 +14,8 @@ import { Error } from "./Error";
 export const Session = () => {
 
     const {error, setError} = useError()
+
+    const {user} = useSetUser()
 
     const id = useParams().id
 
@@ -85,6 +87,10 @@ export const Session = () => {
             ))}
         </div>
     )
+
+    if (!user){
+        return <Navigate to="/" replace />;
+    }
 
     if (error) return <Error message={error}/>
 

@@ -3,7 +3,7 @@
     flex-direction: column;
     gap: 3px;
     align-items: center;
-    min-height: fit-content;
+    flex: 0 0 fit-content;
     padding-bottom: 5px;
     margin-bottom: 4%;
     margin-top: 3px;
@@ -37,7 +37,7 @@ img{
     width: 100%;
     gap: 8px;
     margin-bottom: 16px;
-    max-width: 100vw;
+    flex: 0 0 100vw;
 }
 
 .table .row{
@@ -207,7 +207,7 @@ img{
         grid-template-columns: 1fr;
     }
     .session-details{
-        width: 100%;
+        flex: 0 0 100%;
     }
     .session-data{
         grid-template-columns: 1fr;

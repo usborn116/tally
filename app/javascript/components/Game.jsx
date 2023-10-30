@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Navigate } from "react-router-dom";
 import { Sessions } from "./Sessions";
 import { getData, updateData, newData } from "./helpers/api_helpers";
 import Form from "./Form";
@@ -44,6 +44,10 @@ export const Game = () => {
             <div>{r.wins}</div>
         </div>
     ))
+
+    if (!user){
+        return <Navigate to="/" replace />;
+    }
 
     if (error) return (<Error message={error}/>)
 

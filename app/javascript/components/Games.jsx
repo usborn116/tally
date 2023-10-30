@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { getData, newData } from "./helpers/api_helpers";
-import { Link, useNavigate } from "react-router-dom"
+import { Link, useNavigate, Navigate } from "react-router-dom"
 import Form from "./Form";
 import Input from "./Input";
 import Submit from "./Submit";
@@ -23,8 +23,6 @@ export default Games = ({endpoint, homeError = null}) => {
     const [data, setData] = useState([])
     const [create, setCreate] = useState(false)
 
-    //if (!user && endpoint=='user_games') navigate('/login')
-
     useEffect(() => {
         getData(`/${endpoint}`, setData, homeError || setError)
     }, [create])
@@ -33,6 +31,10 @@ export default Games = ({endpoint, homeError = null}) => {
         <GameListing key={p.id} data={p} endpoint={endpoint} />
 
     ))
+
+    if (!user && endpoint=='user_games'){
+        return <Navigate to="/" replace />;
+    }
 
     if (error) return (<Error message={error}/>)
 

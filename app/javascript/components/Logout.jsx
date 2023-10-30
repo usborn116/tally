@@ -6,6 +6,8 @@ import { useSetUser } from "./helpers/useSetUser";
 
 const Logout = ({setUser, setLoading}) => {
 
+    const navigate = useNavigate()
+
     const {error} = useError()
     
     useEffect(() => {
@@ -36,6 +38,7 @@ const Logout = ({setUser, setLoading}) => {
         await getUser(setUser)
         setLoading(false)
         alert(`Logged Out!`)
+        navigate('/')
     }
 
     if (error) return <Error />

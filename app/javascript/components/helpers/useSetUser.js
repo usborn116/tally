@@ -4,7 +4,7 @@ import { getUser } from './api_helpers';
 export const useSetUser = () => {
 
     const [loading, setLoading] = useState(false)
-    const [user, setUser] = useState(null)
+    const [user, setUser] = useState('blank')
     const [error, setError] = useState(null)
 
     useEffect(() => {
