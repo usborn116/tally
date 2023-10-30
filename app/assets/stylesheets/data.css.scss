@@ -37,7 +37,7 @@ img{
     width: 100%;
     gap: 8px;
     margin-bottom: 16px;
-    flex: 0 0 100vw;
+    min-width: 100vw;
 }
 
 .table .row{

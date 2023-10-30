@@ -9,7 +9,7 @@ class GamesController < ApplicationController
   end
 
   def user_games
-    @games = current_user.games.includes(:sessions)
+    @games = current_user.games.includes(:sessions)#.filter(params.slice(:name)).where(user_id: current_user&.id)
     render json: @games.to_json(:include => {:sessions => {only: [:id, :date, :victor]}})
   end
 

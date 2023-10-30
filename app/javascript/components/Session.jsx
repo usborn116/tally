@@ -133,7 +133,7 @@ export const Session = () => {
                     </div>
                     : ''}
                 </div>
-                
+                { addPlayers ? '' : 
                 <div className="scores game-details">
                     <div className="game-data">
                         <h3>Scores</h3>
@@ -151,6 +151,7 @@ export const Session = () => {
                     </div>
                     <Button endpoint={`/session_winner/${data?.session?.id}`} setData={setData} handler={handleCalculate}>Calculate Score</Button>
                 </div>
+                }
 
             </div>
         </div>
