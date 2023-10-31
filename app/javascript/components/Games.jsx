@@ -22,7 +22,7 @@ export default Games = ({endpoint, homeError = null}) => {
 
     const [data, setData] = useState([])
     const [create, setCreate] = useState(false)
-    const [search, setSearch] = useState('')
+    const [search, setSearch] = useState(false)
 
     useEffect(() => {
         getData(`/${endpoint}`, setData, homeError || setError)
@@ -57,6 +57,14 @@ export default Games = ({endpoint, homeError = null}) => {
     
     return (
         <div className="data">
+            { endpoint == 'user_games' ? 
+            <div className="search">
+            <Form endpoint='games' item='games' setError={setError} updater={getData} setter={setData}/>
+                <Input type="text" name="name" placeHolder='Search' />
+                <Submit>Find Game!</Submit> 
+            <Form/>
+            </div>
+            : '' }
             <div className="top">
                 <h2>{endpoint == 'user_games' ? 'My ' : 'All '}Games</h2>
                 {endpoint == 'user_games' ? <Switcher setter={setCreate} data={create}>Add New Game</Switcher> : ''}
