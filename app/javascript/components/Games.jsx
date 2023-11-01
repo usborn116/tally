@@ -25,8 +25,8 @@ export default Games = ({endpoint, homeError = null}) => {
     const [search, setSearch] = useState(false)
 
     useEffect(() => {
-        getData(`/${endpoint}`, setData, homeError || setError)
-    }, [create])
+        getData(`/${endpoint}${search ? `?name=${search}`: ''}`, setData, homeError || setError)
+    }, [create, search])
     
     const list = data.map((p) => (
         <GameListing key={p.id} data={p} endpoint={endpoint} />
@@ -59,10 +59,12 @@ export default Games = ({endpoint, homeError = null}) => {
         <div className="data">
             { endpoint == 'user_games' ? 
             <div className="search">
-            <Form endpoint='games' item='games' setError={setError} updater={getData} setter={setData}/>
-                <Input type="text" name="name" placeHolder='Search' />
-                <Submit>Find Game!</Submit> 
-            <Form/>
+                <div className="input" >
+                    <div className="label">Search</div>
+                    <div className="field">
+                    <input type='text' placeholder='Find a game!' onChange={(e) => setSearch(e.target.value)}></input>
+                    </div>
+                </div> 
             </div>
             : '' }
             <div className="top">

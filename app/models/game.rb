@@ -7,9 +7,7 @@ class Game < ApplicationRecord
 
     after_create :create_categories
 
-    include Filterable
-
-    scope :filter_by_name, ->(name) { where("LOWER(games.name) like ?", "#{name.downcase}%").distinct }
+    scope :filter_by_name, ->(name) { where("LOWER(name) like ?", "%#{name.downcase}%").distinct }
 
     private
 
