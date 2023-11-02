@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_28_174258) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_02_223308) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -71,6 +71,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_28_174258) do
     t.bigint "session_id", null: false
     t.bigint "session_category_id", null: false
     t.bigint "session_player_id", null: false
+    t.boolean "win"
     t.index ["session_category_id"], name: "index_session_scores_on_session_category_id"
     t.index ["session_id"], name: "index_session_scores_on_session_id"
     t.index ["session_player_id"], name: "index_session_scores_on_session_player_id"
