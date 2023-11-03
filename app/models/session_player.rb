@@ -16,7 +16,7 @@ class SessionPlayer < ApplicationRecord
 
     def create_scores
         self.session.session_categories.each do |c|
-            self.session_scores.create(amount: 0, session_id: self.session.id, session_category_id: c.id)
+            self.session_scores.create(amount: 0, session_id: self.session.id, session_category_id: c.id, win: c.win)
         end
     end
 

@@ -9,7 +9,7 @@ export const Error = ({message = 'There was an unspecified error'}) => {
     return (
         <div className="table">
           <h1>ERROR!</h1>
-          <h3>{message}</h3>
+          <h3>{String(message)}</h3>
           <Button handler={() => navigate(-1)}>Back</Button>
         </div>
     )

@@ -26,6 +26,8 @@ export const Session = () => {
     const [editDate, setEditDate] = useState(false)
     const [enterScores, setEnterScores] = useState(false)
 
+    const WIN_TYPE = {true: 'WON!', false: 'Not won'}
+
     useEffect(() => {
         getData(`/sessions/${id}`, setData, setError)
     }, [create, addPlayers, editDate, enterScores])
@@ -53,28 +55,29 @@ export const Session = () => {
 
     const players = data?.session?.session_players?.map((player) => <div key={player.id}>{player?.name}</div>)
 
-    const categories = data?.session?.session_categories?.map((c) => (
-        <div key={c.id}>
-            <div>{c?.name}</div>
-        </div>
-    ))
-
     const scores2 = data?.session?.session_categories?.map((c) => (
         <div key={c.id} className="row" style={{gridTemplateColumns: `repeat(${data?.session?.session_players?.length + 1}, 1fr)`}}>
             <div>{c?.name}</div>
             {c?.session_scores?.map((score) => !enterScores ? 
             (
                 <div key={score.id}>
-                    <div>{score.amount}</div>
+                    <div>{c.point_based ? score.amount : WIN_TYPE[score.win] }</div>
                 </div> 
             ) : (
                 <Form submitter={true} key={score.id} id={score.id} endpoint="session_scores" item='session_score' 
-                    updater={updateData} setter={setData} setError={setError}>
-                    <Input type="number" name="amount" value={score.amount}/>
+                    updater={updateData} setter={setData} setError={setError} className='row'>
+                    {!c.point_based ? 
+                        <div className="linked">
+                        <div>Win?</div>
+                        <Input type="checkbox" name="win" value={score.win}/> 
+                        </div>
+                        :
+                        <Input type="number" name="amount" value={score.amount}/> 
+                    }
+                    
                     <Submit nobutton={true}>Save</Submit>
                 </Form>
             )
-                
             )}
         </div>
     ))
