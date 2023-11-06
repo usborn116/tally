@@ -20,12 +20,12 @@ const Form = ({submitter = null, navigate = null, className = null, style = null
 
     }
 
-    const empty = () => null
+    const empty = (e) => e.preventDefault()
 
     return (
         <div className="form">
-            <form className={className} style={style} ref={formRef} onBlur={submitter ? onSubmit : empty} 
-                onTouchEnd={submitter ? onSubmit : empty} onSubmit={onSubmit}>
+            <form className={className} style={style} ref={formRef} onTouchStart={() => {formRef.current.focus()}}
+                onBlur={submitter ? onSubmit : empty} onSubmit={onSubmit}>
                 {children}
             </form>
         </div>
