@@ -49,6 +49,10 @@ input{
     height: fit-content;
 }
 
+input[type='checkbox']{
+    height: 16px;
+}
+
 input:focus + .checkmark{
     background-color: yellow;
     color: #313638;
