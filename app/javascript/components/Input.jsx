@@ -4,8 +4,12 @@ const Input = ({type, name, placeHolder, value = '', options = null}) => {
 
     const [checked, setChecked] = useState(value)
 
-    const handleChange = (e) => {
-        setChecked(e.target.checked)
+    console.log('checked!', checked)
+
+    const handleChange = async (e) => {
+        const set = await e.target.checked
+        setChecked(set)
+
     }
 
     if (type == 'select' || type == 'select_text') return (

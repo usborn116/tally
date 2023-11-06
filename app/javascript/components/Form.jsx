@@ -6,6 +6,7 @@ const Form = ({submitter = null, navigate = null, className = null, style = null
     const formRef = useRef()
 
     const onSubmit = async (e) =>{
+        console.log('submit!')
         e.preventDefault()
         const formData=new FormData(formRef.current)
         const data=Object.fromEntries(formData)
@@ -21,11 +22,12 @@ const Form = ({submitter = null, navigate = null, className = null, style = null
     }
 
     const empty = (e) => e.preventDefault()
+    //
 
     return (
         <div className="form">
-            <form className={className} style={style} ref={formRef} onTouchStart={() => {formRef.current.focus()}}
-                onBlur={submitter ? onSubmit : empty} onSubmit={onSubmit}>
+            <form className={className} style={style} ref={formRef} onMouseLeave={submitter ? onSubmit : empty} onSubmit={onSubmit}>
+                
                 {children}
             </form>
         </div>
