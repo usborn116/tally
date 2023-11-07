@@ -23,6 +23,7 @@ export const GameListing = ({data, endpoint = null}) => {
             <div>Playtime: {data?.gameplay_length}</div>
             <div># Players: {data?.player_number}</div>
             <div>Complexity: {data?.complexity}/5</div>
+            <div>{endpoint != 'games' ? `Times Played: ${data?.sessions.length}` : ''}</div>
             </div>
         </div>
         

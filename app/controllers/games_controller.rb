@@ -10,7 +10,7 @@ class GamesController < ApplicationController
 
   def user_games
     @games = current_user.games.includes(:sessions).left_joins(:sessions).group(:id).order('COUNT(sessions.id) DESC')
-    @games = current_user.games.filter_by_name(params[:name]) if params[:name]
+    @games = current_user.games.includes(:sessions).filter_by_name(params[:name]) if params[:name]
     render json: @games.to_json(:include => {:sessions => {only: [:id, :date, :victor]}})
   end
 
