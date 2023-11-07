@@ -2,10 +2,36 @@
 
 This app lets you keep score of all your board games (or any games), and look back at any session of a game to see who won that time!
 
-Deployed at https://tabletoptally.fly.dev/.
+This app is deployed at https://tabletoptally.fly.dev/.
+
+On the home page, you can see all games that any user has added to the database, along with details:
+![CleanShot 2023-11-06 at 16 27 11@2x](https://github.com/usborn116/tally/assets/64931297/d6127a63-e973-4e96-b717-a1504d52d87d)
+
+To view the games you've added, go to the My Games page. There, you can also search for a specific game:
+![CleanShot 2023-11-06 at 16 27 31](https://github.com/usborn116/tally/assets/64931297/d9b2506a-5199-404c-8a28-0e28c2aef0eb)
+
+You can also create a new game here. For the Image URL, I'd suggest copying the direct image URL (it should end in an image file extension, like .jpg) from a place like Boardgamegeek.com:
+![CleanShot 2023-11-06 at 16 29 23@2x](https://github.com/usborn116/tally/assets/64931297/ae8e7df8-0410-4bc2-a88e-f0da6f4d6ef4)
+
+You can see your user information in the Profile page:
+![CleanShot 2023-11-06 at 16 27 42@2x](https://github.com/usborn116/tally/assets/64931297/4845c8fa-4011-4dbb-932c-ba5850ae81bd)
+
+When you click on a game, you can see the game details, the leaderboard for that game, and all previous sessions for that game (sorted by most recent):
+![CleanShot 2023-11-06 at 16 29 11@2x](https://github.com/usborn116/tally/assets/64931297/97584cbf-8358-4ec1-ae00-bc3d77fb4432)
+
+Clicking "New Session" will create a session for you. You can click into that session to edit the date, view details, and add players to that session:
+![CleanShot 2023-11-06 at 16 28 14](https://github.com/usborn116/tally/assets/64931297/9082854b-6251-40e7-a063-d2ce950fe5b3)
+
+Once you're done with a game, add the scores!
+![CleanShot 2023-11-06 at 16 28 41](https://github.com/usborn116/tally/assets/64931297/ca40ad37-1ab9-4778-90c6-c0eade9f3777)
+
+If the game has categories that aren't score-based but just win-based, you can check boxes for those categories too:
+![CleanShot 2023-11-06 at 16 29 48](https://github.com/usborn116/tally/assets/64931297/753c8a22-a166-4360-92e4-e22f8786d6ee)
+
+
 # tally
 
-Helpful docs:
+Docs that were helpful in the making of this project:
 
 - RSpec "before" documentation: https://www.rubydoc.info/gems/rspec-core/RSpec%2FCore%2FHooks:before
 - Setting default RSpec formatting: https://stackoverflow.com/questions/40023188/can-i-set-rspec-format-documentation-as-the-default
