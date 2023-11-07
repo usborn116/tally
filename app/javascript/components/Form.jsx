@@ -26,7 +26,7 @@ const Form = ({submitter = null, navigate = null, className = null, style = null
 
     return (
         <div className="form">
-            <form className={className} style={style} ref={formRef} onMouseLeave={submitter ? onSubmit : empty} onSubmit={onSubmit}>
+            <form className={className} style={style} ref={formRef} onTouchStart={(e)=> e.target.focus()} onMouseLeave={submitter ? onSubmit : empty} onSubmit={onSubmit}>
                 
                 {children}
             </form>

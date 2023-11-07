@@ -129,3 +129,18 @@ input:focus + .checkmark{
     font-size: 16px;
     padding: 0;
 }
+
+@media (max-width: 768px) {
+    input[type='checkbox']{
+        height: 18px;
+        width: 18px;
+    }
+    .submit, .linked, input, .search, .label, .checkmark{
+        font-size: 1.03em;
+    }
+
+    .checkmark{
+        height: 15px;
+        width: 15px;
+    }
+}
