@@ -4,14 +4,16 @@ class SessionsController < ApplicationController
 
   # GET /sessions or /sessions.json
   def index
-    @sessions = Session.all.order(&:date)
+    @sessions = Session.all
   end
 
   # GET /sessions/1 or /sessions/1.json
   def show
     @players = current_user.players
-    @sesh = JSON.parse(@session.to_json(:include => [:game, {:session_players => {:include => [:session_scores]}}, {:session_categories => {:include => [:session_scores]}}, {:session_scores=> {:include => [:session_player, :session_category]}}]))
-    render json: {session: @sesh, players: @players }
+    @session = JSON.parse(@session.to_json(:include => [:game, {:session_players => {:include => [:session_scores]}}, 
+            {:session_categories => {:include => [:session_scores]}}, 
+            {:session_scores=> {:include => [:session_player, :session_category]}}]))
+    render json: {session: @session, players: @players }
   end
 
   def get_winner
@@ -58,7 +60,6 @@ class SessionsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_session
       @session = Session.find(params[:id])
-      #@session = Session.where(id: params[:id]).includes(:game, :session_scores)
     end
 
     # Only allow a list of trusted parameters through.

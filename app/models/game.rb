@@ -13,9 +13,7 @@ class Game < ApplicationRecord
 
     def create_categories
         return if !self.category_count
-        self.category_count.times do
-            self.categories.create(name: 'New Category/Round', point_based: true)
-        end
+        self.category_count.times { self.categories.create(name: 'New Category/Round', point_based: true) }
     end
 
 end

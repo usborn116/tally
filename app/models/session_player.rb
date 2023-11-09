@@ -9,7 +9,7 @@ class SessionPlayer < ApplicationRecord
     end
 
     def winning_categories
-        self.session_scores.includes(:session_category).where(win: true).map{|t| t.session_category.name}#.pluck(:session_category, :win)
+        self.session_scores.where(win: true).map{|t| t.session_category.name}
     end
 
     private

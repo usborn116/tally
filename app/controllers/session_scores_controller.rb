@@ -33,17 +33,16 @@ class SessionScoresController < ApplicationController
 
   # PATCH/PUT /session_scores/1 or /session_scores/1.json
   def update
-      if @session_score.update(session_score_params)
-        render json: @session_score
-      else
-        render json: @session_score.errors, status: :unprocessable_entity
-      end
+     if @session_score.update(session_score_params)
+      render json: @session_score
+     else 
+      render json: @session_score.errors, status: :unprocessable_entity
+     end
   end
 
   # DELETE /session_scores/1 or /session_scores/1.json
   def destroy
     @session_score.destroy
-
     render json: {message: 'okay'}
   end
 

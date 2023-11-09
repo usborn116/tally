@@ -9,20 +9,14 @@ class Session < ApplicationRecord
     after_create :create_categories
 
     def winner
-        category_winners = self.session_players
-            .map{|p| [p.name, p.winning_categories]}
-            .sort_by(&:last).reverse
-        if category_winners.map(&:last).flatten.length > 0
-            max = category_winners.max_by{|c| c.last.length}.last.length
-            result = category_winners.select{|c| c.last.length == max}
-            result.length == 1 ? self.update(victor: category_winners.first.first) : self.update(victor: 'Tied')
-            result.length == 1 ? "#{category_winners.first.first} wins this round of #{self.game.name}!" : "Tied between: #{result.map{|p| p.first}.join(", ")}"
-        else
-            max = self.session_players.map(&:total_score).max
-            result = self.session_players.select {|p| p.total_score == max}
-            result.length == 1 ? self.update(victor: result.first.name) : self.update(victor: 'Tied')
-            result.length == 1 ? "#{result.first.name} wins this round of #{self.game.name}!" :  "Tied between: #{result.map{|p| p.name}.join(", ")}"
-        end
+        category_winners = self.session_players.map{|p| [p.name, p.winning_categories.size]}.select{|e| !e.last.zero?}
+        max = category_winners&.max_by{|c| c&.last}&.last || self.session_players.map(&:total_score).max
+        result = category_winners.map(&:last).sum > 0 ? 
+            category_winners.select{|c| c.last == max} : self.session_players.select {|p| p.total_score == max}
+        category_winner = !category_winners.map(&:last).sum.zero? ? true : false
+        first_player = category_winner ? result&.first&.first : result&.first&.name
+        result.length == 1 ? self.update(victor: first_player) : self.update(victor: 'Tied')
+        result.length == 1 ? "#{first_player} wins this round of #{self.game.name}!" : "Tied between: #{result.map{|p| category_winner ? p.first : p.name}.join(", ")}"
     end
 
     private

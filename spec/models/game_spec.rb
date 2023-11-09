@@ -63,7 +63,7 @@ RSpec.describe Game, type: :model do
       @player1.session_scores.each{|s| s.update!(win: false)}
       @player1.session_scores.first.update(win:true)
       @player2.session_scores.first.update(win:true)
-      expect(@session.winner).to eq("Tied between: Player2, Player1")
+      expect(@session.winner).to eq("Tied between: Player1, Player2")
       expect(@session.victor).to eq('Tied')
     end
 
