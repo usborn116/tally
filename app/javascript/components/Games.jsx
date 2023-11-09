@@ -1,20 +1,17 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { getData, newData } from "./helpers/api_helpers";
-import { Link, useNavigate, Navigate } from "react-router-dom"
+import { Navigate } from "react-router-dom"
 import Form from "./Form";
 import Input from "./Input";
 import Submit from "./Submit";
 import Switcher from "./Switcher";
-import { Button } from "./Button";
 import { useError } from "./helpers/useError";
 import { Error } from "./Error";
 import { useSetUser } from "./helpers/useSetUser";
 import { GameListing } from "./GameListing";
 
 export default Games = ({endpoint, homeError = null}) => {
-
-    const navigate = useNavigate()
 
     const {user} = useSetUser()
 
@@ -30,7 +27,6 @@ export default Games = ({endpoint, homeError = null}) => {
     
     const list = data.map((p) => (
         <GameListing key={p.id} data={p} endpoint={endpoint} />
-
     ))
 
     if (!user && endpoint=='user_games'){

@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import {Home} from "../components/Home";
 import { User } from "../components/User";
 import Games from "../components/Games";
-import { Sessions } from "../components/Sessions";
 import { Game } from "../components/Game";
 import { Session } from "../components/Session";
 import { Login } from "../components/Login";
@@ -31,7 +30,3 @@ export default RoutesIndex = ({user, setUser, error, setError, setLoading, loadi
     </Router>
   );
 }
-
-//</Routes><Route path="sessions" element={<Sessions user={user}/>} />
-//</Route>
-  

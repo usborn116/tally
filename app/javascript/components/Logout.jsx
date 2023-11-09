@@ -2,7 +2,6 @@ import React, {useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import { getUser } from "./helpers/api_helpers";
 import { useError } from "./helpers/useError";
-import { useSetUser } from "./helpers/useSetUser";
 
 const Logout = ({setUser, setLoading}) => {
 
@@ -26,7 +25,6 @@ const Logout = ({setUser, setLoading}) => {
                 },
             }) 
         } catch (error){
-            console.log('error!', error)
             setError({message: 'Error logging out!'})
         }
     }

@@ -1,7 +1,7 @@
 import React, {useRef} from "react";
 import { form_object } from "./helpers/form_helpers";
 
-const Form = ({submitter = null, navigate = null, className = null, style = null, endpoint, item, updater, id, setter = null, setLoading = null, setError, setToggle, children, setUser}) => {
+const Form = ({submitter = null, navigate = null, className = null, style = null, endpoint, item, updater, id, setError, setToggle, children}) => {
 
     const formRef = useRef()
 
@@ -22,12 +22,10 @@ const Form = ({submitter = null, navigate = null, className = null, style = null
     }
 
     const empty = (e) => e.preventDefault()
-    //
 
     return (
         <div className="form">
             <form className={className} style={style} ref={formRef} onMouseLeave={submitter ? onSubmit : empty} onSubmit={onSubmit}>
-                
                 {children}
             </form>
         </div>

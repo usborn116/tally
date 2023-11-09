@@ -4,8 +4,6 @@ const Input = ({type, name, placeHolder, value = '', options = null}) => {
 
     const [checked, setChecked] = useState(value)
 
-    console.log('checked!', checked)
-
     const handleChange = async (e) => {
         const set = await e.target.checked
         setChecked(set)
@@ -17,7 +15,6 @@ const Input = ({type, name, placeHolder, value = '', options = null}) => {
             <option value=''></option>
             {options?.map(op => <option key={op.id} value={type == 'select_text' ? op.name : op.id}>{op.month_name || op.name}</option> )}
         </select>
-
     )
 
     else if (type == 'checkbox') return (
@@ -25,14 +22,12 @@ const Input = ({type, name, placeHolder, value = '', options = null}) => {
             <input type={type} name={name} onChange={handleChange} defaultChecked={value} defaultValue={checked}></input>
             <p className="checkmark">✓</p>
         </div>
-
     )
 
     else if (type == 'hidden') return (
         <div className="input" style={{display: 'hidden'}}>
             <input type={type} name={name} onChange={handleChange} defaultChecked={value} defaultValue={checked}></input>
         </div>
-
     )
 
     else return (

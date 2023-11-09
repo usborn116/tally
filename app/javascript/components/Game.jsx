@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import { useParams, useNavigate, Navigate } from "react-router-dom";
+import { useParams, Navigate } from "react-router-dom";
 import { Sessions } from "./Sessions";
 import { getData, updateData, newData } from "./helpers/api_helpers";
 import Form from "./Form";
@@ -7,7 +7,6 @@ import Submit from "./Submit";
 import Input from "./Input";
 import Switcher from "./Switcher";
 import Category from "./Category";
-import { Button } from "./Button";
 import { useError } from "./helpers/useError";
 import { Error } from "./Error";
 import { useSetUser } from "./helpers/useSetUser";
@@ -17,10 +16,6 @@ export const Game = () => {
     const { user } = useSetUser()
 
     const id = useParams().id
-
-    const navigate = useNavigate()
-
-    //if (!user) navigate('/login')
 
     const {error, setError} = useError()
 
@@ -105,8 +100,6 @@ export const Game = () => {
             </div>
             {data?.sessions ? <Sessions data={data?.sessions} game_id={data?.id} setter={setNewSession} /> : ''}
         </div>
-        
 
     )
-
 }

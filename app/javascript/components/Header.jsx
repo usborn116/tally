@@ -1,12 +1,8 @@
 import React, {useState, useEffect} from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Logout from "./Logout";
-import { Button } from "./Button";
 
 const Header = ({setUser, user, setLoading}) => {
-
-    const navigate = useNavigate()
-    const [home, setHome] = useState(false)
 
     return (
         <div className="nav">

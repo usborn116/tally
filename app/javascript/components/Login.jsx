@@ -14,7 +14,7 @@ export const Login = ({setUser}) => {
     const [existing, setExisting] = useState(true)
     const [notLoggedIn, setNotLoggedIn] = useState(true)
 
-    const {error, setError} = useError()
+    const {error} = useError()
     if (error) return <Error />
 
     useEffect(() => {
@@ -27,21 +27,21 @@ export const Login = ({setUser}) => {
     const form = existing ? 
     <div className="data">
     <h1>Log In</h1>
-    <Form endpoint="users/sign_in" item='login' updater={logIn} setter={setUser} setToggle={setNotLoggedIn} navigate={navigate}>
+        <Form endpoint="users/sign_in" item='login' updater={logIn} setter={setUser} setToggle={setNotLoggedIn} navigate={navigate}>
             <Input type="email" name="email" placeHolder='email address'/>
             <Input type="password" name="password" placeHolder='password' />
             <Submit/>
-    </Form>
+        </Form>
     </div> : 
     <div className="data">
     <h1>Sign Up</h1>
-    <Form endpoint="users" item='signup' updater={signup} setter={setUser} setToggle={setNotLoggedIn} navigate={navigate}>
+        <Form endpoint="users" item='signup' updater={signup} setter={setUser} setToggle={setNotLoggedIn} navigate={navigate}>
             <Input type="text" name="name" placeHolder='name'/>
             <Input type="email" name="email" placeHolder='email address'/>
             <Input type="password" name="password" placeHolder='password' />
             <Input type="password" name="password_confirmation" placeHolder='confirm password' />
             <Submit/>
-    </Form>
+        </Form>
     </div>
 
     return (
@@ -50,5 +50,4 @@ export const Login = ({setUser}) => {
         {form}
         </div>
     )
-
 };

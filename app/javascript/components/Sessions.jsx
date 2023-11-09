@@ -20,7 +20,7 @@ export const Sessions = ({data, game_id, setter}) => {
 
     ))
 
-    date = new Date().toDateString()
+    const date = new Date().toDateString()
     
     return (
         <div className="data session-details">

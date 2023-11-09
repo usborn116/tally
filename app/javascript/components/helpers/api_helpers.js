@@ -9,14 +9,11 @@ export const getData= async (endpoint, setter, setError)=>{
             throw new Error(`${response.status}: ${response.statusText}`)
         }
         const data=await response.json()
-        console.log('data',data)
         await setter(() => data)
         return data
     }
     catch(error){
         error = await errorHandler(error, endpoint)
-        console.log(error)
-        console.log('from fun', error.message)
         await setError(error.message)
         return error
     }
@@ -29,12 +26,10 @@ export const getUser = async (setter, setError) => {
             throw new Error(`${response.status}: ${response.statusText}`)
         }
         const data=await response.json()
-        console.log('user',data)
         setter ? await setter(data) : null
         return data
     }
     catch(error){
-        console.log(error)
         error = errorHandler(error, endpoint)
         await setError(error.message)
     }
@@ -52,10 +47,8 @@ export const newData = async (endpoint, info, setError)=>{
         }) 
         const data=await response.json()
         if(!response.ok) throw data.error
-        console.log('new!', data)
         return data
     } catch (error){
-        console.log(error)
         setError(() => error)
     }
 }
@@ -74,7 +67,6 @@ export const updateData = async (endpoint, info, setError) => {
         if(!response.ok) throw data.error
         return data
     } catch (error){
-        console.log(error)
         setError(() => error)
     }
 }
@@ -93,7 +85,6 @@ export const logIn = async(endpoint, info, setError) => {
         if(!response.ok) throw data.error
 
     } catch (error){
-        console.log(error)
         setError(error)
     }
 }
@@ -111,7 +102,6 @@ export const signup=async (endpoint, info, errorSetter )=>{
         const data=await response.json()
         if(!response.ok) throw data.error
     } catch (error){
-        console.log("error", error)
         errorSetter(error)
     }
 }
