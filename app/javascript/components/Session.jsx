@@ -9,7 +9,7 @@ import { newData, getData, updateData } from "./helpers/api_helpers";
 import { useSetUser } from "./helpers/useSetUser";
 import { useError } from "./helpers/useError";
 import { Error } from "./Error";
-
+import ScoresTable from "./ScoresTable";
 
 export const Session = () => {
 
@@ -27,6 +27,7 @@ export const Session = () => {
     const [enterScores, setEnterScores] = useState(false)
 
     const WIN_TYPE = {true: 'WON!', false: 'Not won'}
+    const styling = {gridTemplateColumns: `repeat(${data?.session?.session_players?.length + 1}, ${100/(data?.session?.session_players?.length + 1)}%)`}
 
     useEffect(() => {
         getData(`/sessions/${id}`, setData, setError)
@@ -55,36 +56,8 @@ export const Session = () => {
 
     const players = data?.session?.session_players?.map((player) => <div key={player.id}>{player?.name}</div>)
 
-    const scores2 = data?.session?.session_categories?.map((c) => (
-        <div key={c.id} className="row" style={{gridTemplateColumns: `repeat(${data?.session?.session_players?.length + 1}, 
-        ${100/(data?.session?.session_players?.length + 1)}%)`}}>
-            <div>{c?.name}</div>
-            {c?.session_scores?.map((score) => !enterScores ? 
-            (
-                <div key={score.id}>
-                    <div>{c.point_based ? score.amount : WIN_TYPE[score.win] }</div>
-                </div> 
-            ) : (
-                <Form submitter={true} key={score.id} id={score.id} endpoint="session_scores" item='session_score' 
-                    updater={updateData} setter={setData} setError={setError} className='row'>
-                    {!c.point_based ? 
-                        <div className="linked">
-                        <div>Win?</div>
-                        <Input type="checkbox" name="win" value={score.win}/> 
-                        </div>
-                        :
-                        <Input type="number" name="amount" value={score.amount}/> 
-                    }
-                    
-                    <Submit nobutton={true}>Save</Submit>
-                </Form>
-            )
-            )}
-        </div>
-    ))
-
     const totals = (
-        <div className="row" style={{gridTemplateColumns: `repeat(${data?.session?.session_players?.length + 1}, ${100/(data?.session?.session_players?.length + 1)}%)`}}>
+        <div className="row" style={styling}>
             <div>TOTALS</div>
             {data?.session?.session_players?.map((p) => (
                 <div key={p.id} >{p.session_scores?.map(s => s.amount).reduce((a, v) => a + v)}</div>
@@ -92,9 +65,7 @@ export const Session = () => {
         </div>
     )
 
-    if (!user){
-        return <Navigate to="/" replace />;
-    }
+    if (!user) return <Navigate to="/" replace />
 
     if (error) return <Error message={error}/>
 
@@ -143,13 +114,12 @@ export const Session = () => {
                         <Switcher setter={setEnterScores} data={enterScores}>+ Scores</Switcher>
                     </div>
                     <div className="table">
-                        <div className="headers" 
-                            style={{gridTemplateColumns: `repeat(${data?.session?.session_players?.length + 1}, ${100/(data?.session?.session_players?.length + 1)}%)`}}
-                        >
+                        <div className="headers" style={styling}>
                             <div></div>
                             {players}
                         </div>
-                    {scores2}
+                    <ScoresTable data={data} styling={styling} enterScores={enterScores} updateData={updateData} 
+                        setData={setData} setError={setError} WIN_TYPE={WIN_TYPE}/>
                     {totals}
                     </div>
                     <Button endpoint={`/session_winner/${data?.session?.id}`} setData={setData} handler={handleCalculate}>Calculate Score</Button>
@@ -158,8 +128,6 @@ export const Session = () => {
 
             </div>
         </div>
-        
 
     )
-
 }
