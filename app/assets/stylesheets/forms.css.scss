@@ -135,6 +135,11 @@ input:focus + .checkmark{
         height: 18px;
         width: 18px;
     }
+
+    input[type='checkbox']{
+        height: 18px;
+    }
+
     .submit, .linked, input, .search, .label, .checkmark{
         font-size: 1.03em;
     }

@@ -75,6 +75,12 @@ img{
 .row{
     display:grid;
     width: 100%;
+    padding: 3px;
+}
+
+.row div{
+    word-wrap: break-word;
+    hyphens: manual;
 }
 
 .linked{

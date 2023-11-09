@@ -56,7 +56,8 @@ export const Session = () => {
     const players = data?.session?.session_players?.map((player) => <div key={player.id}>{player?.name}</div>)
 
     const scores2 = data?.session?.session_categories?.map((c) => (
-        <div key={c.id} className="row" style={{gridTemplateColumns: `repeat(${data?.session?.session_players?.length + 1}, 1fr)`}}>
+        <div key={c.id} className="row" style={{gridTemplateColumns: `repeat(${data?.session?.session_players?.length + 1}, 
+        ${100/(data?.session?.session_players?.length + 1)}%)`}}>
             <div>{c?.name}</div>
             {c?.session_scores?.map((score) => !enterScores ? 
             (
@@ -83,7 +84,7 @@ export const Session = () => {
     ))
 
     const totals = (
-        <div className="row" style={{gridTemplateColumns: `repeat(${data?.session?.session_players?.length + 1}, 1fr)`}}>
+        <div className="row" style={{gridTemplateColumns: `repeat(${data?.session?.session_players?.length + 1}, ${100/(data?.session?.session_players?.length + 1)}%)`}}>
             <div>TOTALS</div>
             {data?.session?.session_players?.map((p) => (
                 <div key={p.id} >{p.session_scores?.map(s => s.amount).reduce((a, v) => a + v)}</div>
@@ -143,7 +144,7 @@ export const Session = () => {
                     </div>
                     <div className="table">
                         <div className="headers" 
-                            style={{gridTemplateColumns: `repeat(${data?.session?.session_players?.length + 1}, 1fr)`}}
+                            style={{gridTemplateColumns: `repeat(${data?.session?.session_players?.length + 1}, ${100/(data?.session?.session_players?.length + 1)}%)`}}
                         >
                             <div></div>
                             {players}
