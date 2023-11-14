@@ -130,6 +130,10 @@ input:focus + .checkmark{
     padding: 0;
 }
 
+.input select{
+    height: 25px;
+}
+
 @media (max-width: 768px) {
     input[type='checkbox']{
         height: 18px;

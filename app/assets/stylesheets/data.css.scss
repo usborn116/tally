@@ -200,6 +200,10 @@ img{
     gap: 0px;
 }
 
+select.input{
+    height: 25px;
+}
+
 .player-section .body-button{
     gap: 0px;
     width: 100%;
@@ -248,5 +252,10 @@ img{
 
     .session-details{
         width: 100%;
+    }
+
+    select.input{
+        height: 30px;
+        --webkit-appearance: none;
     }
   }
