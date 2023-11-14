@@ -34,7 +34,7 @@ export const Game = () => {
     )
 
     const leaderboard = data?.results?.map(r => (
-        <div className='entry' key={r.id}>
+        <div className='entry leader-board' key={r.id}>
             <div>{r.player}</div>
             <div>{r.wins}</div>
         </div>
@@ -94,7 +94,7 @@ export const Game = () => {
                 <div className="data game-details">
                 <h3>Leaderboard</h3>
                     <div className="data">
-                        {leaderboard}
+                        {data?.results?.length > 0 ? leaderboard : ''}
                     </div>
                 </div>
             </div>

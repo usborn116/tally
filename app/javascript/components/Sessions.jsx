@@ -15,7 +15,7 @@ export const Sessions = ({data, game_id, setter}) => {
     const list = data.map((p) => (
         <div key={p.id} className="entry">
             <Link className='link' to={'/game_session/' + p.id}>{p.date}</Link>
-            <div className="game-details">Winner: {p.victor}</div>
+            <div className="game-details">{p.victor}</div>
         </div>
 
     ))
@@ -31,6 +31,10 @@ export const Sessions = ({data, game_id, setter}) => {
                     <Input type="hidden" name="game_id" value={game_id}/>
                     <Submit>+ New Session</Submit>
                 </Form>
+            </div>
+            <div className="entry">
+                <h3>Date</h3>
+                <h3>Winner</h3>
             </div>
             {list}
         </div>
