@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import { Button } from "./Button";
-import { useParams, Navigate } from "react-router-dom";
+import { useParams, Navigate, useNavigate } from "react-router-dom";
 import Form from "./Form";
 import Input from "./Input";
 import Submit from "./Submit";
@@ -18,6 +18,8 @@ export const Session = () => {
     const {user} = useSetUser()
 
     const id = useParams().id
+
+    const navigate = useNavigate()
 
     const [data, setData] = useState([])
     const [numPlayers, setNumPlayers] = useState(0)
@@ -69,10 +71,21 @@ export const Session = () => {
 
     if (error) return <Error message={error}/>
 
+    const deleteHandler = async (e) => {
+        e.preventDefault()
+        window.confirm('Are you sure you want to delete this session?')
+        await fetch(`/sessions/${id}`, { method: 'delete'})
+        navigate(-1)
+
+    }
+
     return (
         <div className="table">
             <div className="top-session">
-                <h2>{data?.session?.game?.name}</h2>
+                <div className="game-name">
+                    <h2>{data?.session?.game?.name}</h2>
+                    <Button handler={deleteHandler} classes={`delete-button`}>Delete Session&nbsp;<div className="x"> X </div></Button>
+                </div>
                 <div className="entry date-entry">
                     <h3>{editDate ? 
                         <Form endpoint="sessions" item='session' id={data?.session?.id} updater={updateData} 
@@ -122,7 +135,7 @@ export const Session = () => {
                         setData={setData} setError={setError} WIN_TYPE={WIN_TYPE}/>
                     {totals}
                     </div>
-                    <Button endpoint={`/session_winner/${data?.session?.id}`} setData={setData} handler={handleCalculate}>Calculate Score</Button>
+                    <Button setData={setData} handler={handleCalculate}>Calculate Score</Button>
                 </div>
                 }
 

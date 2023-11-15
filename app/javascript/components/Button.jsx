@@ -1,9 +1,12 @@
 import React from "react";
 
-export const Button = ({name = null, children, handler = null }) => {
+export const Button = ({name = null, children, handler = null, classes = null }) => {
+    console.log('class!', classes)
+
+    const classnames = `body-button ${classes}`
 
     return (
-        <button className="body-button" onClick={handler || ''}>{children ? children : `Create New ${name}`}</button>
+        <button className={classnames} onClick={handler || ''}>{children ? children : `Create New ${name}`}</button>
     )
 
 }

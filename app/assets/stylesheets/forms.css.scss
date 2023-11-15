@@ -134,6 +134,32 @@ input:focus + .checkmark{
     height: 25px;
 }
 
+.body-button.delete-button{
+    color: darkred;
+}
+
+.body-button.delete-button:hover{
+    color: red;
+    background-color: transparent;
+}
+
+.body-button.delete-button:active{
+    color: red;
+    background-color: transparent;
+}
+
+.body-button.delete-button .x{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    font-size: 10px;
+    background-color: darkred;
+    color: #E0DFD5;
+}
+
 @media (max-width: 768px) {
     input[type='checkbox']{
         height: 18px;
@@ -151,5 +177,8 @@ input:focus + .checkmark{
     .checkmark{
         height: 15px;
         width: 15px;
+    }
+    .body-button.delete-button{
+        font-size: 18px;
     }
 }

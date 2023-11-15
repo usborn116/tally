@@ -218,6 +218,14 @@ select.input{
     margin-top: 2vh;
 }
 
+.game-name{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5vw;
+    width: 100%;
+}
+
 @media (max-width: 500px) {
     .game-details{
         gap: 0;
