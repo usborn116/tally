@@ -1,8 +1,7 @@
 import React from "react";
 
 export const Button = ({name = null, children, handler = null, classes = null }) => {
-    console.log('class!', classes)
-
+    
     const classnames = `body-button ${classes}`
 
     return (

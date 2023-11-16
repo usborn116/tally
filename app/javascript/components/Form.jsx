@@ -6,7 +6,6 @@ const Form = ({submitter = null, navigate = null, className = null, style = null
     const formRef = useRef()
 
     const onSubmit = async (e) =>{
-        console.log('submit!')
         e.preventDefault()
         const formData=new FormData(formRef.current)
         const data=Object.fromEntries(formData)

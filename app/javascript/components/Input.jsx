@@ -7,7 +7,6 @@ const Input = ({type, name, placeHolder, value = '', options = null}) => {
     const handleChange = async (e) => {
         const set = await e.target.checked
         setChecked(set)
-
     }
 
     if (type == 'select' || type == 'select_text') return (
@@ -24,17 +23,11 @@ const Input = ({type, name, placeHolder, value = '', options = null}) => {
         </div>
     )
 
-    else if (type == 'hidden') return (
-        <div className="input" style={{display: 'hidden'}}>
-            <input type={type} name={name} onChange={handleChange} defaultChecked={value} defaultValue={checked}></input>
-        </div>
-    )
-
     else return (
-        <div className="input" >
+        <div className="input" style={type == 'hidden' ? {visibility: 'hidden'} : {display: 'block'}}>
             <div className="label">{placeHolder ? <div>{placeHolder}</div> : ''}</div>
             <div className="field">
-            <input type={type} name={name} placeholder={placeHolder} defaultValue={value} style={type == 'hidden' ? {visibility: 'hidden'} : {display: 'block'}}></input>
+                <input type={type} name={name} placeholder={placeHolder} defaultValue={value}></input>
             <p className="checkmark">✓</p>
             </div>
         </div>

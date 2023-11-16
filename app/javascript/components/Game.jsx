@@ -29,7 +29,7 @@ export const Game = () => {
     }, [edit, create, newSession])
 
     const categorySection = data?.categories?.map(c => (
-        <Category key={c.id} data={c} setData={setData} />
+        <Category key={c.id} data={c} setData={setData} setError={setError}/>
         )
     )
 
@@ -64,6 +64,7 @@ export const Game = () => {
     return (
         <div className="table game-table">
             <div className="top-game">
+
                 <div className="data game-details">
                     <h3>{data?.name}</h3>
                     <img src={data?.image}></img>
@@ -71,9 +72,11 @@ export const Game = () => {
                     <div>Playtime: {data?.gameplay_length}</div>
                     <div>Players Supported: {data?.player_number}</div>
                     <div>Complexity: {data?.complexity}/5</div>
+                    <div>Times Played: {data?.sessions?.length}</div>
                     <Switcher setter={setEdit} data={edit}>Edit Game Details</Switcher>
                 </div>
-                <div className="data game-details">
+
+                <div className="game-categories data game-details">
                     <h3>Categories</h3>
                     {categorySection}
                     <Switcher setter={setCreate} data={create}>Add New Category</Switcher>
@@ -91,13 +94,16 @@ export const Game = () => {
                         </Form> 
                     </div> : ''}
                 </div>
-                <div className="data game-details">
-                <h3>Leaderboard</h3>
+
+                <div className="game-leaderboard data game-details">
+                    <h3>Leaderboard</h3>
                     <div className="data">
                         {data?.results?.length > 0 ? leaderboard : ''}
                     </div>
                 </div>
+
             </div>
+
             {data?.sessions ? <Sessions data={data?.sessions} game_id={data?.id} setter={setNewSession} /> : ''}
         </div>
 

@@ -4,7 +4,5 @@ export function useError() {
 
     const [error, setError] = useState(null)
 
-    const response = {error: error, setError: setError }
-
-    return response
+    return {error: error, setError: setError }
 }

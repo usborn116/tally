@@ -11,6 +11,5 @@ export const useSetUser = () => {
         getUser(setUser, setError)
     }, [loading, error])
 
-    const response = {loading: loading, setLoading: setLoading, user: user, setUser: setUser, error: error, setError: setError }
-    return response
+    return {loading: loading, setLoading: setLoading, user: user, setUser: setUser, error: error, setError: setError }
 }
