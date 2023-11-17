@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import { useNavigate, Navigate } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 import { useSetUser } from "./helpers/useSetUser";
 
 export const User = () => {
@@ -11,9 +11,7 @@ export const User = () => {
         setLoading(false)
     }, [loading])
 
-    if (!user){
-        return <Navigate to="/" replace />;
-    }
+    if (!user){ <Navigate to="/" replace /> }
 
     return ( user && 
         <div className="data user-data">  
@@ -22,6 +20,5 @@ export const User = () => {
             <h2>Total Games: {user?.games?.length}</h2>
             <h2>Total Sessions Played: {user?.games?.map(g => g?.sessions?.length).reduce((a, v) => a + v)}</h2>
         </div>
-        
     )
 }

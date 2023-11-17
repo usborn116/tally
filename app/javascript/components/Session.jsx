@@ -35,17 +35,7 @@ export const Session = () => {
         getData(`/sessions/${id}`, setData, setError)
     }, [create, addPlayers, editDate, enterScores])
 
-    const handleChange = (e) => setNumPlayers(Number(e.target.value));
-
-    const handleCalculate = async (e) => {
-        setEnterScores(true)
-        e.preventDefault()
-        const response = await getData(`/session_winner/${data?.session?.id}`, setData, setError)
-        alert(response.message)
-        setEnterScores(false)
-    };
-
-    const add = [...Array(numPlayers)].map((x, i) => (
+    const add_players = [...Array(numPlayers)].map((x, i) => (
         <div key={i}>
             <div>Player {i + 1}</div>
             <Form submitter={true} endpoint="session_players" item='session_player' updater={newData} setter={setData} setError={setError}>
@@ -67,21 +57,30 @@ export const Session = () => {
         </div>
     )
 
-    if (!user) return <Navigate to="/" replace />
+    const handleChange = (e) => setNumPlayers(Number(e.target.value));
 
-    if (error) return <Error message={error}/>
+    const handleCalculate = async (e) => {
+        setEnterScores(true)
+        e.preventDefault()
+        const response = await getData(`/session_winner/${data?.session?.id}`, setData, setError)
+        alert(response.message)
+        setEnterScores(false)
+    };
 
     const deleteHandler = async (e) => {
         e.preventDefault()
         window.confirm('Are you sure you want to delete this session?')
         await fetch(`/sessions/${id}`, { method: 'delete'})
         navigate(-1)
-
     }
+
+    if (!user) return <Navigate to="/" replace />
+
+    if (error) return <Error message={error}/>
 
     return (
         <div className="table">
-            <div className="top-session">
+            <div className="session-overview top-session">
                 <div className="game-name">
                     <h2>{data?.session?.game?.name}</h2>
                     <Button handler={deleteHandler} classes={`delete-button`}>Delete Session&nbsp;<div className="x"> X </div></Button>
@@ -115,7 +114,7 @@ export const Session = () => {
                     <div className="data">
                         <div># Players</div>
                         <input type="number" defaultValue={numPlayers} onChange={handleChange}></input>
-                        {add}
+                        {add_players}
                     </div>
                     : ''}
                 </div>
@@ -124,7 +123,7 @@ export const Session = () => {
                 <div className="scores game-details">
                     <div className="game-data">
                         <h3>Scores</h3>
-                        <Switcher setter={setEnterScores} data={enterScores}>+ Scores</Switcher>
+                        <Switcher setter={setEnterScores} data={enterScores}>Edit Scores</Switcher>
                     </div>
                     <div className="table">
                         <div className="headers" style={styling}>
@@ -135,10 +134,9 @@ export const Session = () => {
                         setData={setData} setError={setError} WIN_TYPE={WIN_TYPE}/>
                     {totals}
                     </div>
-                    <Button setData={setData} handler={handleCalculate}>Calculate Score</Button>
+                    <Button setData={setData} handler={handleCalculate}>Calculate Scores!</Button>
                 </div>
                 }
-
             </div>
         </div>
 

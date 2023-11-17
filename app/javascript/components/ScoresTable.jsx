@@ -18,8 +18,8 @@ export default ScoresTable = ({data, styling, enterScores, updateData, setData, 
                     updater={updateData} setter={setData} setError={setError} className='row'>
                     {!c.point_based ? 
                         <div className="linked">
-                        <div>Won?</div>
-                        <Input type="checkbox" name="win" value={score.win}/> 
+                            <div>Won?</div>
+                            <Input type="checkbox" name="win" value={score.win}/> 
                         </div>
                         :
                         <Input type="number" name="amount" value={score.amount}/> 
