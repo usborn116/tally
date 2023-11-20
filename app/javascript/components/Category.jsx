@@ -1,10 +1,10 @@
 import React from "react";
-import Form from "./Form";
-import Input from "./Input";
-import Submit from "./Submit";
+import { Form } from "./Form";
+import { Input } from "./Input";
+import { Submit } from "./Submit";
 import { updateData } from "./helpers/api_helpers";
 
-export default Category = ({data, setData, setError}) => {
+export const Category = ({data, setData, setError}) => {
 
     return (
         <div className="category-row">

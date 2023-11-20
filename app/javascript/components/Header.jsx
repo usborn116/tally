@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Logout from "./Logout";
+import { Logout } from "./Logout";
 
-const Header = ({setUser, user, setLoading}) => {
+export const Header = ({setUser, user, setLoading}) => {
 
     return (
         <div className="nav">
@@ -21,5 +21,3 @@ const Header = ({setUser, user, setLoading}) => {
     )
 
 };
-
-export default Header

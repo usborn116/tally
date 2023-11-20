@@ -1,9 +1,9 @@
 import React from "react";
-import Form from "./Form";
-import Input from "./Input";
-import Submit from "./Submit";
+import { Form } from "./Form";
+import { Input } from "./Input";
+import { Submit } from "./Submit";
 
-export default ScoresTable = ({data, styling, enterScores, updateData, setData, setError, WIN_TYPE}) => {
+export const ScoresTable = ({data, styling, enterScores, updateData, setData, setError, WIN_TYPE}) => {
 
     const scores = data?.session?.session_categories?.map((c) => (
         <div key={c.id} className="row" style={styling}>

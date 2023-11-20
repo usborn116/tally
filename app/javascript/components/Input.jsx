@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 
-const Input = ({type, name, placeHolder, value = '', options = null}) => {
+export const Input = ({type, name, placeHolder, value = '', options = null}) => {
 
     const [checked, setChecked] = useState(value)
 
@@ -33,5 +33,3 @@ const Input = ({type, name, placeHolder, value = '', options = null}) => {
         </div>
     )
 };
-
-export default Input

@@ -1,6 +1,6 @@
 import React from "react";
 
-export default Footer = () => {
+export const Footer = () => {
     return (
         <footer className='footer'>
             <div className="left-bar"></div>

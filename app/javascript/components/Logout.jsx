@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { getUser } from "./helpers/api_helpers";
 import { useError } from "./helpers/useError";
 
-const Logout = ({setUser, setLoading}) => {
+export const Logout = ({setUser, setLoading}) => {
 
     const navigate = useNavigate()
 
@@ -44,5 +44,3 @@ const Logout = ({setUser, setLoading}) => {
     return <button className="button" onClick={handleClick}>Log Out</button>
 
 };
-
-export default Logout

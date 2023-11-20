@@ -43,7 +43,7 @@ export const getUser = async (setter, setError) => {
         return data
     }
     catch(error){
-        return await errorHandler(error, endpoint, setError)
+        return await errorHandler(error, '/get_user', setError)
     }
 }
 

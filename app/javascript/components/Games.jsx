@@ -2,17 +2,17 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { getData, newData } from "./helpers/api_helpers";
 import { Navigate } from "react-router-dom"
-import Form from "./Form";
-import Input from "./Input";
-import Submit from "./Submit";
-import Switcher from "./Switcher";
+import { Form } from "./Form";
+import { Input } from "./Input";
+import { Submit } from "./Submit";
+import { Switcher } from "./Switcher";
 import { useError } from "./helpers/useError";
 import { Error } from "./Error";
 import { useSetUser } from "./helpers/useSetUser";
 import { GameListing } from "./GameListing";
-import SearchBar from "./SearchBar";
+import { SearchBar } from "./SearchBar";
 
-export default Games = ({endpoint, homeError = null}) => {
+export const Games = ({endpoint, homeError = null}) => {
 
     const {user} = useSetUser()
 

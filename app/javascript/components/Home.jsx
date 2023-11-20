@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import { Players } from "./Players";
-import Games from "./Games";
+import { Games } from "./Games";
 import { getUser } from "./helpers/api_helpers";
 import { Error } from "./Error";
 

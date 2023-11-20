@@ -1,7 +1,7 @@
 import React, {useRef} from "react";
 import { form_object } from "./helpers/form_helpers";
 
-const Form = ({submitter = null, navigate = null, className = null, style = null, endpoint, item, updater, id, setError, setToggle, children}) => {
+export const Form = ({submitter = null, navigate = null, className = null, style = null, endpoint, item, updater, id, setError, setToggle, children}) => {
 
     const formRef = useRef()
 
@@ -30,5 +30,3 @@ const Form = ({submitter = null, navigate = null, className = null, style = null
         </div>
           )
 };
-
-export default Form

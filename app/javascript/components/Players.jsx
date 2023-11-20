@@ -1,11 +1,11 @@
 import React from "react";
-import Player from "./Player";
+import { Player } from "./Player";
 import { useState, useEffect } from "react";
 import { getData } from "./helpers/api_helpers";
-import Form from "./Form";
-import Submit from "./Submit";
-import Input from "./Input";
-import Switcher from "./Switcher";
+import { Form } from "./Form";
+import { Submit } from "./Submit";
+import { Input } from "./Input";
+import { Switcher } from "./Switcher";
 import { newData } from "./helpers/api_helpers";
 
 export const Players = ({homeError = null}) => {

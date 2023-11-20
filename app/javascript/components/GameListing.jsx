@@ -3,8 +3,6 @@ import { Link } from "react-router-dom";
 
 export const GameListing = ({data, endpoint = null}) => {
 
-    console.log(data)
-
     return (
         <div className="game-data">
             <img src={data?.image}></img>

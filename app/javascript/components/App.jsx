@@ -1,8 +1,8 @@
 import React from "react";
-import RoutesIndex from "../routes/RoutesIndex";
+import { RoutesIndex } from "../routes/RoutesIndex";
 import { useSetUser } from "./helpers/useSetUser";
 
-export default App = () => {
+export const App = () => {
 
     const {user, setUser, loading, setLoading, error, setError} = useSetUser()
 

@@ -1,17 +1,17 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import {Home} from "../components/Home";
+import { Home } from "../components/Home";
 import { User } from "../components/User";
-import Games from "../components/Games";
+import { Games } from "../components/Games";
 import { Game } from "../components/Game";
 import { Session } from "../components/Session";
 import { Login } from "../components/Login";
-import Logout from "../components/Logout";
+import { Logout } from "../components/Logout";
 import { Error } from "../components/Error";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
+import { Header } from "../components/Header";
+import { Footer } from "../components/Footer";
 
-export default RoutesIndex = ({user, setUser, error, setError, setLoading, loading}) => {
+export const RoutesIndex = ({user, setUser, error, setError, setLoading, loading}) => {
 
   return (
     <Router>

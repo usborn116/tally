@@ -1,15 +1,15 @@
 import React, {useState, useEffect} from "react";
 import { Button } from "./Button";
 import { useParams, Navigate, useNavigate } from "react-router-dom";
-import Form from "./Form";
-import Input from "./Input";
-import Submit from "./Submit";
-import Switcher from "./Switcher";
+import { Form } from "./Form";
+import { Input } from "./Input";
+import { Submit } from "./Submit";
+import { Switcher } from "./Switcher";
 import { newData, getData, updateData } from "./helpers/api_helpers";
 import { useSetUser } from "./helpers/useSetUser";
 import { useError } from "./helpers/useError";
 import { Error } from "./Error";
-import ScoresTable from "./ScoresTable";
+import { ScoresTable } from "./ScoresTable";
 
 export const Session = () => {
 

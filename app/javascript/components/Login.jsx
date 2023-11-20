@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import Form from "./Form";
-import Input from "./Input";
-import Submit from "./Submit";
+import { Form } from "./Form";
+import { Input } from "./Input";
+import { Submit } from "./Submit";
 import { logIn, signup, getUser} from "./helpers/api_helpers";
-import Switcher from "./Switcher";
+import { Switcher } from "./Switcher";
 import {useNavigate} from 'react-router-dom'
 import { useError } from "./helpers/useError";
 

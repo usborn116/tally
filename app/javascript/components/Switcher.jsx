@@ -1,6 +1,6 @@
 import React from "react";
 
-const Switcher = ({setter, data, children}) => {
+export const Switcher = ({setter, data, children}) => {
 
     return (
         <button className="body-button" onClick={() => data ? setter(false) : setter(true)}>
@@ -9,5 +9,3 @@ const Switcher = ({setter, data, children}) => {
     )
 
 };
-
-export default Switcher
