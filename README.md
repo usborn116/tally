@@ -42,3 +42,13 @@ Docs that were helpful in the making of this project:
 - Using SASS in Rails: https://stackoverflow.com/questions/73417883/loaderror-cannot-load-such-file-sassc
 - HTML Events: https://www.w3schools.com/jsref/dom_obj_event.asp
 - CSS Media queries: https://stackoverflow.com/questions/66045259/css-grid-two-columns-on-desktop-and-1-column-on-mobile
+
+Jest Testing Help:
+
+- Jest and React Hooks: https://vaskort.medium.com/how-to-unit-test-your-custom-react-hook-with-react-testing-library-and-jest-8bdefafdc8a2
+- Testing React Apps: https://jestjs.io/docs/tutorial-react
+- React Testing Library: https://testing-library.com/docs/
+- React Testing Library guide: https://testing-library.com/docs/react-testing-library/intro
+- DOM Manipulation: https://jestjs.io/docs/tutorial-jquery
+- Jest Docs: https://jestjs.io/docs/api
+- Testing UseState: https://allmaddesigns.com/test-react-usestate-with-jest/
