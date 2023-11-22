@@ -52,3 +52,4 @@ Jest Testing Help:
 - DOM Manipulation: https://jestjs.io/docs/tutorial-jquery
 - Jest Docs: https://jestjs.io/docs/api
 - Testing UseState: https://allmaddesigns.com/test-react-usestate-with-jest/
+- Mocking hooks in components: https://dev.to/mbarzeev/mocking-data-fetching-react-hooks-nn5

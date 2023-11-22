@@ -5,7 +5,7 @@ import {render, screen} from '@testing-library/react'
 import { Home } from '../Home';
 
 
-describe('Home has expected first header',() => {
+describe('Home has expected components',() => {
     test('renders correct text for no user', () => {
         render(<Home setLoading={() => {}} setError={() => {}}/>)
         const heading = screen.getAllByRole('heading');
@@ -23,8 +23,18 @@ describe('Home has expected first header',() => {
         const heading = screen.getAllByText('All Games')
         expect(heading[0]).toBeDefined()
     })
-    
+
     test('has the players component if user', () => {
+        render(<Home setLoading={() => {}} setError={() => {}} user={{name: 'John'}}/>)
+        expect(screen.getByText('Your Players')).toBeDefined()
+    })
+
+    test('you can add a new player', () => {
+        render(<Home setLoading={() => {}} setError={() => {}} user={{name: 'John'}}/>)
+        expect(screen.getByText('Your Players')).toBeDefined()
+    })
+
+    test('you can save changes to an existing player', () => {
         render(<Home setLoading={() => {}} setError={() => {}} user={{name: 'John'}}/>)
         expect(screen.getByText('Your Players')).toBeDefined()
     })
