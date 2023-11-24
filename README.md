@@ -53,3 +53,6 @@ Jest Testing Help:
 - Jest Docs: https://jestjs.io/docs/api
 - Testing UseState: https://allmaddesigns.com/test-react-usestate-with-jest/
 - Mocking hooks in components: https://dev.to/mbarzeev/mocking-data-fetching-react-hooks-nn5
+- Accessible Roles: https://www.w3.org/TR/html-aria/#docconformance
+- ByRole docs: https://testing-library.com/docs/queries/byrole
+- UserEvent: https://testing-library.com/docs/user-event/v13/#typeelement-text-options

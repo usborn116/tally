@@ -90,7 +90,7 @@ export const Session = () => {
                         <Form endpoint="sessions" item='session' id={data?.session?.id} updater={updateData} 
                             setter={setData} setToggle={setEditDate} setError={setError}>
                             <Input type="date" name="date" value={data?.session?.date}/>
-                            <Submit>Save</Submit>
+                            <Submit>Save Date</Submit>
                         </Form> :  data?.session?.date}
                     </h3>
                     <Switcher setter={setEditDate} data={editDate}>Change Date</Switcher>
@@ -107,7 +107,7 @@ export const Session = () => {
                     {create ? 
                     <Form endpoint="players" item='player' updater={newData} setter={setData} setToggle={setCreate} setError={setError}>
                         <Input type="text" name="name" value={data.name}/>
-                        <Submit >Save</Submit>
+                        <Submit>Create New Player</Submit>
                     </Form> : ''}
                     <Switcher setter={setAddPlayers} data={addPlayers}>{addPlayers ? 'Done Adding' : '+ Player(s) to Game'}</Switcher>
                     {addPlayers ?

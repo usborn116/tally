@@ -11,4 +11,10 @@ describe('button has expected text',() => {
         const button = screen.getByRole('button');
         expect(button.textContent).toMatch(/Create New/)
     });
+
+    test('calls onClick handler', () => {
+        render(<Button/>);
+        const button = screen.getByRole('button');
+        expect(button.textContent).toMatch(/Create New/)
+    });
   })
