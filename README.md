@@ -56,3 +56,4 @@ Jest Testing Help:
 - Accessible Roles: https://www.w3.org/TR/html-aria/#docconformance
 - ByRole docs: https://testing-library.com/docs/queries/byrole
 - UserEvent: https://testing-library.com/docs/user-event/v13/#typeelement-text-options
+- Jest Setup: https://jestjs.io/docs/setup-teardown

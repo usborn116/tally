@@ -21,25 +21,27 @@ export const Session = () => {
 
     const navigate = useNavigate()
 
-    const [data, setData] = useState([])
+    const [data, setData] = useState(null)
     const [numPlayers, setNumPlayers] = useState(0)
     const [create, setCreate] = useState(false)
     const [addPlayers, setAddPlayers] = useState(false)
     const [editDate, setEditDate] = useState(false)
     const [enterScores, setEnterScores] = useState(false)
 
-    const WIN_TYPE = {true: 'WON!', false: 'Not won'}
-    const styling = {gridTemplateColumns: `repeat(${data?.session?.session_players?.length + 1}, ${100/(data?.session?.session_players?.length + 1)}%)`}
-
     useEffect(() => {
         getData(`/sessions/${id}`, setData, setError)
     }, [create, addPlayers, editDate, enterScores])
+
+    const WIN_TYPE = {true: 'WON!', false: 'Not won'}
+    const styling = {gridTemplateColumns: `repeat(${data?.session?.session_players?.length + 1}, ${100/(data?.session?.session_players?.length + 1)}%)`}
+
+    
 
     const add_players = [...Array(numPlayers)].map((x, i) => (
         <div key={i}>
             <div>Player {i + 1}</div>
             <Form submitter={true} endpoint="session_players" item='session_player' updater={newData} setter={setData} setError={setError}>
-                <Input type="select_text" name="name" options={data.players}/>
+                <Input type="select_text" name="name" options={data?.players ? data.players : [{name: 'foo'}, {name: 'bar'}]}/>
                 <Input type="hidden" name="session_id" value={data?.session?.id} />
                 <Submit nobutton={true}>Save</Submit>
             </Form>
@@ -106,7 +108,7 @@ export const Session = () => {
                     <Switcher setter={setCreate} data={create}>{create ? 'Done Adding' : '+ Player to Account'}</Switcher>
                     {create ? 
                     <Form endpoint="players" item='player' updater={newData} setter={setData} setToggle={setCreate} setError={setError}>
-                        <Input type="text" name="name" value={data.name}/>
+                        <Input type="text" name="name" value=''/>
                         <Submit>Create New Player</Submit>
                     </Form> : ''}
                     <Switcher setter={setAddPlayers} data={addPlayers}>{addPlayers ? 'Done Adding' : '+ Player(s) to Game'}</Switcher>

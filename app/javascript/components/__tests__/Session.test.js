@@ -19,6 +19,7 @@ const fakeuser = {user: {name: 'John', email: 'a@a.com',
 
 const fakeError = {error: false, setError: () => {}}
 
+
 jest.mock('../helpers/useSetUser', () => ({
     useSetUser: () => {
         return fakeuser;
@@ -33,6 +34,7 @@ jest.mock('../helpers/useSetUser', () => ({
 
 
 describe('Session component works correctly',() => {
+
     test('has the name, date, winner, and a delete button', () => {
         render(<Session/>)
         const headers = screen.getAllByRole('heading')
@@ -75,23 +77,22 @@ describe('Session component works correctly',() => {
         expect(screen.queryByText('Create New Player')).toBe(null)
     });
 
-    test('You can add a player to the session, it renders the right amount of fields, and Scores table shows those players', () => {
-        render(<Session/>)
+    test('You can add a player to the session, it renders the right amount of fields, and exits out of the form when done', async () => {
         
+        render(<Session/>)
+        await user.click(screen.getByText('+ Player(s) to Game'))
+        expect(screen.queryByText('# Players')).not.toBe(null)
+        const input = screen.getByRole('spinbutton')
+        expect(input.value).toBe('0')
+        await user.type(input,'2')
+        expect(input.value).toBe('2')
+        const boxes = screen.getAllByRole('combobox')
+        expect(boxes.length).toBe(2)
+        await user.type(boxes[0],'foo')
+        await user.type(boxes[1],'bar')
+        await user.click(screen.queryByText('Done Adding'))
+        expect(screen.queryByText('Done Adding')).toBe(null)
     });
 
-    test('you can edit the scores of the session', () => {
-        render(<Session/>)
-        
-    });
-
-    test('data is saved when editing a score', () => {
-        render(<Session/>)
-       
-    });
-
-    test('calculating the scores sends the right API request and shows the right results', () => {
-        render(<Session/>)
-        
-    });
+    
   })
