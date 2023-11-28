@@ -3,9 +3,9 @@ import { Form } from "./Form";
 import { Input } from "./Input";
 import { Submit } from "./Submit";
 
-export const ScoresTable = ({data, styling, enterScores, updateData, setData, setError, WIN_TYPE}) => {
+export const ScoresTable = ({data, players, totals, styling, enterScores, updateData, setData, setError, WIN_TYPE}) => {
 
-    const scores = data?.session?.session_categories?.map((c) => (
+    const scores = data?.session?.session_categories?.map((c) => ( 
         <div key={c.id} className="row" style={styling}>
             <div>{c?.name}</div>
             {c?.session_scores?.map((score) => !enterScores ? 
@@ -30,7 +30,16 @@ export const ScoresTable = ({data, styling, enterScores, updateData, setData, se
             )
             )}
         </div>
-    ))
+))
 
-    return scores
+    return (
+        <div className="table">
+            <div className="headers" style={styling}>
+                <div></div>
+                {players?.map((p) => <div key={p.id}>{p.name}</div>)}
+            </div>
+            {scores}
+            {totals}
+        </div>
+    )
 }

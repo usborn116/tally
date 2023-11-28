@@ -78,7 +78,6 @@ describe('Session component works correctly',() => {
     });
 
     test('You can add a player to the session, it renders the right amount of fields, and exits out of the form when done', async () => {
-        
         render(<Session/>)
         await user.click(screen.getByText('+ Player(s) to Game'))
         expect(screen.queryByText('# Players')).not.toBe(null)

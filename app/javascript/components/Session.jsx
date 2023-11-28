@@ -48,7 +48,7 @@ export const Session = () => {
         </div>
     ))
 
-    const players = data?.session?.session_players?.map((player) => <div key={player.id}>{player?.name}</div>)
+    const players = data?.session?.session_players?.map((player) => player)
 
     const totals = (
         <div className="row" style={styling}>
@@ -127,15 +127,8 @@ export const Session = () => {
                         <h3>Scores</h3>
                         <Switcher setter={setEnterScores} data={enterScores}>Edit Scores</Switcher>
                     </div>
-                    <div className="table">
-                        <div className="headers" style={styling}>
-                            <div></div>
-                            {players}
-                        </div>
-                    <ScoresTable data={data} styling={styling} enterScores={enterScores} updateData={updateData} 
-                        setData={setData} setError={setError} WIN_TYPE={WIN_TYPE}/>
-                    {totals}
-                    </div>
+                    <ScoresTable players={players} totals={totals} data={data} styling={styling} enterScores={enterScores} 
+                    updateData={updateData} setData={setData} setError={setError} WIN_TYPE={WIN_TYPE}/>
                     <Button setData={setData} handler={handleCalculate}>Calculate Scores!</Button>
                 </div>
                 }
@@ -144,3 +137,14 @@ export const Session = () => {
 
     )
 }
+
+/*<div className="table">
+<div className="headers" style={styling}>
+<div></div>
+{players}
+</div>
+<ScoresTable players={players} totals={totals} data={data} styling={styling} enterScores={enterScores} updateData={updateData} 
+setData={setData} setError={setError} WIN_TYPE={WIN_TYPE}/>
+{totals}
+</div>
+*/
