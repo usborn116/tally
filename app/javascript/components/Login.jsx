@@ -26,7 +26,7 @@ export const Login = ({setUser}) => {
     }, [notLoggedIn])
 
     const form = existing ? 
-        <div className="data">
+        <div className="data" data-testid="login-box">
         <h1>Log In</h1>
             <Form endpoint="users/sign_in" item='login' updater={logIn} setter={setUser} setToggle={setNotLoggedIn} navigate={navigate}>
                 <Input type="email" name="email" placeHolder='email address'/>
@@ -34,7 +34,7 @@ export const Login = ({setUser}) => {
                 <Submit/>
             </Form>
         </div> : 
-        <div className="data">
+        <div className="data" data-testid="signup-box">
         <h1>Sign Up</h1>
             <Form endpoint="users" item='signup' updater={signup} setter={setUser} setToggle={setNotLoggedIn} navigate={navigate}>
                 <Input type="text" name="name" placeHolder='name'/>
