@@ -26,7 +26,7 @@ export const Games = ({endpoint, homeError = null}) => {
         getData(`/${endpoint}${search ? `?name=${search}`: ''}`, setData, homeError || setError)
     }, [create, search])
     
-    const list = data.map((p) => (
+    const list = data?.map((p) => (
         <GameListing key={p.id} data={p} endpoint={endpoint} />
     ))
 
@@ -34,10 +34,9 @@ export const Games = ({endpoint, homeError = null}) => {
         return <Navigate to="/" replace />;
     }
 
-    if (error) return (<Error message={error}/>)
-
     if (create) return (
         <div className="data create-data">
+        {error ? <Error message={error}/> : '' }
         <Switcher setter={setCreate} data={create}>See All Games</Switcher>
         <Form endpoint="games" item='game' updater={newData} setter={setData} setToggle={setCreate} setError={setError}>
                 <Input type="text" name="name" placeHolder='Name' />
@@ -54,6 +53,7 @@ export const Games = ({endpoint, homeError = null}) => {
     
     return (
         <div className="data">
+            {error ? <Error message={error}/> : '' }
             { endpoint == 'user_games' ? 
             <SearchBar setSearch={setSearch} />
             : '' }
