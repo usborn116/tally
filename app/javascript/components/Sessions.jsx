@@ -12,7 +12,7 @@ export const Sessions = ({data, game_id, setter}) => {
         setter(() => true)
     }, [])
 
-    const list = data.map((p) => (
+    const list = data?.map((p) => (
         <div key={p.id} className="entry">
             <Link className='link' to={'/game_session/' + p.id}>{p.date}</Link>
             <div className="game-details">{p.victor}</div>

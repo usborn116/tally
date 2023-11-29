@@ -104,7 +104,7 @@ export const Session = () => {
 
                 <div className="player-section game-details">
                     <h3>Players</h3>
-                    {players}
+                    {players?.map((p) => <div key={p.id}>{p.name}</div>)}
                     <Switcher setter={setCreate} data={create}>{create ? 'Done Adding' : '+ Player to Account'}</Switcher>
                     {create ? 
                     <Form endpoint="players" item='player' updater={newData} setter={setData} setToggle={setCreate} setError={setError}>
@@ -137,14 +137,3 @@ export const Session = () => {
 
     )
 }
-
-/*<div className="table">
-<div className="headers" style={styling}>
-<div></div>
-{players}
-</div>
-<ScoresTable players={players} totals={totals} data={data} styling={styling} enterScores={enterScores} updateData={updateData} 
-setData={setData} setError={setError} WIN_TYPE={WIN_TYPE}/>
-{totals}
-</div>
-*/

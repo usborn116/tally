@@ -1,4 +1,6 @@
 //to make sure submitting a Form calls a function
+//make sure form session creates new session
+
 /**
  * @jest-environment jsdom
  */

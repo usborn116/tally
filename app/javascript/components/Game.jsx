@@ -44,10 +44,9 @@ export const Game = () => {
         return <Navigate to="/" replace />;
     }
 
-    if (error) return (<Error message={error}/>)
-
     if (edit) return (
-        <div className="data">
+        <div className="data edit-game-form">
+        {error ? <Error message={error}/> : ''}
         <Switcher setter={setEdit} data={edit}>See Game Details</Switcher>
         <Form endpoint="games" item='game' id={data.id} updater={updateData} setter={setData} setToggle={setEdit} setError={setError}>
                 <Input type="text" name="name" value={data?.name} placeHolder='Name' />
@@ -63,6 +62,7 @@ export const Game = () => {
 
     return (
         <div className="table game-table">
+            {error ? <Error message={error}/> : ''}
             <div className="top-game">
 
                 <div className="data game-details">
@@ -84,7 +84,7 @@ export const Game = () => {
                     <div className="category-row">
                         <Form endpoint="categories" item='category' updater={newData} setter={setData} setToggle={setCreate}
                         style={{gridTemplateColumns: `repeat(4, 1fr)`}} className="row">
-                            <Input type="text" name="name" value='Category Name'/>
+                            <Input type="text" name="name" placeHolder='Category Name'/>
                             <div className="linked">
                                 <div>Points Based?</div>
                                 <Input type="checkbox" name="point_based" />
