@@ -47,6 +47,20 @@ export const getUser = async (setter, setError) => {
     }
 }
 
+export const logout = async (setError) =>{
+    try{
+        await fetch(`/users/sign_out`, {
+            method: 'delete',
+            headers: {
+                "content-type": 'application/json',
+                "accept": "application/json",
+            },
+        }) 
+    } catch (error){
+        setError({message: 'Error logging out!'})
+    }
+}
+
 export const newData = async (endpoint, info, setError)=>{
     try{
         const response=await putPostData(endpoint, 'post', info)

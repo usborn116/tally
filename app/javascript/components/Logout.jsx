@@ -1,13 +1,13 @@
 import React, {useEffect} from "react";
 import { useNavigate } from "react-router-dom";
-import { getUser } from "./helpers/api_helpers";
+import { getUser, logout } from "./helpers/api_helpers";
 import { useError } from "./helpers/useError";
 
-export const Logout = ({setUser, setLoading}) => {
+export const Logout = ({setUser, setLoading, handler = null }) => {
 
     const navigate = useNavigate()
 
-    const {error} = useError()
+    const {error, setError} = useError()
     
     useEffect(() => {
         setLoading(true)
@@ -15,24 +15,10 @@ export const Logout = ({setUser, setLoading}) => {
         setLoading(false)
     }, [])
 
-    const logout = async (setError)=>{
-        try{
-            await fetch(`/users/sign_out`, {
-                method: 'delete',
-                headers: {
-                    "content-type": 'application/json',
-                    "accept": "application/json",
-                },
-            }) 
-        } catch (error){
-            setError({message: 'Error logging out!'})
-        }
-    }
-
-    const handleClick = async (e) =>{
+    const handleLogout = async (e) =>{
         e.preventDefault()
         setLoading(true)
-        await logout()
+        await logout(setError)
         await getUser(setUser)
         setLoading(false)
         alert(`Logged Out!`)
@@ -41,6 +27,6 @@ export const Logout = ({setUser, setLoading}) => {
 
     if (error) return <Error />
 
-    return <button className="button" onClick={handleClick}>Log Out</button>
+    return <button data-testid='logout-button' className="button" onClick={handler ? handler : handleLogout}>Log Out</button>
 
 };

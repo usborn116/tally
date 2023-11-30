@@ -15,7 +15,7 @@ export const Header = ({setUser, user, setLoading}) => {
             <div className="right-bar">
                 {user ? <Link to="/mygames" className="button">My Games</Link> : ''}
                 {user ? <Link to="/user" className="button">Profile</Link> : ''}
-                {user ? <Logout setUser={setUser} setLoading={setLoading}/> : <Link className="button" to={'/login'}>Log In</Link>}
+                {user ? <Logout setUser={setUser} setLoading={setLoading} user={user}/> : <Link className="button" to={'/login'}>Log In</Link>}
             </div>
         </div>
     )
