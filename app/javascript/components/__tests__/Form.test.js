@@ -6,7 +6,8 @@
 //make sure Form toggle is hit
 
 import {render, screen} from '@testing-library/react'
-import { Form, MemoryRouter } from 'react-router-dom';
+import { MemoryRouter } from 'react-router-dom';
+import { Form } from '../Form';
 import { Input } from '../Input';
 import { Submit } from '../Submit';
 import userEvent from '@testing-library/user-event';
@@ -18,18 +19,17 @@ const mockToggle = jest.fn()
 
 
 describe('Forms submit correctly',() => {
-    test('calls submit function', async () => {
-        /*
+    test('calls submit function and toggle function', async () => {
+        
         render(<MemoryRouter>
-                    <Form endpoint='/test' item='test' updater={mockUpdate} setError={jest.fn()} setToggle={mockToggle}>
+                    <Form endpoint='/test' item='test' updater={mockUpdate} setError={jest.fn()} setToggle={mockToggle} navigate={mockUpdate}>
                         <Submit>Submit</Submit>
                     </Form>
                 </MemoryRouter>)
-        */
-    });
-
-    test('calls toggle function', async () => {
-        //render(<MemoryRouter><Form/></MemoryRouter>)
+        await user.click(screen.getByText('Submit'))
+        expect(mockUpdate).toHaveBeenCalledTimes(2)
+        expect(mockToggle).toHaveBeenCalledTimes(1)
+        
     });
 
     test('text input renders text field', () => {
