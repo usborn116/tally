@@ -27,10 +27,11 @@ export const Session = () => {
     const [addPlayers, setAddPlayers] = useState(false)
     const [editDate, setEditDate] = useState(false)
     const [enterScores, setEnterScores] = useState(false)
+    const [deletePlayer, setDeletePlayer] = useState(false)
 
     useEffect(() => {
         getData(`/sessions/${id}`, setData, setError)
-    }, [create, addPlayers, editDate, enterScores])
+    }, [create, addPlayers, editDate, enterScores, deletePlayer])
 
     const WIN_TYPE = {true: 'WON!', false: 'Not won'}
     const styling = {gridTemplateColumns: `repeat(${data?.session?.session_players?.length + 1}, ${100/(data?.session?.session_players?.length + 1)}%)`}
@@ -63,10 +64,10 @@ export const Session = () => {
 
     const handleCalculate = async (e) => {
         setEnterScores(true)
-        e.preventDefault()
+        e?.preventDefault()
         const response = await getData(`/session_winner/${data?.session?.id}`, setData, setError)
-        alert(response.message)
         setEnterScores(false)
+        alert(response.message)
     };
 
     const deleteHandler = async (e) => {
@@ -74,6 +75,15 @@ export const Session = () => {
         window.confirm('Are you sure you want to delete this session?')
         await fetch(`/sessions/${id}`, { method: 'delete'})
         navigate(-1)
+    }
+
+    const playerDelete = async (e, id) => {
+        e.preventDefault()
+        setDeletePlayer(true)
+        window.confirm('Are you sure you want to delete this player')
+        await fetch(`/session_players/${id}`, { method: 'delete'})
+        handleCalculate()
+        setDeletePlayer(false)
     }
 
     if (!user) return <Navigate to="/" replace />
@@ -104,7 +114,13 @@ export const Session = () => {
 
                 <div className="player-section game-details">
                     <h3>Players</h3>
-                    {players?.map((p) => <div key={p.id}>{p.name}</div>)}
+                    {players?.map((p) => (
+                        <div key={p.id} style={{display: 'flex', width: '100%'}}>
+                            {p.name}&nbsp;
+                            <Button handler={(e) => playerDelete(e, p.id)} classes={`delete-button`}><div className="x"> X </div></Button>
+                        </div>
+                        )
+                    )}
                     <Switcher setter={setCreate} data={create}>{create ? 'Done Adding' : '+ Player to Account'}</Switcher>
                     {create ? 
                     <Form endpoint="players" item='player' updater={newData} setter={setData} setToggle={setCreate} setError={setError}>
