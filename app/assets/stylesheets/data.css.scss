@@ -126,6 +126,7 @@ img{
 .session-details{
     margin: 2vw;
     width: 50%;
+    padding: 2vh;
 }
 
 .session-details > .row{
@@ -178,7 +179,7 @@ img{
 
 .leader-board{
     width: 70%;
-    align-self: center;
+    //align-self: center;
 }
 
 .session-data{
@@ -226,6 +227,10 @@ select.input{
     width: 100%;
 }
 
+.title{
+    font-size: 21px;
+}
+
 @media (max-width: 500px) {
     .game-details{
         gap: 0;
@@ -240,6 +245,8 @@ select.input{
     .session-details{
         height: 100%;
         gap: 0;
+        padding: 0px;
+        width: 100%;
     }
     .session-data{
         grid-template-columns: 1fr;
@@ -258,12 +265,16 @@ select.input{
         font-size: 1.02em;
     }
 
-    .session-details{
-        width: 100%;
-    }
-
     select.input{
         height: 30px;
         --webkit-appearance: none;
+    }
+
+    .session-listing a{
+        font-size: 20px;
+    }
+
+    .session-details > .row{
+        margin-bottom: 0%;
     }
   }

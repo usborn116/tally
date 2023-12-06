@@ -13,8 +13,8 @@ export const Sessions = ({data, game_id, setter}) => {
     }, [])
 
     const list = data?.map((p) => (
-        <div key={p.id} className="entry">
-            <Link className='link' to={'/game_session/' + p.id}>{p.date}</Link>
+        <div key={p.id} className="entry session-listing">
+            <Link className='link' to={'/game_session/' + p.id}>{new Date(p.date).toLocaleDateString('en-us', { day:"numeric", year:"numeric", month:"short"})}</Link>
             <div className="game-details">{p.victor}</div>
         </div>
 

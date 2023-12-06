@@ -98,6 +98,10 @@ export const Game = () => {
                 <div className="game-leaderboard data game-details">
                     <h3>Leaderboard</h3>
                     <div className="data">
+                    <div className='entry leader-board'>
+                        <h4 className="title">Player</h4>
+                        <h4 className="title">Wins</h4>
+                    </div>
                         {data?.results?.length > 0 ? leaderboard : ''}
                     </div>
                 </div>

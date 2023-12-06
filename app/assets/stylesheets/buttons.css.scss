@@ -29,3 +29,17 @@ input.button, .body-button{
     border:none;
     background-color: transparent;
 }
+
+@media (max-width: 500px) {
+    .session-details .body-button{
+        font-size: 21px;
+    }
+
+    .session-details > .row{
+        gap: 0;
+    }
+
+    .player-section .body-button{
+        font-size: 21px;
+    }
+}
