@@ -17,10 +17,10 @@ export const Logout = ({setUser, setLoading, handler = null }) => {
 
     const handleLogout = async (e) =>{
         e.preventDefault()
-        setLoading(true)
+        await setLoading(() => true)
         await logout(setError)
         await getUser(setUser)
-        setLoading(false)
+        await setLoading(() => false)
         alert(`Logged Out!`)
         navigate('/')
     }
