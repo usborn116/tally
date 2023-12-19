@@ -23,7 +23,7 @@ export const Players = ({homeError = null}) => {
     )
     
     return (
-        <div className="data">
+        <div className="data players">
             <h2>Your Players</h2>
             <Switcher setter={setCreate} data={create}>{create ? 'Never mind!' : 'Add New Player'}</Switcher>
             {create ? 

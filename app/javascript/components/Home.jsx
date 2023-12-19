@@ -20,6 +20,7 @@ export const Home = ({user, setUser, loading, setLoading, setError, error}) => {
             <div className="home-table">
                 <Games user={user} homeError={setError} endpoint='games'/>
                 {user ? <Players homeError={setError} /> : ''}
+                
             </div>
         </div> 
 
