@@ -42,6 +42,8 @@ Docs that were helpful in the making of this project:
 - Using SASS in Rails: https://stackoverflow.com/questions/73417883/loaderror-cannot-load-such-file-sassc
 - HTML Events: https://www.w3schools.com/jsref/dom_obj_event.asp
 - CSS Media queries: https://stackoverflow.com/questions/66045259/css-grid-two-columns-on-desktop-and-1-column-on-mobile
+- Rails Nested Forms: https://www.ombulabs.com/blog/learning/rails/nested-forms.html
+- Git branching: https://www.w3schools.com/git/git_branch_merge.asp?remote=github
 
 Jest Testing Help:
 
