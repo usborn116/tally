@@ -1,10 +1,15 @@
 import React from "react";
 import { RoutesIndex } from "../routes/RoutesIndex";
 import { useSetUser } from "./helpers/useSetUser";
+import { useEffect } from "react";
 
 export const App = () => {
 
     const {user, setUser, loading, setLoading, error, setError} = useSetUser()
+
+    useEffect(() => {
+        console.log('reset')
+    }, [loading])
 
     return (
         <div className="main">

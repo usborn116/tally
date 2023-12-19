@@ -2,6 +2,7 @@
  * @jest-environment jsdom
  */
 import {render, screen} from '@testing-library/react'
+import { act } from 'react-dom/test-utils';
 import { Game } from '../Game';
 import userEvent from '@testing-library/user-event'
 import { MemoryRouter } from 'react-router-dom';
@@ -10,8 +11,8 @@ const user = userEvent.setup()
 
 
 describe('Game section works correctly',() => {
-    test('has game info, categories, leaderboard, and sessions', () => {
-        render(<Game/>)
+    test('has game info, categories, leaderboard, and sessions', async () => {
+        act(() => render(<Game/>))
         const headers = screen.getAllByRole('heading')
         expect(headers[0].closest('div').classList.contains('game-details')).toBe(true)
         expect(headers[1].closest('div').classList.contains('game-categories')).toBe(true)
@@ -19,13 +20,13 @@ describe('Game section works correctly',() => {
     });
 
     test('clicking "Edit Game Details" shows the form', async () => {
-        render(<MemoryRouter><Game/></MemoryRouter>)
+        await act(async () => await render(<MemoryRouter><Game/></MemoryRouter>))
         await user.click(screen.getByText('Edit Game Details'))
         expect(screen.getByText('See Game Details')).toBeDefined()
     });
 
     test('Editing a category saves data', async () => {
-        render(<MemoryRouter><Game/></MemoryRouter>)
+        await act(async () => await render(<MemoryRouter><Game/></MemoryRouter>))
         await user.click(screen.getByText('Add New Category'))
         expect(screen.getByText('Category Name')).toBeDefined()
         const box = screen.getByRole('textbox')

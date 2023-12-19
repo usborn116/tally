@@ -18,7 +18,6 @@ export const Game = () => {
     const id = useParams().id
 
     const {error, setError} = useError()
-
     const [data, setData] = useState([])
     const [edit, setEdit] = useState(false)
     const [create, setCreate] = useState(false)

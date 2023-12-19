@@ -4,6 +4,7 @@
 import {render, screen} from '@testing-library/react'
 import { Session } from '../Session';
 import userEvent from '@testing-library/user-event'
+import { act } from '@testing-library/react';
 
 const user = userEvent.setup()
 
@@ -55,7 +56,7 @@ describe('Session component works correctly',() => {
     });
 
     test('You can change the date', async () => {
-        render(<Session/>)
+        act(() => render(<Session/>))
         expect(screen.queryByText('Save Date')).toBe(null)
         await user.click(screen.getByText('Change Date'))
         expect(screen.getByText('Save Date')).toBeDefined()

@@ -1,6 +1,6 @@
 export const errorHandler = async (error, endpoint, setError) => {
     const response = await error?.message?.match(/is not valid JSON/) ? {message: `${endpoint} not found`} : error
-    setError(String(response))
+    await setError(() => String(response))
     return String(response)
 }
 
@@ -31,7 +31,7 @@ export const getData= async (endpoint, setter, setError)=>{
         return data
     }
     catch(error){
-        return await errorHandler(error, endpoint, setError)
+        return errorHandler(error, endpoint, setError)
     }
 }
 

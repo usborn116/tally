@@ -15,7 +15,7 @@ describe('Sessions component renders correctly',() => {
         //render(<Sessions data={data} game_id={1} setter={() => {}}/>)
         expect(screen.getByText('Sessions')).toBeDefined()
         expect(screen.getByText('Victorious person')).toBeDefined()
-        expect(screen.getByText("2021-03-25")).toBeDefined()
+        expect(screen.getByText("Mar 24, 2021")).toBeDefined()
     });
 
 })
