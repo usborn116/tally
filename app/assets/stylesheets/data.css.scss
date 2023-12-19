@@ -90,6 +90,7 @@ img{
     display: grid;
     grid-template-columns: 1.25fr 1.75fr 1fr;
     margin: 2vw;
+    gap: 2em;
 }
 
 .top-session{
@@ -179,6 +180,7 @@ img{
 
 .leader-board{
     width: 70%;
+    gap: 2em
     //align-self: center;
 }
 

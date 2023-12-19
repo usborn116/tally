@@ -60,7 +60,7 @@ export const Session = () => {
         </div>
     )
 
-    const handleChange = (e) => setNumPlayers(Number(e.target.value));
+    const handleChange = (e) => setNumPlayers(() => Number(e.target.value));
 
     const handleCalculate = async (e) => {
         setEnterScores(true)

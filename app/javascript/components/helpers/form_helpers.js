@@ -1,7 +1,26 @@
 export const form_object = (item, info, data) => {
+    categories = {}
+    if(item == 'game'){
+        const entries = Object.keys(data).filter(key => key.startsWith('categories_attributes'))
+        console.log('entries', entries)
+        entries.forEach(k => {
+            let id = Number(k.split(';')[1])
+            let attr = k.split(';')[2]
+            console.log('id', id)
+            console.log('attr', attr)
+            if (attr=='name'){
+                categories[id] ? categories[id]['name'] = data[k] : categories[id] = {name: data[k], point_based: false }
+            } else if (attr == 'points') {
+                categories[id]['point_based'] = true
+            }
+        })
+    }
+
+    console.log(categories)
     if(item == 'game'){info[item] = { name: data.name, game_category: data.game_category, image: data.image, 
         gameplay_length: data.gameplay_length, player_number: data.player_number, complexity: data.complexity, 
-        category_count: data.category_count}}
+        categories_attributes: categories
+    }}
     if(item == 'category'){info[item] = { name: data.name, point_based: data.point_based || false, game_id: data.game_id}}
     if(item == 'player' || item == 'session_player'){info[item] = { name: data.name, session_id: data.session_id }}
     if(item == 'session'){info[item] = { date: data.date, game_id: data.game_id }} 

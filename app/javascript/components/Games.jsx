@@ -21,6 +21,7 @@ export const Games = ({endpoint, homeError = null}) => {
     const [data, setData] = useState([])
     const [create, setCreate] = useState(false)
     const [search, setSearch] = useState(false)
+    const [numCategories, setNumCategories] = useState(0)
 
     useEffect(() => {
         getData(`/${endpoint}${search ? `?name=${search}`: ''}`, setData, homeError || setError)
@@ -29,6 +30,18 @@ export const Games = ({endpoint, homeError = null}) => {
     const list = data?.map((p) => (
         <GameListing key={p.id} data={p} endpoint={endpoint} />
     ))
+
+    const add_categories = [...Array(numCategories)].map((x, i) => {
+        let namestr = `categories_attributes;${i};name`
+        let pointsstr = `categories_attributes;${i};points`
+
+        return (
+        <div className="category-row" key={i}>
+            <Input type="text" name={namestr} placeHolder='Category Name'/>
+            <div>Points Based?<Input type="checkbox" name={pointsstr} /></div>
+            
+        </div>
+    )})
 
     if (!user && endpoint=='user_games'){
         return <Navigate to="/" replace />;
@@ -45,7 +58,10 @@ export const Games = ({endpoint, homeError = null}) => {
                 <Input type="text" name="gameplay_length" placeHolder='Playtime Length (e.g. 30-45 minutes)'/>
                 <Input type="text" name="player_number" placeHolder='Player Number Range (e.g. 2-4 Players)' />
                 <Input type="text" name="complexity" placeHolder='Complexity'/>
-                <Input type="integer" name="category_count" placeHolder='Number of Categories'/>
+                <div># Categories</div>
+                <input type="number" defaultValue={numCategories} 
+                    onChange={(e) => setNumCategories(() => Number(e.target.value))}></input>
+                {add_categories}
                 <Submit/>
         </Form>
         </div>
