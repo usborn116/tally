@@ -17,7 +17,7 @@ export const Input = ({type, name, placeHolder, value = '', options = null}) => 
         </select>
     )
 
-    else if (type == 'checkbox') return (
+    else if (type == 'checkbox') return (       
         <div className="input">
             <input type={type} name={name} onChange={handleChange} defaultChecked={value} defaultValue={checked}></input>
             <p className="checkmark">✓</p>
