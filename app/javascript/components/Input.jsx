@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import { ImageHelper } from "./ImageHelper";
 
 export const Input = ({type, name, placeHolder, value = '', options = null}) => {
 
@@ -24,8 +25,8 @@ export const Input = ({type, name, placeHolder, value = '', options = null}) => 
     )
 
     else return (
-        <div className="input" style={type == 'hidden' ? {visibility: 'hidden'} : {display: 'block'}}>
-            <div className="label">{placeHolder ? <div>{placeHolder}</div> : ''}</div>
+        <div className="input" style={type == 'hidden' ? {display: 'none'} : {display: 'block'}}>
+            <div className="label">{placeHolder ? <div>{placeHolder}</div> : ''}{placeHolder == 'Image URL' ? <ImageHelper /> : ''}</div>
             <div className="field">
                 <input type={type} name={name} placeholder={placeHolder} defaultValue={value}></input>
             <p className="checkmark">✓</p>
