@@ -63,3 +63,4 @@ Jest Testing Help:
 
 Styling:
 - If I ever want to do toggles instead of checkboxes: https://www.w3schools.com/howto/howto_css_switch.asp
+- Centering blocks: https://css-tricks.com/quick-css-trick-how-to-center-an-object-exactly-in-the-center/
