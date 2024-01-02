@@ -12,6 +12,10 @@ export const GameListing = ({data, endpoint = null}) => {
                 <div>Playtime: {data?.gameplay_length}</div>
                 <div># Players: {data?.player_number}</div>
                 <div>Complexity: {data?.complexity}/5</div>
+                <div>Last Played: {data?.sessions?.length > 0 ? 
+                    new Date(data?.sessions[0].date).toLocaleDateString('en-us', 
+                        { day:"numeric", year:"numeric", month:"short"}) : 'N/A'}
+                </div>
                 <div>{endpoint != 'games' ? `Times Played: ${data?.sessions?.length}` : ''}</div>
             </div>
         </div>

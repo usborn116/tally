@@ -71,6 +71,10 @@ export const Game = () => {
                     <div>Playtime: {data?.gameplay_length}</div>
                     <div>Players Supported: {data?.player_number}</div>
                     <div>Complexity: {data?.complexity}/5</div>
+                    <div>Last Played: {data?.sessions?.length > 0 ? 
+                        new Date(data?.sessions[0].date).toLocaleDateString('en-us', 
+                        { day:"numeric", year:"numeric", month:"short"}) : 'N/A'}
+                    </div>
                     <div>Times Played: {data?.sessions?.length}</div>
                     <Switcher setter={setEdit} data={edit}>Edit Game Details</Switcher>
                 </div>
