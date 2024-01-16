@@ -13,7 +13,7 @@ import { GameListing } from "./GameListing";
 import { SearchBar } from "./SearchBar";
 import { ImageHelper } from "./ImageHelper";
 
-export const Games = ({endpoint, homeError = null}) => {
+export const Games = ({endpoint, loading, homeError = null}) => {
 
     const {user} = useSetUser()
 
