@@ -124,9 +124,10 @@ export const Session = () => {
                     <Switcher setter={setCreate} data={create}>{create ? 'Done Adding' : '+ Player to Account'}</Switcher>
                     {create ? 
                     <Form endpoint="players" item='player' updater={newData} setter={setData} setToggle={setCreate} setError={setError}>
-                        <Input type="text" name="name" value=''/>
+                        <Input type="text" name="name" value='' placeHolder='New Player'/>
                         <Submit>Create New Player</Submit>
                     </Form> : ''}
+
                     <Switcher setter={setAddPlayers} data={addPlayers}>{addPlayers ? 'Done Adding' : '+ Player(s) to Game'}</Switcher>
                     {addPlayers ?
                     <div className="data">

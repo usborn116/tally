@@ -39,7 +39,7 @@ export const getUser = async (setter, setError) => {
     try {
         const response = await getHelper('/get_user')
         const data=await response.json()
-        setter ? await setter(data) : null
+        await setter(data)
         return data
     }
     catch(error){

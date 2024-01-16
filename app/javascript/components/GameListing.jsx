@@ -1,7 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export const GameListing = ({data, endpoint = null, user}) => {
+export const GameListing = ({data, user}) => {
+
+    console.log(user)
 
     return (
         <div className="game-data">
@@ -16,7 +18,10 @@ export const GameListing = ({data, endpoint = null, user}) => {
                     new Date(data?.sessions[0].date).toLocaleDateString('en-us', 
                         { day:"numeric", year:"numeric", month:"short"}) : 'N/A'}
                 </div>
-                <div>{endpoint != 'games' ? `Times Played: ${data?.sessions?.length}` : ''}</div>
+                <div>{`Total Times Played: ${data?.sessions?.length}`}</div>
+                { user ? 
+                <div>{`Times You've Played: ${user?.sessions?.filter(s => s.game_id == data?.id).length}`}</div>
+                : ''}
             </div>
         </div>
         

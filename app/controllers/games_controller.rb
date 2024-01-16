@@ -5,17 +5,17 @@ class GamesController < ApplicationController
   # GET /games or /games.json
   def index
     @games = Game.includes(:sessions).left_joins(:sessions).group(:id).order('COUNT(sessions.id) DESC, created_at').first(5)
-    render json: @games
+    render json: @games.to_json(:include => {:sessions => {only: [:id, :date, :victor]}})
   end
 
   def user_games
-    @games = current_user.games.includes(:sessions).left_joins(:sessions).group(:id).order('COUNT(sessions.id) DESC')
-    @games = current_user.games.includes(:sessions).filter_by_name(params[:name]) if params[:name]
+    @games = Game.includes(:sessions).left_joins(:sessions).group(:id).order('COUNT(sessions.id) DESC')
+    @games = Game.includes(:sessions).filter_by_name(params[:name]) if params[:name]
     render json: @games.to_json(:include => {:sessions => {only: [:id, :date, :victor]}})
   end
 
   def user_game
-    @game = current_user.games.find(params[:id])
+    @game = Game.find(params[:id])
     if @game 
       @result = JSON.parse(@game.to_json(:include => [:categories, {:sessions => {only: [:id, :date, :victor]}}]))
       @result['results'] = @game&.sessions&.map(&:victor)&.tally&.sort_by{|k, v| v}&.reverse&.map do |item|

@@ -10,7 +10,7 @@ export const Sessions = ({data, user, game_id, setter}) => {
 
     useEffect(() => {
         setter(() => true)
-    }, [])
+    }, [data])
 
     const list = data?.map((p) => (
         <div key={p.id} className="entry session-listing">

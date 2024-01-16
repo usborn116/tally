@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import { useParams, Navigate } from "react-router-dom";
 import { Sessions } from "./Sessions";
-import { getData, updateData, newData } from "./helpers/api_helpers";
+import { getData, updateData, newData, getUser } from "./helpers/api_helpers";
 import { Form } from "./Form";
 import { Submit } from "./Submit";
 import { Input } from "./Input";
@@ -13,12 +13,11 @@ import { useSetUser } from "./helpers/useSetUser";
 
 export const Game = () => {
 
-    const { user } = useSetUser()
-
     const id = useParams().id
 
     const {error, setError} = useError()
     const [data, setData] = useState([])
+    const [user, setUser] = useState(false)
     const [edit, setEdit] = useState(false)
     const [create, setCreate] = useState(false)
     const [newSession, setNewSession] = useState(false)
@@ -27,10 +26,11 @@ export const Game = () => {
         getData(`/user_game/${id}`, setData, setError)
     }, [edit, create, newSession])
 
-    const categorySection = data?.categories?.map(c => (
-        <Category key={c.id} data={c} setData={setData} setError={setError}/>
-        )
-    )
+    useEffect(() => {
+        getUser(setUser, setError)
+    }, [edit, create, newSession])
+
+    const categorySection = data?.categories?.map(c => <Category key={c.id} data={c} setData={setData} setError={setError}/>)
 
     const leaderboard = data?.results?.map(r => (
         <div className='entry leader-board' key={r.id}>
@@ -111,7 +111,7 @@ export const Game = () => {
 
             </div>}
 
-            {data?.sessions ? <Sessions data={data?.sessions} user={user} game_id={data?.id} setter={setNewSession} /> : ''}
+            {data?.sessions ? <Sessions data={user?.sessions?.filter(s => s.game_id == data?.id)} user={user} game_id={data?.id} setter={setNewSession} /> : ''}
         </div>
 
     )
