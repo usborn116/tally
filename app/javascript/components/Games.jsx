@@ -27,7 +27,7 @@ export const Games = ({endpoint, loading, homeError = null}) => {
     useEffect(() => {
         getData(`/${user ? 'user_games' : 'games'}${search ? `?name=${search}`: ''}`, setData, homeError || setError)
     }, [create, search, user, loading])
-    
+
     const list = data?.map((p) => (
         <GameListing key={p.id} data={p} endpoint={endpoint} user={user} />
     ))
@@ -74,10 +74,12 @@ export const Games = ({endpoint, loading, homeError = null}) => {
             : '' }
 
             <div className="top">
-                <h2>{user ? 'My ' : 'Top 5 '}Games</h2>
+                <h2>{user ? '' : 'Top 5 '}Games</h2>
                 {user ? <Switcher setter={setCreate} data={create}>Add New Game</Switcher> : ''}
             </div>
-            {list}
+            {list.length > 0 ? list : <h3 style={{display: 'flex', flexDirection: 'column', 
+                alignItems: 'center'}}>Can't find what you're looking for? 
+                <Switcher setter={setCreate} data={create}>Create It</Switcher></h3>}
 
         </div>
 
