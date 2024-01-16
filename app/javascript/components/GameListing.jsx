@@ -1,13 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export const GameListing = ({data, endpoint = null}) => {
+export const GameListing = ({data, endpoint = null, user}) => {
 
     return (
         <div className="game-data">
             <img src={data?.image}></img>
             <div className="listing">
-                <h3>{endpoint == 'games' ? data?.name : <Link to={`${data.id}`}>{data?.name}</Link>}</h3>
+                <h3>{user ? <Link to={`/mygames/${data.id}`}>{data?.name}</Link> : data?.name}</h3>
                 <div>Category: {data?.game_category}</div>
                 <div>Playtime: {data?.gameplay_length}</div>
                 <div># Players: {data?.player_number}</div>

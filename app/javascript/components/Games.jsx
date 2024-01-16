@@ -25,11 +25,11 @@ export const Games = ({endpoint, homeError = null}) => {
     const [numCategories, setNumCategories] = useState(0)
 
     useEffect(() => {
-        getData(`/${endpoint}${search ? `?name=${search}`: ''}`, setData, homeError || setError)
-    }, [create, search])
+        getData(`/${user ? 'user_games' : 'games'}${search ? `?name=${search}`: ''}`, setData, homeError || setError)
+    }, [create, search, user, loading])
     
     const list = data?.map((p) => (
-        <GameListing key={p.id} data={p} endpoint={endpoint} />
+        <GameListing key={p.id} data={p} endpoint={endpoint} user={user} />
     ))
 
     const add_categories = [...Array(numCategories)].map((x, i) => {
@@ -43,10 +43,6 @@ export const Games = ({endpoint, homeError = null}) => {
             
         </div>
     )})
-
-    if (!user && endpoint=='user_games'){
-        return <Navigate to="/" replace />;
-    }
 
     if (create) return (
         <div className="data create-data">
@@ -73,13 +69,13 @@ export const Games = ({endpoint, homeError = null}) => {
     return (
         <div className="data">
             {error ? <Error message={error}/> : '' }
-            { endpoint == 'user_games' ? 
+            { user ? 
             <SearchBar setSearch={setSearch} />
             : '' }
 
             <div className="top">
-                <h2>{endpoint == 'user_games' ? 'My ' : 'All '}Games</h2>
-                {endpoint == 'user_games' ? <Switcher setter={setCreate} data={create}>Add New Game</Switcher> : ''}
+                <h2>{user ? 'My ' : 'Top 5 '}Games</h2>
+                {user ? <Switcher setter={setCreate} data={create}>Add New Game</Switcher> : ''}
             </div>
             {list}
 

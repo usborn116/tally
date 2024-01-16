@@ -86,7 +86,7 @@ export const Session = () => {
         setDeletePlayer(false)
     }
 
-    if (!user) return <Navigate to="/" replace />
+    if (!user) return <h1>No Content Here!</h1>
 
     if (error) return <Error message={error}/>
 

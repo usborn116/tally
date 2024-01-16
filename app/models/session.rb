@@ -1,5 +1,6 @@
 class Session < ApplicationRecord
     belongs_to :game
+    belongs_to :user
     has_many :session_categories,  -> { order(id: :asc) }, dependent: :destroy
     has_many :session_players,  -> { order(id: :asc) }, dependent: :destroy
     has_many :session_scores, -> { order(id: :asc)}, dependent: :destroy

@@ -23,7 +23,7 @@ export const form_object = (item, info, data) => {
     }}
     if(item == 'category'){info[item] = { name: data.name, point_based: data.point_based || false, game_id: data.game_id}}
     if(item == 'player' || item == 'session_player'){info[item] = { name: data.name, session_id: data.session_id }}
-    if(item == 'session'){info[item] = { date: data.date, game_id: data.game_id }} 
+    if(item == 'session'){info[item] = { date: data.date, game_id: data.game_id, user_id: data.user_id }} 
     if(item == 'session_score'){info[item] = { amount: data.amount, session_id: data.session_id, 
         session_category_id: data.session_category_id, session_player_id: data.session_player_id, win: data.win || false}} 
     if(item == 'login'){info['user'] = { email: data.email, password: data.password }}

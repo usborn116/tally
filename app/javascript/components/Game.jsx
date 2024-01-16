@@ -40,7 +40,7 @@ export const Game = () => {
     ))
 
     if (!user){
-        return <Navigate to="/" replace />;
+        return <h1>Nothing Here!</h1>
     }
 
     if (edit) return (
@@ -62,7 +62,7 @@ export const Game = () => {
     return (
         <div className="table game-table">
             {error ? <Error message={error}/> : ''}
-            <div className="top-game">
+            {data && <div className="top-game">
 
                 <div className="data game-details">
                     <h3>{data?.name}</h3>
@@ -109,9 +109,9 @@ export const Game = () => {
                     </div>
                 </div>
 
-            </div>
+            </div>}
 
-            {data?.sessions ? <Sessions data={data?.sessions} game_id={data?.id} setter={setNewSession} /> : ''}
+            {data?.sessions ? <Sessions data={data?.sessions} user={user} game_id={data?.id} setter={setNewSession} /> : ''}
         </div>
 
     )

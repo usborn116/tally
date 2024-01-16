@@ -6,7 +6,7 @@ import { Form } from "./Form";
 import { Input } from "./Input";
 import { Submit } from "./Submit";
 
-export const Sessions = ({data, game_id, setter}) => {
+export const Sessions = ({data, user, game_id, setter}) => {
 
     useEffect(() => {
         setter(() => true)
@@ -29,6 +29,7 @@ export const Sessions = ({data, game_id, setter}) => {
                 <Form endpoint="sessions" item='session' updater={newData} setToggle={setter}>
                     <Input type="hidden" name="date" value={date}/>
                     <Input type="hidden" name="game_id" value={game_id}/>
+                    <Input type="hidden" name="user_id" value={user?.id}/>
                     <Submit>+ New Session</Submit>
                 </Form>
             </div>

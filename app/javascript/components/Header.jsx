@@ -13,7 +13,7 @@ export const Header = ({setUser, user, setLoading}) => {
                 <h1>Tally</h1>
             </div>
             <div className="right-bar">
-                {user ? <Link to="/mygames" className="button">My Games</Link> : ''}
+                {user ? <Link to="/players" className="button">My Players</Link> : ''}
                 {user ? <Link to="/user" className="button">Profile</Link> : ''}
                 {user ? <Logout setUser={setUser} setLoading={setLoading} user={user}/> : <Link className="button" to={'/login'}>Log In</Link>}
             </div>
