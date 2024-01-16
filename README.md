@@ -60,6 +60,7 @@ Jest Testing Help:
 - UserEvent: https://testing-library.com/docs/user-event/v13/#typeelement-text-options
 - Jest Setup: https://jestjs.io/docs/setup-teardown
 - Info on act(..) in React testing: https://github.com/threepointone/react-act-examples/blob/master/sync.md
+- Running Console tasks: https://fly.io/docs/rails/the-basics/run-tasks-and-consoles/ (Use "fly console" to get into console for prod app!)
 
 Styling:
 - If I ever want to do toggles instead of checkboxes: https://www.w3schools.com/howto/howto_css_switch.asp
