@@ -55,12 +55,10 @@ export const Session = () => {
         <div className="row" style={styling}>
             <div>TOTALS</div>
             {data?.session?.session_players?.map((p) => (
-                <div key={p.id} >{p.session_scores?.map(s => s.amount).reduce((a, v) => a + v)}</div>
+                <div key={p.id} >{p.session_scores?.map(s => s.amount).reduce((a, v) => a + v, 0)}</div>
             ))}
         </div>
     )
-
-    const handleChange = (e) => setNumPlayers(() => Number(e.target.value));
 
     const handleCalculate = async (e) => {
         setEnterScores(true)
@@ -115,27 +113,27 @@ export const Session = () => {
                 <div className="player-section game-details">
                     <h3>Players</h3>
                     {players?.map((p) => (
-                        <div key={p.id} style={{display: 'flex', width: '100%'}}>
+                        <div key={p.id} style={{display: 'flex', width: '100%', alignItems: 'center'}}>
                             {p.name}&nbsp;
                             <Button handler={(e) => playerDelete(e, p.id)} classes={`delete-button`}><div className="x"> X </div></Button>
                         </div>
                         )
                     )}
-                    <Switcher setter={setCreate} data={create}>{create ? 'Done Adding' : '+ Player to Account'}</Switcher>
                     {create ? 
                     <Form endpoint="players" item='player' updater={newData} setter={setData} setToggle={setCreate} setError={setError}>
                         <Input type="text" name="name" value='' placeHolder='New Player'/>
                         <Submit>Create New Player</Submit>
                     </Form> : ''}
+                    <Switcher setter={setCreate} data={create}>{create ? 'Done Adding' : !addPlayers ? '+ Player to Account' : ''}</Switcher>
 
-                    <Switcher setter={setAddPlayers} data={addPlayers}>{addPlayers ? 'Done Adding' : '+ Player(s) to Game'}</Switcher>
                     {addPlayers ?
                     <div className="data">
                         <div># Players</div>
-                        <input type="number" defaultValue={numPlayers} onChange={handleChange}></input>
+                        <input type="number" defaultValue={numPlayers} onChange={(e) => setNumPlayers(() => Number(e.target.value))}></input>
                         {add_players}
                     </div>
                     : ''}
+                    <Switcher setter={setAddPlayers} data={addPlayers}>{addPlayers ? 'Done Adding' : !create ? '+ Player(s) to Game' : ''}</Switcher>
                 </div>
                 
                 { addPlayers || create ? '' : 

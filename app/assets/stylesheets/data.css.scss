@@ -78,6 +78,7 @@ img{
     display:grid;
     width: 100%;
     padding: 3px;
+    gap: 2%;
 }
 
 .row div{
@@ -118,6 +119,7 @@ img{
 
 .top-session .body-button{
     font-size: 16px;
+    background-color: transparent;
 }
 
 .game-details, .session-details{
@@ -167,9 +169,14 @@ img{
     color: #93748A;
 }
 
+.entry > .link:hover{
+    color: #207332;
+}
+
 .game-details .body-button{
     font-size: 16px;
     padding: 0;
+    background-color: transparent;
 }
 
 .game-details .body-button:hover, 
@@ -177,7 +184,7 @@ img{
 .session-details > .row > .form > form > .submit:hover,
 .top-session > .date-entry > .body-button:hover,
 .player-section > .form > form > .body-button:hover{
-    color: #AECFDF;
+    color: #207332;
     background-color: transparent;
 }
 

@@ -17,8 +17,8 @@ export const User = () => {
         <div className="data user-data">  
             <h1>Name: {user?.name}</h1>
             <h2>Email: {user?.email}</h2>
-            <h2>Total Games: {user?.games?.length}</h2>
-            <h2>Total Sessions Played: {user?.games?.map(g => g?.sessions?.length).reduce((a, v) => a + v)}</h2>
+            <h2>Games Played: {[...new Set(user?.sessions?.map(s => s.game_id))].length}</h2>
+            <h2>Sessions Played: {user?.sessions?.length}</h2>
         </div>
     )
 }
