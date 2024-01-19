@@ -18,7 +18,7 @@ export const Home = ({user, setUser, loading, setLoading, setError, error}) => {
         <div className="home">
             <h1>Welcome To Tally, {user?.name || 'friend'}!</h1>
             <div className="home-table">
-                <Games homeError={setError} loading={loading} endpoint='games'/>
+                <Games homeError={setError} loading={loading} user={user} endpoint='games'/>
                 
             </div>
         </div> 

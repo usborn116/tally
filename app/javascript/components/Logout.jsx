@@ -3,11 +3,13 @@ import { useNavigate } from "react-router-dom";
 import { getUser, logout } from "./helpers/api_helpers";
 import { useError } from "./helpers/useError";
 
-export const Logout = ({setUser, setLoading, handler = null }) => {
+export const Logout = ({setUser, setLoading, logoutMessage }) => {
 
     const navigate = useNavigate()
 
     const {error, setError} = useError()
+
+    console.log('NEW!')
     
     useEffect(() => {
         setLoading(true)
@@ -17,16 +19,14 @@ export const Logout = ({setUser, setLoading, handler = null }) => {
 
     const handleLogout = async (e) =>{
         e.preventDefault()
-        await setLoading(() => true)
         await logout(setError)
         await getUser(setUser)
-        await setLoading(() => false)
-        alert(`Logged Out!`)
+        await logoutMessage()
         navigate('/')
     }
 
     if (error) return <Error />
 
-    return <button data-testid='logout-button' className="button" onClick={handler ? handler : handleLogout}>Log Out</button>
+    return <button data-testid='logout-button' className="button" onClick={handleLogout}>Log Out</button>
 
 };

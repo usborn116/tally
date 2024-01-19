@@ -7,15 +7,18 @@ import { Submit } from "./Submit";
 import { Input } from "./Input";
 import { Switcher } from "./Switcher";
 import { newData } from "./helpers/api_helpers";
+import { Error } from "./Error";
 
-export const Players = ({homeError = null}) => {
+export const Players = ({setError, error}) => {
 
     const [data, setData] = useState([])
     const [create, setCreate] = useState(false)
 
     useEffect(() => {
-        getData('/players', setData, homeError)
+        getData('/players', setData, setError)
     }, [create])
+
+    if (error) return <Error message={homeError.message}/>
 
     const list = data?.map(p => (
         <Player key={p.id} data={p} setData={setData}/>

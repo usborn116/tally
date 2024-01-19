@@ -7,10 +7,6 @@ export const App = () => {
 
     const {user, setUser, loading, setLoading, error, setError} = useSetUser()
 
-    useEffect(() => {
-        console.log('reset')
-    }, [loading])
-
     return (
         <div className="main">
             <RoutesIndex user={user} setUser={setUser} loading={loading} error={error} setError={setError} setLoading={setLoading}/>

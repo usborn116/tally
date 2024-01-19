@@ -16,7 +16,6 @@ export const form_object = (item, info, data) => {
         })
     }
 
-    console.log(categories)
     if(item == 'game'){info[item] = { name: data.name, game_category: data.game_category, image: data.image, 
         gameplay_length: data.gameplay_length, player_number: data.player_number, complexity: data.complexity, 
         categories_attributes: categories
