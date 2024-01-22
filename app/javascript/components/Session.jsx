@@ -71,7 +71,7 @@ export const Session = () => {
     const deleteHandler = async (e) => {
         e.preventDefault()
         window.confirm('Are you sure you want to delete this session?')
-        await fetch(`/sessions/${id}`, { method: 'delete'})
+        await fetch(`api/sessions/${id}`, { method: 'delete'})
         navigate(-1)
     }
 
@@ -79,7 +79,7 @@ export const Session = () => {
         e.preventDefault()
         setDeletePlayer(true)
         window.confirm('Are you sure you want to delete this player')
-        await fetch(`/session_players/${id}`, { method: 'delete'})
+        await fetch(`api/session_players/${id}`, { method: 'delete'})
         handleCalculate()
         setDeletePlayer(false)
     }

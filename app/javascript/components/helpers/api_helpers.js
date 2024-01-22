@@ -5,7 +5,7 @@ export const errorHandler = async (error, endpoint, setError) => {
 }
 
 const putPostData = async (endpoint, type, info) => {
-    return await fetch(`${endpoint}`, {
+    return await fetch(`/api/${endpoint}`, {
         method: `${type}`,
         headers: {
             "content-type": 'application/json',
@@ -16,7 +16,7 @@ const putPostData = async (endpoint, type, info) => {
 }
 
 const getHelper = async (endpoint) => {
-    const response=await fetch(`${endpoint}`)
+    const response=await fetch(`/api/${endpoint}`)
     if (response.status > 400){
         throw new Error(`${response.status}: ${response.statusText}`)
     }
@@ -49,7 +49,7 @@ export const getUser = async (setter, setError) => {
 
 export const logout = async (setError) =>{
     try{
-        await fetch(`/users/sign_out`, {
+        await fetch(`/api/users/sign_out`, {
             method: 'delete',
             headers: {
                 "content-type": 'application/json',

@@ -9,7 +9,7 @@ export const GameListing = ({data, user}) => {
         <div className="game-data">
             <img src={data?.image}></img>
             <div className="listing">
-                <h3>{user ? <Link to={`/mygames/${data.id}`}>{data?.name}</Link> : data?.name}</h3>
+                <h3>{user ? <Link to={`/games/${data.id}`}>{data?.name}</Link> : data?.name}</h3>
                 <div>Category: {data?.game_category}</div>
                 <div>Playtime: {data?.gameplay_length}</div>
                 <div># Players: {data?.player_number}</div>
