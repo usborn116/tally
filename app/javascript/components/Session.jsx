@@ -95,6 +95,8 @@ export const Session = () => {
                     <h2>{data?.session?.game?.name}</h2>
                     <Button handler={deleteHandler} classes={`delete-button`}>Delete Session&nbsp;<div className="x"> X </div></Button>
                 </div>
+                <h3>Creator: {data?.session?.user.name}</h3>
+                <h3>Shared With: {data?.session?.collaborators?.map(c => c.name)}</h3>
                 <div className="entry date-entry">
                     <h3>{editDate ? 
                         <Form endpoint="sessions" item='session' id={data?.session?.id} updater={updateData} 

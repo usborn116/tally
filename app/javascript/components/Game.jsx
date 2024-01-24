@@ -111,7 +111,8 @@ export const Game = () => {
 
             </div>}
 
-            {data?.sessions ? <Sessions data={user?.sessions?.filter(s => s.game_id == data?.id)} user={user} game_id={data?.id} setter={setNewSession} /> : ''}
+            {data?.sessions ? <Sessions data={user?.sessions?.filter(s => s.game_id == data?.id).concat(user?.shared_sessions?.filter(s => s.game_id == data?.id))} 
+                user={user} game_id={data?.id} setter={setNewSession} /> : ''}
         </div>
 
     )

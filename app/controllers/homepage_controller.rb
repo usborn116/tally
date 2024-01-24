@@ -3,7 +3,7 @@ class HomepageController < ApplicationController
   end
 
   def get_user
-    render json: current_user.to_json(:include => [{:games => {:include => [:sessions]}}, :sessions]) || false
+    render json: current_user.to_json(:include => [{:games => {:include => [:sessions]}}, :sessions, :shared_sessions]) || false
   end
 
   def not_exist

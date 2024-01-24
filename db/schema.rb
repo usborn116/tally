@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_16_165214) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_24_181949) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -75,6 +75,15 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_16_165214) do
     t.index ["session_category_id"], name: "index_session_scores_on_session_category_id"
     t.index ["session_id"], name: "index_session_scores_on_session_id"
     t.index ["session_player_id"], name: "index_session_scores_on_session_player_id"
+  end
+
+  create_table "session_shares", force: :cascade do |t|
+    t.bigint "collaborator_id"
+    t.bigint "shared_session_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["collaborator_id"], name: "index_session_shares_on_collaborator_id"
+    t.index ["shared_session_id"], name: "index_session_shares_on_shared_session_id"
   end
 
   create_table "sessions", force: :cascade do |t|

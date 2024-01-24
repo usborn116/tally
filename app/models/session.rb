@@ -4,6 +4,8 @@ class Session < ApplicationRecord
     has_many :session_categories,  -> { order(id: :asc) }, dependent: :destroy
     has_many :session_players,  -> { order(id: :asc) }, dependent: :destroy
     has_many :session_scores, -> { order(id: :asc)}, dependent: :destroy
+    has_many :session_shares, foreign_key: 'shared_session_id'
+    has_many :collaborators, :through => :session_shares
 
     accepts_nested_attributes_for :session_players, :session_scores
 
