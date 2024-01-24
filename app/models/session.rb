@@ -11,6 +11,11 @@ class Session < ApplicationRecord
 
     after_create :create_categories
 
+    def share(email)
+        u = User.find(email: email)
+        self.session_shares.create(collaborator_id: u.id)
+    end
+
     def winner
         category_winners = self.session_players.map{|p| [p.name, p.winning_categories.size]}.select{|e| !e.last.zero?}
         max = category_winners&.max_by{|c| c&.last}&.last || self.session_players.map(&:total_score).max

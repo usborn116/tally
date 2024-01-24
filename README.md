@@ -62,6 +62,8 @@ Jest Testing Help:
 - Info on act(..) in React testing: https://github.com/threepointone/react-act-examples/blob/master/sync.md
 - Running Console tasks: https://fly.io/docs/rails/the-basics/run-tasks-and-consoles/ (Use "fly console" to get into console for prod app!)
 - 'Joins' documentation: https://guides.rubyonrails.org/active_record_querying.html#joining-tables
+- Associations: https://guides.rubyonrails.org/association_basics.html
+- Active Record Queries: https://guides.rubyonrails.org/active_record_querying.html#joins
 
 Styling:
 - If I ever want to do toggles instead of checkboxes: https://www.w3schools.com/howto/howto_css_switch.asp
