@@ -11,7 +11,7 @@ class GamesController < ApplicationController
   def user_games
     @games = params[:name] ? Game.includes(:sessions).filter_by_name(params[:name]) : 
       #current_user.sessions.map(&:game).uniq.sort_by{|g| -g.sessions.length}
-      Game.joins(sessions: :user).where('sessions.user_id' => current_user.id).group(:id).order('COUNT(sessions.id) DESC, created_at')
+    #Game.joins(sessions: :user).where('sessions.user_id' => current_user.id).group(:id).order('COUNT(sessions.id) DESC, created_at')
     #@games = Game.includes(:sessions).left_joins(:sessions).group(:id).order('COUNT(sessions.id) DESC')
     # finding Games with session_shares where current user is collaborator:
     # Game.joins(sessions: {session_shares: :collaborator}).where('session_shares.collaborator_id' => 2)
@@ -20,8 +20,8 @@ class GamesController < ApplicationController
     #Game.joins(sessions: :user).where('sessions.user_id' => 2).group(:id)
 
     #combine them with "+"
-    # Game.joins(sessions: {session_shares: :collaborator}).where('session_shares.collaborator_id' => 2) + 
-    # Game.joins(sessions: :user).where('sessions.user_id' => 2).group(:id)
+    Game.joins(sessions: {session_shares: :collaborator}).where('session_shares.collaborator_id' => current_user.id) + 
+    Game.joins(sessions: :user).where('sessions.user_id' => current_user.id).group(:id)
 
 
     render json: @games.to_json(:include => {:sessions => {only: [:id, :date, :victor]}})
