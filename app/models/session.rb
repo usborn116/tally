@@ -12,8 +12,13 @@ class Session < ApplicationRecord
     after_create :create_categories
 
     def share(email)
-        u = User.find(email: email)
-        self.session_shares.create(collaborator_id: u.id)
+        u = User.where(email: email).first&.id
+        if u
+            self.session_shares.create(collaborator_id: u)
+            return `Share with #{email} successful!`
+        else
+            return `No user with email #{email} found`
+        end
     end
 
     def winner
