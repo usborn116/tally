@@ -9,6 +9,7 @@ class GamesController < ApplicationController
   end
 
   def user_games
+    initial = Game.joins(sessions: :user).left_joins(sessions: {session_shares: :collaborator})
     @games = params[:name] ? Game.includes(:sessions).filter_by_name(params[:name]) : 
       #current_user.sessions.map(&:game).uniq.sort_by{|g| -g.sessions.length}
     #Game.joins(sessions: :user).where('sessions.user_id' => current_user.id).group(:id).order('COUNT(sessions.id) DESC, created_at')
@@ -20,8 +21,14 @@ class GamesController < ApplicationController
     #Game.joins(sessions: :user).where('sessions.user_id' => 2).group(:id)
 
     #combine them with "+"
-    Game.joins(sessions: {session_shares: :collaborator}).where('session_shares.collaborator_id' => current_user.id) + 
-    Game.joins(sessions: :user).where('sessions.user_id' => current_user.id).group(:id)
+
+  
+
+  initial.where('session_shares.collaborator_id' => current_user.id).or(initial.where('sessions.user_id' => current_user.id))
+  .group(:id).order('COUNT(sessions.id) DESC, created_at')
+
+  #  (Game.joins(sessions: [:user, {session_shares: :collaborator}]).where('session_shares.collaborator_id' => current_user.id).group(:id) + 
+  #  Game.joins(sessions: [:session_shares, :user]).where('sessions.user_id' => current_user.id).group(:id)).sort_by('COUNT(sessions.id) DESC, created_at')
 
 
     render json: @games.to_json(:include => {:sessions => {only: [:id, :date, :victor]}})

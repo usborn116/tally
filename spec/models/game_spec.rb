@@ -3,8 +3,11 @@ require 'rails_helper'
 RSpec.describe Game, type: :model do
   before(:context) do
     @user = User.last || User.create(name:'Usertest', email: 'user_email@email.com', password:'userpassword')
+    @user.save
     @game = @user.games.find_or_create_by(name: 'testgame', category_count: 3)
-    @user.games.find_or_create_by(name: 'testgame2')
+    @game.save
+    @game2 = @user.games.find_or_create_by(name: 'testgame2')
+    @game2.save
   end
 
   context 'after a game is created' do
@@ -26,16 +29,21 @@ RSpec.describe Game, type: :model do
 
   before(:context) do
     @user2 = User.last || User.create(name:'Usertest', email: 'user_email@email.com', password:'userpassword')
+    @user2.save
     @game2 = @user2.games.find_or_create_by(name: 'Category Game')
+    @game2.save
     @game2.categories.find_or_create_by(name: 'Cat 1')
     @game2.categories.find_or_create_by(name: 'Cat 2')
     @game2.categories.find_or_create_by(name: 'Cat 3')
     @game2.categories.find_or_create_by(name: 'Cat 4')
     @game2.categories.find_or_create_by(name: 'Cat 5')
     @game2.categories.each{|c| c.update!(point_based: false)}
-    @session = @game2.sessions.create(date: Date.today())
-    @player1 = @session.session_players.find_or_create_by(name: 'Player1')
-    @player2 = @session.session_players.find_or_create_by(name: 'Player2')
+    @session = @game2.sessions.create(date: Date.today(), user_id: @user2.id)
+    @session.save
+    @player1 = @session.session_players.create(name: 'Player1')
+    @player2 = @session.session_players.create(name: 'Player2')
+    @player1.save
+    @player2.save
   end
 
   context 'after category based game is created and set up' do

@@ -15,9 +15,9 @@ class Session < ApplicationRecord
         u = User.where(email: email).first&.id
         if u
             self.session_shares.create(collaborator_id: u)
-            return `Share with #{email} successful!`
+            return "Share with #{email} successful!"
         else
-            return `No user with email #{email} found`
+            return "No user with email #{email} found"
         end
     end
 

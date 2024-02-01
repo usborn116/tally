@@ -7,8 +7,9 @@ RSpec.describe SessionPlayer, type: :model do
     @game = @user.games.create
     @cat1 = @game.categories.create(name: 'Cat 1')
     @cat2 = @game.categories.create(name: 'Cat 2')
-    @sesh = @game.sessions.create
-    @player1 = @sesh.session_players.create(name: 'Usborn')
+    @sesh = @game.sessions.create(user_id: @user.id)
+    @sesh.save
+    @player1 = @sesh.session_players.find_or_create_by(name: 'Usborn')
     @player2 = @sesh.session_players.create(name: 'Ashley')
   end
 
