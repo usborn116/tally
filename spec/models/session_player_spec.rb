@@ -3,12 +3,10 @@ require 'rails_helper'
 RSpec.describe SessionPlayer, type: :model do
   before(:context) do
     @user = User.last || User.create(name:'Usertest', email: 'user_email@email.com', password:'userpassword')
-    @user.save!
     @game = @user.games.create
     @cat1 = @game.categories.create(name: 'Cat 1')
     @cat2 = @game.categories.create(name: 'Cat 2')
     @sesh = @game.sessions.create(user_id: @user.id)
-    @sesh.save
     @player1 = @sesh.session_players.find_or_create_by(name: 'Usborn')
     @player2 = @sesh.session_players.create(name: 'Ashley')
   end

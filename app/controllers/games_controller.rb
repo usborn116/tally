@@ -11,24 +11,14 @@ class GamesController < ApplicationController
   def user_games
     initial = Game.joins(sessions: :user).left_joins(sessions: {session_shares: :collaborator})
     @games = params[:name] ? Game.includes(:sessions).filter_by_name(params[:name]) : 
-      #current_user.sessions.map(&:game).uniq.sort_by{|g| -g.sessions.length}
-    #Game.joins(sessions: :user).where('sessions.user_id' => current_user.id).group(:id).order('COUNT(sessions.id) DESC, created_at')
-    #@games = Game.includes(:sessions).left_joins(:sessions).group(:id).order('COUNT(sessions.id) DESC')
-    # finding Games with session_shares where current user is collaborator:
-    # Game.joins(sessions: {session_shares: :collaborator}).where('session_shares.collaborator_id' => 2)
+    initial.where('session_shares.collaborator_id' => current_user.id).or(initial.where('sessions.user_id' => current_user.id))
+    .group(:id).order('COUNT(sessions.id) DESC, created_at')
 
-    #finding games where current user owns sessions
-    #Game.joins(sessions: :user).where('sessions.user_id' => 2).group(:id)
+    #games where current user has been shared sessions:
+    #Game.joins(sessions: [:user, {session_shares: :collaborator}]).where('session_shares.collaborator_id' => current_user.id).group(:id)
 
-    #combine them with "+"
-
-  
-
-  initial.where('session_shares.collaborator_id' => current_user.id).or(initial.where('sessions.user_id' => current_user.id))
-  .group(:id).order('COUNT(sessions.id) DESC, created_at')
-
-  #  (Game.joins(sessions: [:user, {session_shares: :collaborator}]).where('session_shares.collaborator_id' => current_user.id).group(:id) + 
-  #  Game.joins(sessions: [:session_shares, :user]).where('sessions.user_id' => current_user.id).group(:id)).sort_by('COUNT(sessions.id) DESC, created_at')
+    #games where current user has created sessions:
+    #Game.joins(sessions: [:session_shares, :user]).where('sessions.user_id' => current_user.id).group(:id))
 
 
     render json: @games.to_json(:include => {:sessions => {only: [:id, :date, :victor]}})
