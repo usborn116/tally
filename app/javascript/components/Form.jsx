@@ -15,6 +15,9 @@ export const Form = ({submitter = null, navigate = null, className = null, style
         if (item=='game' && !id) {
             window.location.href = `${window.location.href}games/${response?.id}`
         }
+        if (item=='create_share') {
+            window.alert(response.message)
+        }
         setToggle ? setToggle(false) : ''
         navigate ? navigate('/') : ''
 

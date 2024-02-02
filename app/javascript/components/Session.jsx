@@ -10,6 +10,7 @@ import { useSetUser } from "./helpers/useSetUser";
 import { useError } from "./helpers/useError";
 import { Error } from "./Error";
 import { ScoresTable } from "./ScoresTable";
+import { SessionShare } from "./SessionShare";
 
 export const Session = () => {
 
@@ -28,15 +29,16 @@ export const Session = () => {
     const [editDate, setEditDate] = useState(false)
     const [enterScores, setEnterScores] = useState(false)
     const [deletePlayer, setDeletePlayer] = useState(false)
+    const [sessionShare, setSessionShare] = useState(false)
+
+    const share_img = <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"> <path d="M13.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5zm-8.5 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm11 5.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z"/> </svg>
 
     useEffect(() => {
         getData(`/sessions/${id}`, setData, setError)
-    }, [create, addPlayers, editDate, enterScores, deletePlayer])
+    }, [create, addPlayers, editDate, enterScores, deletePlayer, sessionShare])
 
     const WIN_TYPE = {true: 'WON!', false: 'Not won'}
     const styling = {gridTemplateColumns: `repeat(${data?.session?.session_players?.length + 1}, ${100/(data?.session?.session_players?.length + 1)}%)`}
-
-    
 
     const add_players = [...Array(numPlayers)].map((x, i) => (
         <div key={i}>
@@ -71,7 +73,7 @@ export const Session = () => {
     const deleteHandler = async (e) => {
         e.preventDefault()
         window.confirm('Are you sure you want to delete this session?')
-        await fetch(`api/sessions/${id}`, { method: 'delete'})
+        await fetch(`/api/sessions/${id}`, { method: 'delete'})
         navigate(-1)
     }
 
@@ -96,7 +98,18 @@ export const Session = () => {
                     <Button handler={deleteHandler} classes={`delete-button`}>Delete Session&nbsp;<div className="x"> X </div></Button>
                 </div>
                 <h3>Creator: {data?.session?.user.name}</h3>
-                <h3>Shared With: {data?.session?.collaborators?.map(c => c.name)}</h3>
+                <div className="shared-entry">
+                    <h3>Shared With: {data?.session?.collaborators?.map(c => c.name)}</h3>
+                    <Switcher setter={setSessionShare} data={sessionShare}>{share_img}</Switcher>
+                </div>
+                {sessionShare ? 
+                <div className="wide-form">
+                    <Form endpoint={`create_share`} item='create_share' id={data?.session?.id} updater={updateData} setter={setData} setToggle={setSessionShare} setError={setError}>
+                        <Input type="text" name="email" placeHolder='Email'/>
+                        <Submit>Share</Submit>
+                    </Form> 
+                </div> : ''
+                }
                 <div className="entry date-entry">
                     <h3>{editDate ? 
                         <Form endpoint="sessions" item='session' id={data?.session?.id} updater={updateData} 

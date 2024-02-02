@@ -20,7 +20,7 @@ export const GameListing = ({data, user}) => {
                 </div>
                 <div>{`Total Times Played: ${data?.sessions?.length}`}</div>
                 { user ? 
-                <div>{`Times You've Played: ${user?.sessions?.filter(s => s.game_id == data?.id).length}`}</div>
+                <div>{`Times You've Played: ${user?.sessions?.filter(s => s.game_id == data?.id).length + user?.shared_sessions?.filter(s => s.game_id == data?.id).length}`}</div>
                 : ''}
             </div>
         </div>

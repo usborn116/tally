@@ -162,6 +162,7 @@ img{
     width: 90%;
     justify-content: space-between;
     font-size: 15px;
+    text-align: left;
 }
 
 .entry > .link{
@@ -202,6 +203,11 @@ img{
     padding: 2vh;
 }
 
+.session-entry{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 100%;
+}
 .player-section{
     border-right: 2px solid #4A5759;
     display: flex;

@@ -16,7 +16,7 @@ Rails.application.routes.draw do
         registrations: 'users/registrations'
       }
     get 'get_user', to: 'homepage#get_user'
-    get 'create_share/:id', to: 'sessions#create_share'
+    put 'create_share/:id', to: 'sessions#create_share'
   end
   root 'homepage#index'
   get '/*path' => 'homepage#index'

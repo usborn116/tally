@@ -32,12 +32,13 @@ export const Game = () => {
 
     const categorySection = data?.categories?.map(c => <Category key={c.id} data={c} setData={setData} setError={setError}/>)
 
-    const leaderboard = data?.results?.map(r => (
-        <div className='entry leader-board' key={r.id}>
+    const leaderboard = data?.results?.map(r => r.player ?
+        (<div className='entry leader-board' key={r.id}>
             <div>{r.player}</div>
             <div>{r.wins}</div>
-        </div>
-    ))
+        </div>)
+        : ''
+    )
 
     if (!user){
         return <h1>Nothing Here!</h1>

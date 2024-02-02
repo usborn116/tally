@@ -12,7 +12,7 @@ class Session < ApplicationRecord
     after_create :create_categories
 
     def share(email)
-        u = User.where(email: email).first&.id
+        u = User.where("LOWER(email) = ?", email.downcase).first&.id
         if u
             x = self.session_shares.create!(collaborator_id: u)
             return "Share with #{email} successful!"

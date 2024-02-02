@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
   end
 
   def create_share
-    render json: {message: @session.share(params[:email]) }
+    render json: {message: @session.share(params[:create_share][:email]) }
   end
 
   # GET /sessions/1 or /sessions/1.json
