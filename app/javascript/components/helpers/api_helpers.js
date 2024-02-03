@@ -93,7 +93,7 @@ export const logIn = async(endpoint, info, setError) => {
     }
 }
 
-export const signup=async (endpoint, info, errorSetter )=>{
+export const signup=async (endpoint, info, setError )=>{
     try{
         const response=await putPostData(endpoint, 'post', info)
         const data=await response.json()

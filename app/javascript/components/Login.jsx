@@ -6,6 +6,7 @@ import { logIn, signup, getUser} from "./helpers/api_helpers";
 import { Switcher } from "./Switcher";
 import {useNavigate} from 'react-router-dom'
 import { useError } from "./helpers/useError";
+import { Error } from "./Error";
 
 export const Login = ({setUser}) => {
 
@@ -14,9 +15,7 @@ export const Login = ({setUser}) => {
     const [existing, setExisting] = useState(true)
     const [notLoggedIn, setNotLoggedIn] = useState(true)
 
-    const {error} = useError()
-    
-    if (error) return <Error />
+    const {error, setError} = useError()
 
     useEffect(() => {
         async () => {
@@ -25,10 +24,12 @@ export const Login = ({setUser}) => {
         }
     }, [notLoggedIn])
 
+    if (error) return <Error message={error} setError={setError}/>
+
     const form = existing ? 
         <div className="data" data-testid="login-box">
         <h1>Log In</h1>
-            <Form endpoint="users/sign_in" item='login' updater={logIn} setter={setUser} setToggle={setNotLoggedIn} navigate={navigate}>
+            <Form endpoint="users/sign_in" item='login' updater={logIn} setter={setUser} setToggle={setNotLoggedIn} setError={setError} >
                 <Input type="email" name="email" placeHolder='email address'/>
                 <Input type="password" name="password" placeHolder='password' />
                 <Submit/>
@@ -36,7 +37,7 @@ export const Login = ({setUser}) => {
         </div> : 
         <div className="data" data-testid="signup-box">
         <h1>Sign Up</h1>
-            <Form endpoint="users" item='signup' updater={signup} setter={setUser} setToggle={setNotLoggedIn} navigate={navigate}>
+            <Form endpoint="users" item='signup' updater={signup} setter={setUser} setToggle={setNotLoggedIn} setError={setError} >
                 <Input type="text" name="name" placeHolder='name'/>
                 <Input type="email" name="email" placeHolder='email address'/>
                 <Input type="password" name="password" placeHolder='password' />
