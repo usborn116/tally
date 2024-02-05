@@ -2,12 +2,9 @@ export const form_object = (item, info, data) => {
     categories = {}
     if(item == 'game'){
         const entries = Object.keys(data).filter(key => key.startsWith('categories_attributes'))
-        console.log('entries', entries)
         entries.forEach(k => {
             let id = Number(k.split(';')[1])
             let attr = k.split(';')[2]
-            console.log('id', id)
-            console.log('attr', attr)
             if (attr=='name'){
                 categories[id] ? categories[id]['name'] = data[k] : categories[id] = {name: data[k], point_based: false }
             } else if (attr == 'points') {

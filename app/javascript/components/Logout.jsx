@@ -8,8 +8,6 @@ export const Logout = ({setUser, setLoading, logoutMessage }) => {
     const navigate = useNavigate()
 
     const {error, setError} = useError()
-
-    console.log('NEW!')
     
     useEffect(() => {
         setLoading(true)
