@@ -41,6 +41,13 @@ RSpec.describe Session, type: :model do
       expect(@user2.shared_sessions.length).to eq(1)
     end
 
+    it 'does not share to a non-existent user' do
+      email = 'non-real-email@gmail.com'
+      expect(@sesh.share(email)).to eq("No user with email #{email} found")
+      expect(@sesh.session_shares.length).to eq(1)
+      expect(@sesh.collaborators.length).to eq(1)
+    end
+
 
   end
 
