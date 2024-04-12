@@ -21,8 +21,8 @@ export const Form = ({submitter = null, navigate = null, className = null, style
             if (item=='create_share') {
                 window.alert(response.message)
             }
-            setToggle ? setToggle(false) : ''
-            navigate ? navigate('/') : ''
+            if (setToggle) setToggle(false)
+            if (navigate) navigate('/')
         }
     }
 

@@ -5,7 +5,7 @@ import { Form } from "./Form";
 import { Input } from "./Input";
 import { Submit } from "./Submit";
 import { Switcher } from "./Switcher";
-import { newData, getData, updateData } from "./helpers/api_helpers";
+import { newData, getData, updateData, getUser } from "./helpers/api_helpers";
 import { useSetUser } from "./helpers/useSetUser";
 import { useError } from "./helpers/useError";
 import { Error } from "./Error";
@@ -16,7 +16,7 @@ export const Session = () => {
 
     const {error, setError} = useError()
 
-    const {user} = useSetUser()
+    //const {user} = useSetUser()
 
     const id = useParams().id
 
@@ -30,12 +30,17 @@ export const Session = () => {
     const [enterScores, setEnterScores] = useState(false)
     const [deletePlayer, setDeletePlayer] = useState(false)
     const [sessionShare, setSessionShare] = useState(false)
+    const [user, setUser] = useState({ name: false})
 
     const share_img = <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"> <path d="M13.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5zm-8.5 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm11 5.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z"/> </svg>
 
     useEffect(() => {
         getData(`/sessions/${id}`, setData, setError)
     }, [create, addPlayers, editDate, enterScores, deletePlayer, sessionShare])
+
+    useEffect(() => {
+        getUser(setUser, setError)
+    }, [])
 
     const WIN_TYPE = {true: 'WON!', false: 'Not won'}
     const styling = {gridTemplateColumns: `repeat(${data?.session?.session_players?.length + 1}, ${100/(data?.session?.session_players?.length + 1)}%)`}
@@ -111,14 +116,16 @@ export const Session = () => {
                 </div> : ''
                 }
                 <div className="entry date-entry">
-                    <h3>{editDate ? 
-                        <Form endpoint="sessions" item='session' id={data?.session?.id} updater={updateData} 
+                    <h3>{editDate ?
+                        <Form endpoint="sessions" item='session' id={data?.session?.id} updater={updateData}
                             setter={setData} setToggle={setEditDate} setError={setError}>
-                            <Input type="date" name="date" value={data?.session?.date}/>
+                            <Input type="date" name="date" value={data?.session?.date} />
                             <Submit>Save Date</Submit>
-                        </Form> :  data?.session?.date}
+                        </Form> :
+                        <>{data?.session?.date}</>
+                    }
                     </h3>
-                    <Switcher setter={setEditDate} data={editDate}>Change Date</Switcher>
+                    <Switcher setter={setEditDate} data={editDate}>{editDate ? 'Done Editing' : 'Change Date'}</Switcher>
                 </div>
                 <h3>Winner: {data?.session?.victor || 'None Yet'}</h3>
             </div>

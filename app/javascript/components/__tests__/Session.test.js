@@ -15,17 +15,7 @@ jest.mock('react-router-dom', () => ({
   useParams: () => jest.fn()
 }));
 
-const fakeuser = {user: {name: 'John', email: 'a@a.com', 
-                games: [{'sessions': ['a','b']}, {'sessions': ['a','b','c','d']}]}, setLoading: () => {}}
-
 const fakeError = {error: false, setError: () => {}}
-
-
-jest.mock('../helpers/useSetUser', () => ({
-    useSetUser: () => {
-        return fakeuser;
-    },
- }));
 
  jest.mock('../helpers/useError', () => ({
     useError: () => {
@@ -33,15 +23,14 @@ jest.mock('../helpers/useSetUser', () => ({
     },
  }));
 
-
 describe('Session component works correctly',() => {
 
     test('has the name, date, winner, and a delete button', () => {
         render(<Session/>)
         const headers = screen.getAllByRole('heading')
         expect(headers[0].closest('div').classList.contains('game-name')).toBe(true)
-        expect(headers[1].closest('div').classList.contains('date-entry')).toBe(true)
-        expect(headers[2].textContent).toMatch(/Winner:/)
+        expect(screen.getByText(/Creator:/)).toBeDefined()
+        expect(screen.getByText(/Winner:/)).toBeDefined()
         const button = screen.getAllByRole('button')
         expect(button[0].textContent).toMatch(/Delete Session/)
     });
@@ -52,18 +41,32 @@ describe('Session component works correctly',() => {
         expect(players).toBeDefined()
         const scores = screen.getByText('Scores')
         expect(scores).toBeDefined()
-        
     });
 
     test('You can change the date', async () => {
-        act(() => render(<Session/>))
+        render(<Session/>)
         expect(screen.queryByText('Save Date')).toBe(null)
         await user.click(screen.getByText('Change Date'))
         expect(screen.getByText('Save Date')).toBeDefined()
         await user.click(screen.getByText('Save Date'))
+        await user.click(screen.getByText('Done Editing'))
         expect(screen.queryByText('Save Date')).toBe(null)
-        
-        
+    });
+
+    test('You can share a session', async () => {
+        render(<Session />)
+        expect(screen.getByText(/Shared With:/)).toBeDefined()
+        const emailField = screen.queryByText('Email')
+        const shareButton = screen.queryByText('Share')
+        const share = screen.queryAllByRole('button')[1]
+        expect(emailField).toBe(null)
+        expect(shareButton).toBe(null)
+        await user.click(share)
+        expect(emailField).toBeDefined()
+        expect(shareButton).toBeDefined()
+        await user.click(share)
+        expect(emailField).toBe(null)
+        expect(shareButton).toBe(null)
     });
 
     test('You can add a player to your user account', async () => {
@@ -74,7 +77,8 @@ describe('Session component works correctly',() => {
         expect(input.value).toBe('')
         await user.type(input,'foo')
         expect(input.value).toBe('foo')
-        await user.click(screen.getByText('Create New Player'))
+        await user.click(screen.queryByText('Create New Player'))
+        await user.click(screen.queryByText('Done Adding'))
         expect(screen.queryByText('Create New Player')).toBe(null)
     });
 

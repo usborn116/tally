@@ -4,8 +4,12 @@
 import {render, screen} from '@testing-library/react'
 import { User } from '../User';
 
-const fakeuser = {user: {name: 'John', email: 'a@a.com', 
-                games: [{'sessions': ['a','b']}, {'sessions': ['a','b','c','d']}]}, setLoading: () => {}}
+const fakeuser = {
+    user: {
+        name: 'John', email: 'a@a.com', sessions: [{ game_id: 1 }, { game_id: 2 }],
+        shared_sessions: [{ game_id: 1 }, { game_id: 2 }, { game_id: 1 }, { game_id: 2 }]
+    }, setLoading: () => { }
+}
 
 jest.mock('../helpers/useSetUser', () => ({
    useSetUser: () => {
