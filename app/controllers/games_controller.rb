@@ -5,7 +5,8 @@ class GamesController < ApplicationController
   # GET /games or /games.json
   def index
     @games = Game.includes(:sessions).left_joins(:sessions).group(:id).order('COUNT(sessions.id) DESC, created_at').first(5)
-    render json: @games.to_json(:include => {:sessions => {only: [:id, :date, :victor]}})
+    #render json: @games.to_json(:include => {:sessions => {only: [:id, :date, :victor]}})
+    render json: @games.as_json(include: :sessions)
   end
 
   def user_games
@@ -14,14 +15,7 @@ class GamesController < ApplicationController
     initial.where('session_shares.collaborator_id' => current_user.id).or(initial.where('sessions.user_id' => current_user.id))
     .group(:id).order('COUNT(sessions.id) DESC, created_at')
 
-    #games where current user has been shared sessions:
-    #Game.joins(sessions: [:user, {session_shares: :collaborator}]).where('session_shares.collaborator_id' => current_user.id).group(:id)
-
-    #games where current user has created sessions:
-    #Game.joins(sessions: [:session_shares, :user]).where('sessions.user_id' => current_user.id).group(:id))
-
-
-    render json: @games.to_json(:include => {:sessions => {only: [:id, :date, :victor]}})
+    render json: @games.as_json(:include => {:sessions => {only: [:id, :date, :victor]}})
   end
 
   def user_game

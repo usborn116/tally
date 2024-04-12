@@ -18,7 +18,7 @@ export const Players = ({setError, error}) => {
         getData('/players', setData, setError)
     }, [create])
 
-    if (error) return <Error message={homeError.message}/>
+    if (error) return <Error message={error.message}/>
 
     const list = data?.map(p => (
         <Player key={p.id} data={p} setData={setData}/>

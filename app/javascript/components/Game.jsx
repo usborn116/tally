@@ -9,7 +9,6 @@ import { Switcher } from "./Switcher";
 import { Category } from "./Category";
 import { useError } from "./helpers/useError";
 import { Error } from "./Error";
-import { useSetUser } from "./helpers/useSetUser";
 
 export const Game = () => {
 
@@ -17,7 +16,7 @@ export const Game = () => {
 
     const {error, setError} = useError()
     const [data, setData] = useState([])
-    const [user, setUser] = useState(false)
+    const [user, setUser] = useState({ name: false})
     const [edit, setEdit] = useState(false)
     const [create, setCreate] = useState(false)
     const [newSession, setNewSession] = useState(false)

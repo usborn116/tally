@@ -30,7 +30,7 @@ export const getData= async (endpoint, setter, setError)=>{
         await setter(data)
         return data
     }
-    catch(error){
+    catch (error) {
         return errorHandler(error, endpoint, setError)
     }
 }
@@ -42,7 +42,7 @@ export const getUser = async (setter, setError) => {
         await setter(data)
         return data
     }
-    catch(error){
+    catch (error) {
         return await errorHandler(error, '/get_user', setError)
     }
 }

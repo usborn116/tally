@@ -12,7 +12,7 @@ const user = userEvent.setup()
 
 describe('Game section works correctly',() => {
     test('has game info, categories, leaderboard, and sessions', async () => {
-        act(() => render(<Game/>))
+        act(() => render(<MemoryRouter><Game/></MemoryRouter>))
         const headers = screen.getAllByRole('heading')
         expect(headers[0].closest('div').classList.contains('game-details')).toBe(true)
         expect(headers[1].closest('div').classList.contains('game-categories')).toBe(true)

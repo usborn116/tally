@@ -11,14 +11,14 @@ export const Logout = ({setUser, setLoading, logoutMessage }) => {
     
     useEffect(() => {
         setLoading(true)
-        getUser(setUser)
+        getUser(setUser, setError)
         setLoading(false)
     }, [])
 
     const handleLogout = async (e) =>{
         e.preventDefault()
         await logout(setError)
-        await getUser(setUser)
+        await getUser(setUser, setError)
         await logoutMessage()
         navigate('/')
     }

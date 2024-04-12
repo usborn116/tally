@@ -19,7 +19,7 @@ export const Login = ({setUser}) => {
 
     useEffect(() => {
         async () => {
-            const response = await getUser(setUser)
+            const response = await getUser(setUser, setError)
             response ? navigate('/') : ''
         }
     }, [notLoggedIn])

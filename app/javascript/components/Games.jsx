@@ -15,8 +15,6 @@ import { ImageHelper } from "./ImageHelper";
 
 export const Games = ({endpoint, loading, user, homeError = null}) => {
 
-    //const {user} = useSetUser()
-
     const {error, setError} = useError()
 
     const [data, setData] = useState([])

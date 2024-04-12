@@ -1,5 +1,5 @@
 export const form_object = (item, info, data) => {
-    categories = {}
+    const categories = {}
     if(item == 'game'){
         const entries = Object.keys(data).filter(key => key.startsWith('categories_attributes'))
         entries.forEach(k => {
