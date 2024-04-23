@@ -12,9 +12,12 @@ class Session < ApplicationRecord
     after_create :create_categories
 
     def share(email)
-        u = User.where("LOWER(email) = ?", email.downcase).first&.id
+        u = User.where("LOWER(email) = ?", email.downcase).first
         if u
-            x = self.session_shares.create!(collaborator_id: u)
+            x = self.session_shares.create!(collaborator_id: u.id)
+            SessionMailer.with(user: u, date: self.date.strftime("%m/%d/%Y") , game: self.game.name, sharer: self.user.name, id: self.id)
+                .shared_email
+                .deliver_later
             return "Share with #{email} successful!"
         else
             return "No user with email #{email} found"
