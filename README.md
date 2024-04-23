@@ -28,7 +28,6 @@ Once you're done with a game, add the scores!
 If the game has categories that aren't score-based but just win-based, you can check boxes for those categories too:
 ![CleanShot 2023-11-06 at 16 29 48](https://github.com/usborn116/tally/assets/64931297/753c8a22-a166-4360-92e4-e22f8786d6ee)
 
-
 # tally
 
 Docs that were helpful in the making of this project:
@@ -44,6 +43,7 @@ Docs that were helpful in the making of this project:
 - CSS Media queries: https://stackoverflow.com/questions/66045259/css-grid-two-columns-on-desktop-and-1-column-on-mobile
 - Rails Nested Forms: https://www.ombulabs.com/blog/learning/rails/nested-forms.html
 - Git branching: https://www.w3schools.com/git/git_branch_merge.asp?remote=github
+- Rails Mailers: https://akladyous.medium.com/ruby-on-rails-action-mailer-configuration-6d0cfc00b871
 
 Jest Testing Help:
 
@@ -66,8 +66,10 @@ Jest Testing Help:
 - Active Record Queries: https://guides.rubyonrails.org/active_record_querying.html#joins
 
 Styling:
+
 - If I ever want to do toggles instead of checkboxes: https://www.w3schools.com/howto/howto_css_switch.asp
 - Centering blocks: https://css-tricks.com/quick-css-trick-how-to-center-an-object-exactly-in-the-center/
 
 Git:
+
 - deleting remote branches: https://www.freecodecamp.org/news/git-delete-branch-how-to-remove-a-local-or-remote-branch/
