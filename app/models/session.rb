@@ -14,10 +14,8 @@ class Session < ApplicationRecord
     def share(email)
         u = User.where("LOWER(email) = ?", email.downcase).first
         if u
-            x = self.session_shares.create!(collaborator_id: u.id)
-            SessionMailer.with(user: u, date: self.date.strftime("%m/%d/%Y") , game: self.game.name, sharer: self.user.name, id: self.id)
-                .shared_email
-                .deliver_later
+            self.session_shares.create!(collaborator_id: u.id)
+            send_shared_email(u)
             return "Share with #{email} successful!"
         else
             return "No user with email #{email} found"
@@ -36,6 +34,12 @@ class Session < ApplicationRecord
     end
 
     private
+
+    def send_shared_email(u)
+       SessionMailer.with(user: u, date: self.date.strftime("%m/%d/%Y") , game: self.game.name, sharer: self.user.name, id: self.id)
+            .shared_email
+            .deliver_later
+    end
 
     def create_categories
         self.game.categories.each{|c| self.session_categories.create(name: c.name, point_based: c.point_based, win: c.win)}

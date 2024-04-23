@@ -16,6 +16,11 @@ RSpec.describe SessionMailer, type: :mailer do
         expect(mail.body.encoded).to match("Sharer")
         expect(mail.body.encoded).to match("01/01/2023")
       end
+
+      it 'sends email' do
+        mail.deliver_now!
+        expect(ActionMailer::Base.deliveries.count).to eq(1)
+      end
   end
 
 end
