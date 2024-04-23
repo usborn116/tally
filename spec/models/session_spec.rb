@@ -8,7 +8,7 @@ RSpec.describe Session, type: :model do
     @game = @user.games.create(name: 'Game 1')
     @cat1 = @game.categories.create(name: 'Copied Cat 1', point_based: true)
     @cat2 = @game.categories.create(name: 'Copied Cat 2', point_based: false)
-    @sesh = @game.sessions.create(user_id: @user.id)
+    @sesh = @game.sessions.create(user_id: @user.id, date: Date.new())
     @player1 = @sesh.session_players.create(name: 'Usborn')
     @player2 = @sesh.session_players.create(name: 'Ashley')
   end
@@ -41,6 +41,10 @@ RSpec.describe Session, type: :model do
       expect(@user2.shared_sessions.length).to eq(1)
     end
 
+    it 'sends an email' do
+      mail = @sesh.send(:send_shared_email, @user2)
+      expect(mail.class).to eq(ActionMailer::MailDeliveryJob)
+    end
     it 'does not share to a non-existent user' do
       email = 'non-real-email@gmail.com'
       expect(@sesh.share(email)).to eq("No user with email #{email} found")

@@ -1,6 +1,6 @@
 class GamesController < ApplicationController
   before_action :set_game, only: %i[ show edit update destroy most_winner ]
-  before_action :authenticate_user!, only: %i[new show edit create update destroy]
+  before_action :authenticate_user!, only: %i[user_games uesr_game new show edit create update destroy]
 
   # GET /games or /games.json
   def index

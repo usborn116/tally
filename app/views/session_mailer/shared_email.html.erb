@@ -1,0 +1,15 @@
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1><%= @sharer %> has shared a session with you, <%= @user.name %>!</h1>
+    <p>
+      You can now see the <%= @game %> session on <%= @date %>.
+    </p>
+    <p>
+      View it here: <a href="<%= @host %>/sessions/<%= @id %>">Session</a>.
+    </p>
+    <p>Happy gaming!</p>
+  </body>
+</html>
