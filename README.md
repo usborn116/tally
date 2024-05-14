@@ -2,6 +2,20 @@
 
 This app lets you keep score of all your board games (or any games), and look back at any session of a game to see who won that time!
 
+For the backend:
+- I use Ruby on Rails as the server, with a PostgreSQL database in production.
+- I use the jsbundling-rails gem to bundle JS files (as my frontend is React-based).
+- I use Devise to handle authentication/sessions.
+- I use the sassc-rails gem to pre-process my stylesheets.
+- I use bullet and letter_opener in development for optimizing and testing the mailer, respectively.
+- All backend routes are namespaced under 'api' to avoid conflicts with frontend routes
+- I use rspec for testing.
+
+For the frontend:
+- I use React for my frontend, calling my /api routes to get JSON data from my backend.
+- For testing, I use Jest as well as the React testing library.
+- I use react-router to handle all the public-facing routes.
+
 This app is deployed at https://tabletoptally.fly.dev/.
 
 On the home page, you can see all games that any user has added to the database, along with details:
