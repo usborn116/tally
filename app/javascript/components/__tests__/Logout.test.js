@@ -12,7 +12,7 @@ const user = userEvent.setup()
 const mockedFn = jest.fn()
 
 jest.mock('../helpers/api_helpers', () => ({
-    getUser: () => jest.fn(),
+    getData: () => jest.fn(),
     logout: () => jest.fn()
 }));
 

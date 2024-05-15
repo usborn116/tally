@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Form } from "./Form";
 import { Input } from "./Input";
 import { Submit } from "./Submit";
-import { logIn, signup, getUser} from "./helpers/api_helpers";
+import { logIn, signup, getData} from "./helpers/api_helpers";
 import { Switcher } from "./Switcher";
 import {useNavigate} from 'react-router-dom'
 import { useError } from "./helpers/useError";
@@ -19,7 +19,7 @@ export const Login = ({setUser}) => {
 
     useEffect(() => {
         async () => {
-            const response = await getUser(setUser, setError)
+            const response = await getData('get_user', setUser, setError)
             response ? navigate('/') : ''
         }
     }, [notLoggedIn])

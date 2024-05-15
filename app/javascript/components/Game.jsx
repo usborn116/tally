@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import { useParams, Navigate } from "react-router-dom";
 import { Sessions } from "./Sessions";
-import { getData, updateData, newData, getUser } from "./helpers/api_helpers";
+import { getData, updateData, newData } from "./helpers/api_helpers";
 import { Form } from "./Form";
 import { Submit } from "./Submit";
 import { Input } from "./Input";
@@ -22,11 +22,11 @@ export const Game = () => {
     const [newSession, setNewSession] = useState(false)
 
     useEffect(() => {
-        getData(`/user_game/${id}`, setData, setError)
+        getData(`user_game/${id}`, setData, setError)
     }, [edit, create, newSession])
 
     useEffect(() => {
-        getUser(setUser, setError)
+        getData('get_user', setUser, setError)
     }, [edit, create, newSession])
 
     const categorySection = data?.categories?.map(c => <Category key={c.id} data={c} setData={setData} setError={setError}/>)

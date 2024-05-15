@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import { useNavigate } from "react-router-dom";
-import { getUser, logout } from "./helpers/api_helpers";
+import { getData, logout } from "./helpers/api_helpers";
 import { useError } from "./helpers/useError";
 
 export const Logout = ({setUser, setLoading, logoutMessage }) => {
@@ -11,14 +11,14 @@ export const Logout = ({setUser, setLoading, logoutMessage }) => {
     
     useEffect(() => {
         setLoading(true)
-        getUser(setUser, setError)
+        getData('get_user', setUser, setError)
         setLoading(false)
     }, [])
 
     const handleLogout = async (e) =>{
         e.preventDefault()
         await logout(setError)
-        await getUser(setUser, setError)
+        await getData('get_user', setUser, setError)
         await logoutMessage()
         navigate('/')
     }

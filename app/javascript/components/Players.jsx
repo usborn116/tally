@@ -15,7 +15,7 @@ export const Players = ({setError, error}) => {
     const [create, setCreate] = useState(false)
 
     useEffect(() => {
-        getData('/players', setData, setError)
+        getData('players', setData, setError)
     }, [create])
 
     if (error) return <Error message={error.message}/>
