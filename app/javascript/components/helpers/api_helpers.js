@@ -35,18 +35,6 @@ export const getData= async (endpoint, setter, setError)=>{
     }
 }
 
-export const getUser = async (setter, setError) => {
-    try {
-        const response = await getHelper('/get_user')
-        const data=await response.json()
-        await setter(data)
-        return data
-    }
-    catch (error) {
-        return await errorHandler(error, '/get_user', setError)
-    }
-}
-
 export const logout = async (setError) =>{
     try{
         await fetch(`/api/users/sign_out`, {

@@ -1,13 +1,13 @@
 import React, {useEffect} from "react";
 import { Games } from "./Games";
-import { getUser } from "./helpers/api_helpers";
+import { getData } from "./helpers/api_helpers";
 import { Error } from "./Error";
 
 export const Home = ({user, setUser, loading, setLoading, setError, error}) => {
 
     useEffect(() => {
         setLoading(true)
-        getUser(setUser, setError)
+        getData('get_user', setUser, setError)
         setLoading(false)
     }, [loading])
 
