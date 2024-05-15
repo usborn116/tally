@@ -1,24 +1,19 @@
 class GamesController < ApplicationController
   before_action :set_game, only: %i[ show edit update destroy most_winner ]
-  before_action :authenticate_user!, only: %i[user_games uesr_game new show edit create update destroy]
+  before_action :authenticate_user!, only: %i[new show edit create update destroy]
 
   # GET /games or /games.json
   def index
-    @games = Game.includes(:sessions).left_joins(:sessions).group(:id).order('COUNT(sessions.id) DESC, created_at').first(5)
-    #render json: @games.to_json(:include => {:sessions => {only: [:id, :date, :victor]}})
-    render json: @games.as_json(include: :sessions)
-  end
-
-  def user_games
-    initial = Game.joins(sessions: :user).left_joins(sessions: {session_shares: :collaborator})
-    @games = params[:name] ? Game.includes(:sessions).filter_by_name(params[:name]) : 
-    initial.where('session_shares.collaborator_id' => current_user.id).or(initial.where('sessions.user_id' => current_user.id))
-    .group(:id).order('COUNT(sessions.id) DESC, created_at')
-
+    if current_user
+      @games = user_games
+    else
+      @games = Game.includes(:sessions).left_joins(:sessions).group(:id).order('COUNT(sessions.id) DESC, created_at').first(5)  
+    end
     render json: @games.as_json(:include => {:sessions => {only: [:id, :date, :victor]}})
   end
 
-  def user_game
+  # GET /games/1 or /games/1.json
+  def show
     @game = Game.find(params[:id])
     if @game 
       @result = JSON.parse(@game.to_json(:include => [:categories, {:sessions => {only: [:id, :date, :victor]}}]))
@@ -29,10 +24,6 @@ class GamesController < ApplicationController
     else
       render json: @game.errors
     end
-  end
-
-  # GET /games/1 or /games/1.json
-  def show
   end
 
   # GET /games/new
@@ -80,5 +71,12 @@ class GamesController < ApplicationController
     # Only allow a list of trusted parameters through.
     def game_params
       params.require(:game).permit(:name, :game_category, :image, :gameplay_length, :player_number, :complexity, categories_attributes: [:name, :point_based])
+    end
+
+    def user_games
+      initial = Game.joins(sessions: :user).left_joins(sessions: {session_shares: :collaborator})
+      params[:name] ? Game.includes(:sessions).filter_by_name(params[:name]) : 
+      initial.where('session_shares.collaborator_id' => current_user.id).or(initial.where('sessions.user_id' => current_user.id))
+      .group(:id).order('COUNT(sessions.id) DESC, created_at')
     end
 end

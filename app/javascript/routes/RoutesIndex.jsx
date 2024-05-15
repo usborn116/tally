@@ -21,7 +21,7 @@ export const RoutesIndex = ({user, setUser, error, setError, setLoading, loading
         <Route path='/' element={<Home user={user} loading={loading} setLoading={setLoading} setUser={setUser} error={error} setError={setError}/>} />
         <Route path="/user" element={<User user={user} setError={setError}/>} />
         <Route path="/players" element={<Players user={user} setError={setError} error={error}/>} />
-        <Route path="/games" element={<Games user={user} endpoint='user_games' setError={setError}/>} />
+        <Route path="/games" element={<Games user={user} endpoint='games' setError={setError}/>} />
         <Route path="/games/:id" element={<Game />} />
         <Route path="/sessions/:id" element={<Session setError={setError}/>} />
         <Route path="/login" element={<Login user={user} setUser={setUser} setError={setError}/>} />

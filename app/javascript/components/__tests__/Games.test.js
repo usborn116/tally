@@ -22,7 +22,7 @@ jest.mock('../helpers/useSetUser', () => ({
 
 describe('Games component works correctly', () => {
     test('you can enter a search', async () => {
-        render(<Games endpoint='user_games' user={true} />)
+        render(<Games endpoint='games' user={true} />)
         const search = screen.queryByRole('textbox')
         expect(search.value).toBe('')
         await user.type(search, 'Wingspan')
@@ -39,7 +39,7 @@ describe('Games component works correctly', () => {
     });
 
     test('clicking "Add New Game" shows the form', async() => {
-        render(<Games endpoint='user_games' user={true} />)
+        render(<Games endpoint='games' user={true} />)
         await user.click(screen.getByText('Add New Game'))
         expect(screen.getByText('See All Games')).toBeDefined()
     });
@@ -57,7 +57,7 @@ describe('Games component works correctly', () => {
     });
 
     test('Has searchbar if My Games', () => {
-        render(<Games endpoint='user_games' user={true} />)
+        render(<Games endpoint='games' user={true} />)
         expect(screen.queryByRole('textbox')).not.toBe(null)
         expect(screen.getByText('Add New Game')).not.toBe(null)
     });
