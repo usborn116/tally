@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  before_action :set_session, only: %i[ show edit update destroy get_winner create_share]
+  before_action :set_session, only: %i[ show edit update destroy winner create_share]
   before_action :authenticate_user!
 
   # GET /sessions or /sessions.json
@@ -20,7 +20,7 @@ class SessionsController < ApplicationController
     render json: {session: @session, players: @players }
   end
 
-  def get_winner
+  def winner
     render json: {message: @session.winner }
   end
 

@@ -3,11 +3,11 @@ Rails.application.routes.draw do
     resources :session_scores
     resources :session_players
     resources :session_categories
-    resources :sessions
+    resources :sessions do
+      get 'winner', on: :member
+    end
     resources :categories
     resources :games
-    #get 'user_game/:id', to: 'games#user_game'
-    get 'session_winner/:id', to: 'sessions#get_winner'
     resources :players
     devise_for :users,
       controllers: {

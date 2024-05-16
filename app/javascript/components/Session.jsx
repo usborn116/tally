@@ -70,7 +70,7 @@ export const Session = () => {
     const handleCalculate = async (e) => {
         setEnterScores(true)
         e?.preventDefault()
-        const response = await getData(`/session_winner/${data?.session?.id}`, setData, setError)
+        const response = await getData(`sessions/${data?.session?.id}/winner`, setData, setError)
         setEnterScores(false)
         alert(response.message)
     };
