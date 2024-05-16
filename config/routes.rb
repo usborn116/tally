@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     resources :session_categories
     resources :sessions do
       get 'winner', on: :member
+      resource :session_shares, only: [:create]
     end
     resources :categories
     resources :games
@@ -15,7 +16,6 @@ Rails.application.routes.draw do
         registrations: 'users/registrations'
       }
     get 'get_user', to: 'homepage#get_user'
-    put 'create_share/:id', to: 'sessions#create_share'
   end
   root 'homepage#index'
   get '/*path' => 'homepage#index'

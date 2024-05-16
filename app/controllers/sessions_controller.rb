@@ -1,14 +1,10 @@
 class SessionsController < ApplicationController
-  before_action :set_session, only: %i[ show edit update destroy winner create_share]
+  before_action :set_session, only: %i[ show edit update destroy winner ]
   before_action :authenticate_user!
 
   # GET /sessions or /sessions.json
   def index
     @sessions = Session.all
-  end
-
-  def create_share
-    render json: {message: @session.share(params[:create_share][:email]) }
   end
 
   # GET /sessions/1 or /sessions/1.json

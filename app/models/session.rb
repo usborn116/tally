@@ -18,7 +18,7 @@ class Session < ApplicationRecord
             send_shared_email(u)
             return "Share with #{email} successful!"
         else
-            return "No user with email #{email} found"
+            raise StandardError, "No user with email #{email} found"
         end
     end
 
