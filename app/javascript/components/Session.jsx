@@ -93,10 +93,7 @@ export const Session = () => {
 
     if (!user) return <h1>No Content Here!</h1>
 
-    if (error) {
-        console.log(error)
-        return <Error message={error} />
-    }
+    if (error) return <Error message={error} />
 
     return (
         <div className="table">

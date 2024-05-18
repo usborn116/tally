@@ -45,9 +45,10 @@ RSpec.describe Session, type: :model do
       mail = @sesh.send(:send_shared_email, @user2)
       expect(mail.class).to eq(ActionMailer::MailDeliveryJob)
     end
-    it 'does not share to a non-existent user' do
+
+    it 'raises an error when user does not exist' do
       email = 'non-real-email@gmail.com'
-      expect(@sesh.share(email)).to eq("No user with email #{email} found")
+      expect{@sesh.share(email)}.to raise_error("No user with email #{email} found")
       expect(@sesh.session_shares.length).to eq(1)
       expect(@sesh.collaborators.length).to eq(1)
     end
