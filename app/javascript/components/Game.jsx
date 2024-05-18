@@ -22,7 +22,7 @@ export const Game = () => {
     const [newSession, setNewSession] = useState(false)
 
     useEffect(() => {
-        getData(`user_game/${id}`, setData, setError)
+        getData(`games/${id}`, setData, setError)
     }, [edit, create, newSession])
 
     useEffect(() => {
