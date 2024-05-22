@@ -39,7 +39,7 @@ export const Session = () => {
     }, [create, addPlayers, editDate, enterScores, deletePlayer, sessionShare])
 
     useEffect(() => {
-        getData('get_user', setUser, setError)
+        getData('user', setUser, setError)
     }, [])
 
     const WIN_TYPE = {true: 'WON!', false: 'Not won'}
