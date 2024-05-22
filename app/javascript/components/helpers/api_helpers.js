@@ -55,7 +55,7 @@ export const newData = async (endpoint, info, setError)=>{
         const data=await response.json()
         if(!response.ok) throw data.error
         return data
-    } catch (error){
+    } catch (error) {
         return await errorHandler(error, endpoint, setError)
     }
 }

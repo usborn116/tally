@@ -11,14 +11,14 @@ export const Form = ({submitter = null, navigate = null, className = null, style
         const data=Object.fromEntries(formData)
         let info = {}
         info = form_object(item, info, data)
-        const response = info[item]?.name !== '' ? await updater(`/${endpoint}${id ? `/${id}` : ''}`, info, setError) : null
+        const response = info[item]?.name !== '' ? await updater(`${endpoint}${id ? `/${id}` : ''}`, info, setError) : null
         if (response?.error){
             return
         } else {
             if (item=='game' && !id) {
                 window.location.href = `${window.location.href}games/${response?.id}`
             }
-            if (item=='create_share') {
+            if (item=='share') {
                 window.alert(response.message)
             }
             if (setToggle) setToggle(false)

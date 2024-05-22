@@ -70,7 +70,7 @@ export const Session = () => {
     const handleCalculate = async (e) => {
         setEnterScores(true)
         e?.preventDefault()
-        const response = await getData(`/session_winner/${data?.session?.id}`, setData, setError)
+        const response = await getData(`sessions/${data?.session?.id}/winner`, setData, setError)
         setEnterScores(false)
         alert(response.message)
     };
@@ -93,7 +93,7 @@ export const Session = () => {
 
     if (!user) return <h1>No Content Here!</h1>
 
-    if (error) return <Error message={error}/>
+    if (error) return <Error message={error} />
 
     return (
         <div className="table">
@@ -109,7 +109,7 @@ export const Session = () => {
                 </div>
                 {sessionShare ? 
                 <div className="wide-form">
-                    <Form endpoint={`create_share`} item='create_share' id={data?.session?.id} updater={updateData} setter={setData} setToggle={setSessionShare} setError={setError}>
+                    <Form endpoint={`sessions/${data?.session?.id}/session_shares`} item='share' updater={newData} setter={setData} setToggle={setSessionShare} setError={setError}>
                         <Input type="text" name="email" placeHolder='Email'/>
                         <Submit>Share</Submit>
                     </Form> 
