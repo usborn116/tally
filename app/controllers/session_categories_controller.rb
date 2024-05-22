@@ -1,6 +1,5 @@
 class SessionCategoriesController < ApplicationController
   before_action :set_session_category, only: %i[ show edit update destroy ]
-  before_action :authenticate_user!
 
   # GET /session_categories or /session_categories.json
   def index

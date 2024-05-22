@@ -1,6 +1,5 @@
 class SessionScoresController < ApplicationController
   before_action :set_session_score, only: %i[ show edit update destroy ]
-  before_action :authenticate_user!
 
   # GET /session_scores or /session_scores.json
   def index
