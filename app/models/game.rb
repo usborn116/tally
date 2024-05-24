@@ -14,32 +14,32 @@ class Game < ApplicationRecord
 			.order('COUNT(sessions.id) DESC, created_at')
     }
 
-		scope :top_five, -> { 
-			left_joins(:sessions)
-			.select('games.*, COUNT(sessions.id) AS sessions_count')
-			.group('games.id')
-			.order('sessions_count DESC, games.created_at')
-			.limit(5)
-		}
+	scope :top_five, -> { 
+		left_joins(:sessions)
+		.select('games.*, COUNT(sessions.id) AS sessions_count')
+		.group('games.id')
+		.order('sessions_count DESC, games.created_at')
+		.limit(5)
+	}
 
-		def game_relationships
-			self.to_json(:include => 
-			[ :categories, 
-				{:sessions => {only: [:id, :date, :victor, :user_id],
-					:include => [
-						{ :session_shares => {only: [:collaborator_id]} }
-					]} 
-				}]
-			)
-		end
-		
-		def results
-			self&.sessions
-					&.map(&:victor)
-					&.tally
-					&.sort_by{|k, v| -v}
-					&.map { |item| {player: item[0], wins: item[-1]} }
-		end
+	def game_relationships
+		self.to_json(:include => 
+		[ :categories, 
+			{:sessions => {only: [:id, :date, :victor, :user_id],
+				:include => [
+					{ :session_shares => {only: [:collaborator_id]} }
+				]} 
+			}]
+		)
+	end
+	
+	def results
+		self&.sessions
+				&.map(&:victor)
+				&.tally
+				&.sort_by{|k, v| -v}
+				&.map { |item| {player: item[0], wins: item[-1]} }
+	end
 
     private
 
