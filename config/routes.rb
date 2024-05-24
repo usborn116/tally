@@ -10,12 +10,12 @@ Rails.application.routes.draw do
     resources :categories
     resources :games
     resources :players
+    resource :user, only: [:show]
     devise_for :users,
       controllers: {
         sessions: 'users/sessions',
         registrations: 'users/registrations'
       }
-    get 'get_user', to: 'homepage#get_user'
   end
   root 'homepage#index'
   get '/*path' => 'homepage#index'

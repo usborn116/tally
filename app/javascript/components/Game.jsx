@@ -26,7 +26,7 @@ export const Game = () => {
     }, [edit, create, newSession])
 
     useEffect(() => {
-        getData('get_user', setUser, setError)
+        getData('user', setUser, setError)
     }, [edit, create, newSession])
 
     const categorySection = data?.categories?.map(c => <Category key={c.id} data={c} setData={setData} setError={setError}/>)
