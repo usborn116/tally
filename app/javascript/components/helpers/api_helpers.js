@@ -15,17 +15,18 @@ const putPostData = async (endpoint, type, info) => {
     }) 
 }
 
-const getHelper = async (endpoint) => {
-    const response=await fetch(`/api/${endpoint}`)
+const getHelper = async (endpoint, include) => {
+    const included_associations = include ? `?include=${include.join(',')}` : ''
+    const response=await fetch(`/api/${endpoint}${included_associations}`)
     if (response.status > 400){
         throw new Error(`${response.status}: ${response.statusText}`)
     }
     return response
 }
 
-export const getData= async (endpoint, setter, setError)=>{
+export const getData= async (endpoint, setter, setError, include=null)=>{
     try {
-        const response=await getHelper(endpoint)
+        const response=await getHelper(endpoint, include)
         const data=await response.json()
         await setter(data)
         return data
