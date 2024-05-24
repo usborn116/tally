@@ -8,4 +8,5 @@ class UsersController < ApplicationController
           {:sessions => {:include => [:user]}}, 
           {:shared_sessions => {:include => [:user]}} ] ) || false
     end
+
 end

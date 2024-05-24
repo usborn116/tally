@@ -32,6 +32,7 @@ class Game < ApplicationRecord
 				}]
 			)
 		end
+		
 		def results
 			self&.sessions
 					&.map(&:victor)
