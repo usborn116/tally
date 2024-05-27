@@ -1,6 +1,5 @@
 class SessionSharesController < ApplicationController
   before_action :set_session, only: %i[ create ]
-  before_action :authenticate_user!
 
   # POST /session_shareor /session_players.json
   def create

@@ -111,8 +111,14 @@ export const Game = () => {
 
             </div>}
 
-            {data?.sessions ? <Sessions data={user?.sessions?.filter(s => s.game_id == data?.id).concat(user?.shared_sessions?.filter(s => s.game_id == data?.id))} 
-                user={user} game_id={data?.id} setter={setNewSession} /> : ''}
+            {data?.sessions ? <Sessions data={
+                data?.sessions.filter(session => session.user_id == user.id ||
+                    session.session_shares?.map(share => share.collaborator_id)
+                        .includes(user.id))
+                }
+                user={user}
+                game_id={data?.id}
+                setter={setNewSession} /> : ''}
         </div>
 
     )

@@ -1,13 +1,13 @@
 class GamesController < ApplicationController
   before_action :set_game, only: %i[ show edit update destroy most_winner ]
-  before_action :authenticate_user!, only: %i[new show edit create update destroy]
+  skip_before_action :authenticate_user!, only: %i[index]
 
   # GET /games or /games.json
   def index
     if current_user
       @games = user_games
     else
-      @games = Game.includes(:sessions).left_joins(:sessions).group(:id).order('COUNT(sessions.id) DESC, created_at').first(5)  
+      @games = Game.top_five
     end
     render json: @games.as_json(:include => {:sessions => {only: [:id, :date, :victor]}})
   end
@@ -16,10 +16,8 @@ class GamesController < ApplicationController
   def show
     @game = Game.find(params[:id])
     if @game 
-      @result = JSON.parse(@game.to_json(:include => [:categories, {:sessions => {only: [:id, :date, :victor]}}]))
-      @result['results'] = @game&.sessions&.map(&:victor)&.tally&.sort_by{|k, v| v}&.reverse&.map do |item|
-        {player: item.first, wins: item.last}
-      end
+      @result = JSON.parse(@game.game_relationships)
+      @result['results'] = @game.results
       render json: @result
     else
       render json: @game.errors
@@ -74,9 +72,7 @@ class GamesController < ApplicationController
     end
 
     def user_games
-      initial = Game.joins(sessions: :user).left_joins(sessions: {session_shares: :collaborator})
       params[:name] ? Game.includes(:sessions).filter_by_name(params[:name]) : 
-      initial.where('session_shares.collaborator_id' => current_user.id).or(initial.where('sessions.user_id' => current_user.id))
-      .group(:id).order('COUNT(sessions.id) DESC, created_at')
+      Game.user_games(current_user.id)
     end
 end

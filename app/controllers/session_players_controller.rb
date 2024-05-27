@@ -1,6 +1,5 @@
 class SessionPlayersController < ApplicationController
   before_action :set_session_player, only: %i[ show edit update destroy ]
-  before_action :authenticate_user!
 
   # GET /session_players or /session_players.json
   def index
