@@ -9,15 +9,21 @@ class GamesController < ApplicationController
     else
       @games = Game.top_five
     end
-    render json: @games.as_json(:include => {:sessions => {only: [:id, :date, :victor]}})
+
+    include_options = build_include_options
+    render json: @games.as_json(include: include_options)
   end
 
   # GET /games/1 or /games/1.json
   def show
+
+    include_options = build_include_options
+
     @game = Game.find(params[:id])
     if @game 
-      @result = JSON.parse(@game.game_relationships)
-      @result['results'] = @game.results
+      #@result = JSON.parse(@game.game_relationships)
+      @result = @game.as_json(include: include_options)
+      @result['results'] = @game.results if params[:include]&.split(',')&.include?('results')
       render json: @result
     else
       render json: @game.errors
@@ -64,6 +70,23 @@ class GamesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_game
       @game = Game.find(params[:id])
+    end
+
+    def build_include_options
+      return {} unless params[:include]
+
+      params[:include].split(',').map do |association|
+        case association
+        when 'categories'
+          { categories: {} }
+        when 'session_shares'
+          {sessions: {include: [:session_shares => {only: :collaborator_id}]} }
+        when 'sessions'
+          {:sessions => {only: [:id, :date, :victor, :user_id]}}
+        else
+          {}
+        end
+      end.reduce({}, :merge)
     end
 
     # Only allow a list of trusted parameters through.

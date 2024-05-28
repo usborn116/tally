@@ -16,7 +16,8 @@ const putPostData = async (endpoint, type, info) => {
 }
 
 const getHelper = async (endpoint, include) => {
-    const included_associations = include ? `?include=${include.join(',')}` : ''
+    const param_mark = endpoint.match(/\?/) ? '&' : '?'
+    const included_associations = include ? `${param_mark}include=${include.join(',')}` : ''
     const response=await fetch(`/api/${endpoint}${included_associations}`)
     if (response.status > 400){
         throw new Error(`${response.status}: ${response.statusText}`)
