@@ -33,18 +33,6 @@ class Session < ApplicationRecord
 		result.length == 1 ? "#{first_player} wins this round of #{self.game.name}!" : "Tied between: #{result.map{|p| category_winner ? p.first : p.name}.join(", ")}"
 	end
 
-	def session_relationships
-
-		self.to_json(:include => 
-			[:game, :user, :collaborators, 
-				{:session_players => {:include => [:session_scores]}}, 
-				{:session_categories => {:include => [:session_scores]}},
-				{:session_scores => {:include => [:session_player, :session_category]}}
-			]
-		)
-
-	end
-
 	private
 
 	def create_categories

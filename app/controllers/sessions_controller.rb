@@ -11,8 +11,6 @@ class SessionsController < ApplicationController
     include_options = build_include_options
 
     render json: @session.as_json(include: include_options)
-    #@players = current_user.players
-    #render json: {session: JSON.parse(@session.session_relationships), players: @players }
   end
 
   def winner
