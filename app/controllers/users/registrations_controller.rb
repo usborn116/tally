@@ -28,6 +28,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def update_resource(resource, params)
+    p resource
+    p params
     resource.update_without_password(params)
   end
 

@@ -1,14 +1,33 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import { Navigate } from 'react-router-dom'
 import { useSetUser } from "./helpers/useSetUser";
 import { useOutletContext } from "react-router-dom";
+import { Form } from "./Form";
+import { Input } from "./Input";
+import { Submit } from "./Submit";
+import { useError } from "./helpers/useError";
+import { updateData } from "./helpers/api_helpers";
+import { Switcher } from "./Switcher";
 
 export const User = () => {
 
+    const [edit, setEdit] = useState(false)
     const [user, setUser, loading, setLoading, error, setError] = useOutletContext()
 
+    if (edit) return (
+        <div className="data user-data">
+        <h2>User Details</h2>
+         <Form endpoint="users" item='signup' updater={updateData} setter={setUser} setToggle={setEdit} setError={setError} >
+            <Input type="text" name="name" value={user?.name} placeHolder='name'/>
+            <Input type="email" name="email" value={user?.email} placeHolder='email address'/>
+            <Submit/>
+        </Form>
+        </div>
+    )
+
     return ( user && 
-        <div className="data user-data">  
+        <div className="data user-data">
+            <Switcher setter={setEdit} data={edit}>Change User Details</Switcher>
             <h1>Name: {user?.name}</h1>
             <h2>Email: {user?.email}</h2>
             <h2>Games Played: {[...new Set(user?.sessions?.map(s => s.game_id))].length}</h2>
