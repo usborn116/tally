@@ -39,13 +39,18 @@ export const Game = () => {
         : (<div key={i}></div>)
     )
 
+    const sessionsAssociatedWithUser = data?.sessions?.filter(
+            session => session.user_id == user.id ||
+            session.session_shares?.map(share => share.collaborator_id).includes(user.id)
+    )
+
     if (!user){
         return <h1>Nothing Here!</h1>
     }
 
     if (edit) return (
         <div className="data edit-game-form">
-        {error ? <Error message={error}/> : ''}
+        {error && <Error message={error}/> }
         <Switcher setter={setEdit} data={edit}>See Game Details</Switcher>
         <Form endpoint="games" item='game' id={data.id} updater={updateData} setter={setData} setToggle={setEdit} setError={setError}>
                 <Input type="text" name="name" value={data?.name} placeHolder='Name' />
@@ -83,7 +88,7 @@ export const Game = () => {
                     <h3>Categories</h3>
                     {categorySection}
                     <Switcher setter={setCreate} data={create}>Add New Category</Switcher>
-                    {create ? 
+                    {create && 
                     <div className="category-row">
                         <Form endpoint="categories" item='category' updater={newData} setter={setData} setToggle={setCreate}
                         style={{gridTemplateColumns: `repeat(4, 1fr)`}} className="row">
@@ -95,7 +100,7 @@ export const Game = () => {
                             </div>
                             <Submit>Save</Submit>
                         </Form> 
-                    </div> : ''}
+                    </div> }
                 </div>
 
                 <div className="game-leaderboard data game-details">
@@ -111,14 +116,7 @@ export const Game = () => {
 
             </div>}
 
-            {data?.sessions ? <Sessions data={
-                data?.sessions.filter(session => session.user_id == user.id ||
-                    session.session_shares?.map(share => share.collaborator_id)
-                        .includes(user.id))
-                }
-                user={user}
-                game_id={data?.id}
-                setter={setNewSession} /> : ''}
+            {sessionsAssociatedWithUser && <Sessions data={sessionsAssociatedWithUser} user={user} game_id={data?.id} setter={setNewSession} />}
         </div>
 
     )
