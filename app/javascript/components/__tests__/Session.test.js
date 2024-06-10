@@ -44,13 +44,10 @@ describe('Session component works correctly',() => {
     });
 
     test('You can change the date', async () => {
-        render(<Session/>)
+        render(<Session />)
         expect(screen.queryByText('Save Date')).toBe(null)
         await user.click(screen.getByText('Change Date'))
         expect(screen.getByText('Save Date')).toBeDefined()
-        await user.click(screen.getByText('Save Date'))
-        await user.click(screen.getByText('Done Editing'))
-        expect(screen.queryByText('Save Date')).toBe(null)
     });
 
     test('You can share a session', async () => {

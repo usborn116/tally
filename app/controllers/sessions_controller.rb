@@ -8,11 +8,9 @@ class SessionsController < ApplicationController
 
   # GET /sessions/1 or /sessions/1.json
   def show
-    @players = current_user.players
-    @session = JSON.parse(@session.to_json(:include => [:game, :user, :collaborators, {:session_players => {:include => [:session_scores]}}, 
-            {:session_categories => {:include => [:session_scores]}}, 
-            {:session_scores=> {:include => [:session_player, :session_category]}}]))
-    render json: {session: @session, players: @players }
+    include_options = build_include_options
+
+    render json: @session.as_json(include: include_options)
   end
 
   def winner
@@ -56,6 +54,29 @@ class SessionsController < ApplicationController
   end
 
   private
+
+    def build_include_options
+      return {} unless params[:include]
+
+      params[:include].split(',').map do |association|
+        case association
+        when 'players'
+          { user: {include: :players }}
+        when 'game'
+          { game: @session.game }
+        when 'collaborators'
+          { collaborators: {}}
+        when 'session_scores'
+          { session_scores: {include: [:session_player, :session_category]}}
+        when 'session_players'
+          { session_players: {include: :session_scores }}
+        when 'session_categories'
+          { session_categories: {include: :session_scores }}
+        else
+          {}
+        end
+      end.reduce({}, :merge)
+    end
     # Use callbacks to share common setup or constraints between actions.
     def set_session
       @session = Session.find(params[:id])

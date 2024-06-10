@@ -7,7 +7,7 @@ export const Home = ({user, setUser, loading, setLoading, setError, error}) => {
 
     useEffect(() => {
         setLoading(true)
-        getData('user', setUser, setError)
+        getData('user', setUser, setError, ['sessions', 'shared_sessions'])
         setLoading(false)
     }, [loading])
 

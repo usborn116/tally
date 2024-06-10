@@ -12,6 +12,7 @@ export const Form = ({submitter = null, navigate = null, className = null, style
         let info = {}
         info = form_object(item, info, data)
         const response = info[item]?.name !== '' ? await updater(`${endpoint}${id ? `/${id}` : ''}`, info, setError) : null
+
         if (response?.error){
             return
         } else {

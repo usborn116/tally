@@ -35,7 +35,8 @@ export const Session = () => {
     const share_img = <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"> <path d="M13.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5zm-8.5 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm11 5.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z"/> </svg>
 
     useEffect(() => {
-        getData(`sessions/${id}`, setData, setError)
+        getData(`sessions/${id}`, setData, setError,
+            ['session_players', 'players', 'game', 'user', 'collaborators', 'session_categories'])
     }, [create, addPlayers, editDate, enterScores, deletePlayer, sessionShare])
 
     useEffect(() => {
@@ -43,25 +44,25 @@ export const Session = () => {
     }, [])
 
     const WIN_TYPE = {true: 'WON!', false: 'Not won'}
-    const styling = {gridTemplateColumns: `repeat(${data?.session?.session_players?.length + 1}, ${100/(data?.session?.session_players?.length + 1)}%)`}
+    const styling = {gridTemplateColumns: `repeat(${data?.session_players?.length + 1}, ${100/(data?.session_players?.length + 1)}%)`}
 
     const add_players = [...Array(numPlayers)].map((x, i) => (
         <div key={i}>
             <div>Player {i + 1}</div>
             <Form submitter={true} endpoint="session_players" item='session_player' updater={newData} setter={setData} setError={setError}>
                 <Input type="select_text" name="name" options={data?.players ? data.players : [{name: 'foo'}, {name: 'bar'}]}/>
-                <Input type="hidden" name="session_id" value={data?.session?.id} />
+                <Input type="hidden" name="session_id" value={data?.id} />
                 <Submit nobutton={true}>Save</Submit>
             </Form>
         </div>
     ))
 
-    const players = data?.session?.session_players?.map((player) => player)
+    const players = data?.session_players?.map((player) => player)
 
     const totals = (
         <div className="row" style={styling}>
             <div>TOTALS</div>
-            {data?.session?.session_players?.map((p) => (
+            {data?.session_players?.map((p) => (
                 <div key={p.id} >{p.session_scores?.map(s => s.amount).reduce((a, v) => a + v, 0)}</div>
             ))}
         </div>
@@ -70,7 +71,8 @@ export const Session = () => {
     const handleCalculate = async (e) => {
         setEnterScores(true)
         e?.preventDefault()
-        const response = await getData(`sessions/${data?.session?.id}/winner`, setData, setError)
+        const response = await getData(`sessions/${data?.id}/winner`, setData, setError,
+            ['session_players', 'players', 'game', 'user', 'collaborators', 'session_categories'])
         setEnterScores(false)
         alert(response.message)
     };
@@ -86,9 +88,9 @@ export const Session = () => {
         e.preventDefault()
         setDeletePlayer(true)
         window.confirm('Are you sure you want to delete this player')
-        await fetch(`api/session_players/${id}`, { method: 'delete'})
-        handleCalculate()
+        await fetch(`/api/session_players/${id}`, { method: 'delete'})
         setDeletePlayer(false)
+        handleCalculate()
     }
 
     if (!user) return <h1>No Content Here!</h1>
@@ -99,17 +101,17 @@ export const Session = () => {
         <div className="table">
             <div className="session-overview top-session">
                 <div className="game-name">
-                    <h2>{data?.session?.game?.name}</h2>
+                    <h2>{data?.game?.name}</h2>
                     <Button handler={deleteHandler} classes={`delete-button`}>Delete Session&nbsp;<div className="x"> X </div></Button>
                 </div>
-                <h3>Creator: {data?.session?.user.name}</h3>
+                <h3>Creator: {data?.user?.name}</h3>
                 <div className="shared-entry">
-                    <h3>Shared With: {data?.session?.collaborators?.map(c => c.name)}</h3>
+                    <h3>Shared With: {data?.collaborators?.map(c => c?.name)}</h3>
                     <Switcher setter={setSessionShare} data={sessionShare}>{share_img}</Switcher>
                 </div>
                 {sessionShare ? 
                 <div className="wide-form">
-                    <Form endpoint={`sessions/${data?.session?.id}/session_shares`} item='share' updater={newData} setter={setData} setToggle={setSessionShare} setError={setError}>
+                    <Form endpoint={`sessions/${data?.id}/session_shares`} item='share' updater={newData} setter={setData} setToggle={setSessionShare} setError={setError}>
                         <Input type="text" name="email" placeHolder='Email'/>
                         <Submit>Share</Submit>
                     </Form> 
@@ -117,17 +119,17 @@ export const Session = () => {
                 }
                 <div className="entry date-entry">
                     <h3>{editDate ?
-                        <Form endpoint="sessions" item='session' id={data?.session?.id} updater={updateData}
+                        <Form endpoint="sessions" item='session' id={data?.id} updater={updateData}
                             setter={setData} setToggle={setEditDate} setError={setError}>
-                            <Input type="date" name="date" value={data?.session?.date} />
+                            <Input type="date" name="date" value={data?.date} />
                             <Submit>Save Date</Submit>
                         </Form> :
-                        <>{data?.session?.date}</>
+                        <>{data?.date}</>
                     }
                     </h3>
-                    <Switcher setter={setEditDate} data={editDate}>{editDate ? 'Done Editing' : 'Change Date'}</Switcher>
+                    <Switcher setter={setEditDate} data={editDate}>{editDate ? '' : 'Change Date'}</Switcher>
                 </div>
-                <h3>Winner: {data?.session?.victor || 'None Yet'}</h3>
+                <h3>Winner: {data?.victor || 'None Yet'}</h3>
             </div>
 
             <div className="session-data">
@@ -136,7 +138,7 @@ export const Session = () => {
                     <h3>Players</h3>
                     {players?.map((p) => (
                         <div key={p.id} style={{display: 'flex', width: '100%', alignItems: 'center'}}>
-                            {p.name}&nbsp;
+                            {p?.name}&nbsp;
                             <Button handler={(e) => playerDelete(e, p.id)} classes={`delete-button`}><div className="x"> X </div></Button>
                         </div>
                         )

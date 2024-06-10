@@ -8,26 +8,24 @@ import userEvent from '@testing-library/user-event'
 const user = userEvent.setup()
 
 const data = {
-    session: {
-        session_categories: [
-            {   id: 1, 
-                name: 'Cat A',
-                point_based: true,
-                session_scores: [
-                    { id: 11, amount: 11, win: false},
-                    { id: 12, amount: 12, win: false},
-                ]
-            },
-            {   id: 2, 
-                name: 'Cat B',
-                point_based: false,
-                session_scores: [
-                    { id: 13, amount: 13, win: false},
-                    { id: 14, amount: 14, win: true},
-                ]
-            },
-        ]
-    }
+    session_categories: [
+        {   id: 1, 
+            name: 'Cat A',
+            point_based: true,
+            session_scores: [
+                { id: 11, amount: 11, win: false},
+                { id: 12, amount: 12, win: false},
+            ]
+        },
+        {   id: 2, 
+            name: 'Cat B',
+            point_based: false,
+            session_scores: [
+                { id: 13, amount: 13, win: false},
+                { id: 14, amount: 14, win: true},
+            ]
+        },
+    ]
 }
 
 const styling = null
