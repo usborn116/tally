@@ -14,7 +14,7 @@ export const Sessions = ({data, user, game_id, setter}) => {
 
     const list = data?.map((p) => (
         <div key={p.id} className="entry session-listing session-entry">
-            <Link className='link' to={'/sessions/' + p.id}>{new Date(p.date).toLocaleDateString('en-us', { timeZone: 'UTC', day:"numeric", year:"numeric", month:"short"})}</Link>
+            <Link className='link' to={'sessions/' + p.id}>{new Date(p.date).toLocaleDateString('en-us', { timeZone: 'UTC', day:"numeric", year:"numeric", month:"short"})}</Link>
             <div className="game-details">{p.user?.name}</div>
             <div className="game-details">{p.victor || 'None Yet'}</div>
         </div>

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Logout } from "./Logout";
 import { useState } from "react";
 
-export const Header = ({setUser, user, setLoading}) => {
+export const Header = ({setUser, user, setLoading, setError}) => {
 
     const [loggedOut, setLoggedOut] = useState(false)
 
@@ -37,7 +37,8 @@ export const Header = ({setUser, user, setLoading}) => {
                 {user ? <Link to="/players" className="button">My Players</Link> : ''}
                 {user ? <Link to="/user" className="button">Profile</Link> : ''}
                 {user ? <Logout setUser={setUser} user={user} setLoading={setLoading}
-                logoutMessage={logoutMessage}/> : <Link className="button" to={'/login'}>Log In</Link>}
+                            logoutMessage={logoutMessage} setError={setError} /> :
+                            <Link className="button" to={'/login'}>Log In</Link>}
             </div> 
             </>
             }

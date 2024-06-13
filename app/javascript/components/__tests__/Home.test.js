@@ -9,36 +9,61 @@ import { Player } from '../Player';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
 import { act } from 'react-dom/test-utils';
+import { Games } from '../Games';
+
+const fakeuser = {
+    user: {
+        name: 'John', email: 'a@a.com', 
+        games: [{ 'sessions': ['a', 'b'] }, { 'sessions': ['a', 'b', 'c', 'd'] }]
+    },
+    setUser: () => { },
+    error: null,
+    setError: () => { },
+    loading: false,
+    setLoading: () => { },
+
+}
+
+jest.mock('../helpers/useSetUser', () => ({
+   useSetUser: () => {
+       return fakeuser;
+   },
+}));
+
+const fakecontext = [
+        {
+            name: 'John', email: 'a@a.com', 
+            games: [{ 'sessions': ['a', 'b'] }, { 'sessions': ['a', 'b', 'c', 'd'] }]
+        },
+        () => { },
+        () => { },
+        null,
+        false,
+        () => { },
+    ]
+
+jest.mock('react-router-dom', () => ({
+...jest.requireActual('react-router-dom'),
+    useOutletContext: () => ( fakecontext ),
+}));
 
 const user = userEvent.setup()
 describe('Home has expected components',() => {
-    test('renders correct text for no user', () => {
-        render(<Home setLoading={() => {}} setError={() => {}}/>)
-        const heading = screen.getAllByRole('heading');
-        expect(heading[0].textContent).toMatch(/Welcome To Tally, friend/)
-    });
-
-    test('renders correct text for user with name John', () => {
-        render(<Home setLoading={() => {}} setError={() => {}} user={{name: 'John'}}/>)
-        const heading = screen.getAllByRole('heading');
-        expect(heading[0].textContent).toMatch(/Welcome To Tally, John/)
-    });
 
     test('has the games component', () => {
-        render(<Home setLoading={() => {}} setError={() => {}}/>)
+        render(<MemoryRouter><Games /></MemoryRouter>)
         const heading = screen.getAllByText('Top 5 Games')
         expect(heading[0]).toBeDefined()
         expect(screen.queryByText('My Players')).toBe(null)
     })
 
     test('has the players component if user', () => {
-        //render(<Home setLoading={() => {}} setError={() => {}} user={{name: 'John'}}/>)
-        render(<MemoryRouter><Header user={{name: 'John'}} setUser={() => {}} setLoading={() => {}}/></MemoryRouter>)
+        render(<MemoryRouter><Header /></MemoryRouter>)
         expect(screen.queryByText('My Players')).not.toBe(null)
     })
 
     test('you can add a new player', async () => {
-        act(() => render(<MemoryRouter><Players setError={() => {}} /></MemoryRouter>))
+        act(() => render(<Players />))
         await user.click(screen.getByText('Add New Player'))
         const box = screen.getByRole('textbox')
         expect(box).toBeDefined()

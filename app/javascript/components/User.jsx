@@ -1,15 +1,11 @@
 import React, {useEffect} from "react";
 import { Navigate } from 'react-router-dom'
 import { useSetUser } from "./helpers/useSetUser";
+import { useOutletContext } from "react-router-dom";
 
 export const User = () => {
 
-    const { user, loading, setLoading } = useSetUser()
-
-    useEffect(() => {
-        setLoading(true)
-        setLoading(false)
-    }, [loading])
+    const [user, setUser, loading, setLoading, error, setError] = useOutletContext()
 
     if (!user){ <Navigate to="/" replace /> }
 

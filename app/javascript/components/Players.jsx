@@ -8,9 +8,11 @@ import { Input } from "./Input";
 import { Switcher } from "./Switcher";
 import { newData } from "./helpers/api_helpers";
 import { Error } from "./Error";
+import { useOutletContext } from "react-router-dom";
 
-export const Players = ({setError, error}) => {
+export const Players = () => {
 
+    const [user, setUser, loading, setLoading, error, setError] = useOutletContext()
     const [data, setData] = useState([])
     const [create, setCreate] = useState(false)
 

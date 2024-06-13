@@ -7,15 +7,15 @@ import { Switcher } from "./Switcher";
 import {useNavigate} from 'react-router-dom'
 import { useError } from "./helpers/useError";
 import { Error } from "./Error";
+import { useOutletContext } from "react-router-dom";
 
-export const Login = ({setUser}) => {
+export const Login = () => {
 
     const navigate = useNavigate()
+    const [user, setUser, loading, setLoading, error, setError] = useOutletContext()
 
     const [existing, setExisting] = useState(true)
     const [notLoggedIn, setNotLoggedIn] = useState(true)
-
-    const {error, setError} = useError()
 
     useEffect(() => {
         async () => {

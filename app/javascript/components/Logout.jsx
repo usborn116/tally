@@ -2,12 +2,11 @@ import React, {useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import { getData, logout } from "./helpers/api_helpers";
 import { useError } from "./helpers/useError";
+import { useOutletContext } from "react-router-dom";
 
-export const Logout = ({setUser, setLoading, logoutMessage }) => {
+export const Logout = ({setUser, setLoading, logoutMessage, setError }) => {
 
     const navigate = useNavigate()
-
-    const {error, setError} = useError()
     
     useEffect(() => {
         setLoading(true)
@@ -22,8 +21,6 @@ export const Logout = ({setUser, setLoading, logoutMessage }) => {
         await logoutMessage()
         navigate('/')
     }
-
-    if (error) return <Error />
 
     return <button data-testid='logout-button' className="button" onClick={handleLogout}>Log Out</button>
 
