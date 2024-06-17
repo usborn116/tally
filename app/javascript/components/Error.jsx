@@ -10,11 +10,11 @@ export const Error = ({ message = null, setError = null }) => {
     return (
         <div className="table">
           <h1>ERROR!</h1>
-        <h2>{message ? message : error?.data ?? 'Unexpected Error Occurred'}</h2>
-          {setError ? 
-          <Button handler={() => setError(() => false)}>Go Back</Button> : 
-          <Link to='/'>Go Home</Link>
-          }
+          <h2>{message ? message : error?.data ?? 'Unexpected Error Occurred'}</h2>
+            {setError ? 
+            <Button handler={() => setError(() => false)}>Go Back</Button> : 
+            <Link to='/'>Go Home</Link>
+            }
         </div>
     )
 };

@@ -12,7 +12,7 @@ import { SearchBar } from "./SearchBar";
 
 export const Games = () => {
     
-    const [user, setUser, setError, error, loading, setLoading] = useOutletContext()
+    const [user, setUser, loading, setLoading, error, setError ] = useOutletContext()
     const [data, setData] = useState([])
     const [create, setCreate] = useState(false)
     const [search, setSearch] = useState(false)
@@ -23,8 +23,10 @@ export const Games = () => {
     }, [create, search, user, loading])
 
     const list = data?.map((p) => (
-        <GameListing key={p.id} data={p} user={user} />
+        <GameListing key={p.id} data={p} user={user} /> 
     ))
+
+    if (error) return <Error message={error} setError={setError}/>
 
     const add_categories = [...Array(numCategories)].map((x, i) => {
         let namestr = `categories_attributes;${i};name`
@@ -40,7 +42,6 @@ export const Games = () => {
 
     if (create) return (
         <div className="data create-data">
-        {error ? <Error message={error}/> : '' }
         <Switcher setter={setCreate} data={create}>See All Games</Switcher>
         <Form endpoint="games" item='game' updater={newData} setter={setData} setToggle={setCreate} setError={setError}>
                 <Input type="text" name="name" placeHolder='Name' />

@@ -10,9 +10,23 @@ const user = userEvent.setup()
 
 const mockSetUser = jest.fn()
 
+const fakecontext = [
+        false,
+        () => { },
+        () => { },
+        null,
+        false,
+        () => { },
+]
+
+jest.mock('react-router-dom', () => ({
+...jest.requireActual('react-router-dom'),
+    useOutletContext: () => ( fakecontext ),
+}));
+
 describe('Login component works correctly',() => {
     beforeEach(() => {
-        render(<MemoryRouter><Login setUser={mockSetUser}/></MemoryRouter>)
+        render(<MemoryRouter><Login /></MemoryRouter>)
     })
 
     test('shows email/password inputs', () => {

@@ -7,8 +7,6 @@ export const User = () => {
 
     const [user, setUser, loading, setLoading, error, setError] = useOutletContext()
 
-    if (!user){ <Navigate to="/" replace /> }
-
     return ( user && 
         <div className="data user-data">  
             <h1>Name: {user?.name}</h1>

@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import { useParams, useOutletContext, Outlet } from "react-router-dom";
+import { useParams, Navigate, Outlet } from "react-router-dom";
 import { Sessions } from "./Sessions";
 import { getData, updateData, newData } from "./helpers/api_helpers";
 import { Form } from "./Form";
@@ -26,6 +26,8 @@ export const Game = () => {
             ['categories', 'sessions', 'session_shares', 'results']
         )
     }, [edit, create, newSession])
+
+    if (error) return <Error message={error} setError={setError}/>
 
     const categorySection = data?.categories?.map(c => <Category key={c.id} data={c} setData={setData} setError={setError}/>)
 

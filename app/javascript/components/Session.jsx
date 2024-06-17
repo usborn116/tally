@@ -95,7 +95,7 @@ export const Session = () => {
 
     if (error) return <Error message={error} />
 
-    return (data && 
+    return (
         <div className="table">
             <div className="session-overview top-session">
                 <div className="game-name">
