@@ -8,7 +8,7 @@ export const Error = ({ message = null, setError = null }) => {
   const error = useRouteError()
 
     return (
-        <div className="table">
+        <div className="table error">
           <h1>ERROR!</h1>
           <h2>{message ? message : error?.data ?? 'Unexpected Error Occurred'}</h2>
             {setError ? 

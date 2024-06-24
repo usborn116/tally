@@ -1,4 +1,4 @@
-button, .button{
+button, .button, .error > a{
     display: flex;
     text-decoration: none;
     padding: 15px;
@@ -8,13 +8,13 @@ button, .button{
     font-size: 20px;
 }
 
-button.button{
+button.button, .error>a{
     border: none;
     background-color: transparent;
     font-family: 'Gabarito', sans-serif;
 }
 
-.button:hover{
+.button:hover, .error>a:hover{
     color: #207332 ;
 }
 
@@ -24,7 +24,7 @@ button.button{
     border-radius: 10px;
 }
 
-input.button, .body-button{
+input.button, .body-button, .error>a{
     border:none;
     color: #93748A;
     background-color: #c7e2bd;
