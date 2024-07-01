@@ -31,10 +31,3 @@ export const Home = () => {
 
     )
 }
-
-/*
-<h1>Welcome To Tally, {user?.name || 'friend'}!</h1>
-            <div className="home-table">
-                <Games homeError={setError} loading={loading} user={user} endpoint='games'/>
-            </div>
-*/
