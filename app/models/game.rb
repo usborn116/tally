@@ -21,17 +21,6 @@ class Game < ApplicationRecord
 		.order('sessions_count DESC, games.created_at')
 		.limit(5)
 	}
-
-	def game_relationships
-		self.to_json(:include => 
-		[ :categories, 
-			{:sessions => {only: [:id, :date, :victor, :user_id],
-				:include => [
-					{ :session_shares => {only: [:collaborator_id]} }
-				]} 
-			}]
-		)
-	end
 	
 	def results
 		self&.sessions

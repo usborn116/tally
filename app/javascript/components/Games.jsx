@@ -23,7 +23,7 @@ export const Games = ({endpoint, loading, user, homeError = null}) => {
     const [numCategories, setNumCategories] = useState(0)
 
     useEffect(() => {
-        getData(`games${search ? `?name=${search}`: ''}`, setData, homeError || setError)
+        getData(`games${search ? `?name=${search}`: ''}`, setData, homeError || setError, ['sessions'])
     }, [create, search, user, loading])
 
     const list = data?.map((p) => (
