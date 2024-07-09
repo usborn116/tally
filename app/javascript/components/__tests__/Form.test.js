@@ -22,12 +22,12 @@ describe('Forms submit correctly',() => {
     test('calls submit function and toggle function', async () => {
         
         render(<MemoryRouter>
-                    <Form endpoint='/test' item='test' updater={mockUpdate} setError={jest.fn()} setToggle={mockToggle} navigate={mockUpdate}>
+                    <Form endpoint='/test' item='test' updater={mockUpdate} setError={jest.fn()} setToggle={mockToggle}>
                         <Submit>Submit</Submit>
                     </Form>
                 </MemoryRouter>)
         await user.click(screen.getByText('Submit'))
-        expect(mockUpdate).toHaveBeenCalledTimes(2)
+        expect(mockUpdate).toHaveBeenCalledTimes(1)
         expect(mockToggle).toHaveBeenCalledTimes(1)
         
     });

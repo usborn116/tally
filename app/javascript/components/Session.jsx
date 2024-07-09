@@ -11,14 +11,13 @@ import { useError } from "./helpers/useError";
 import { Error } from "./Error";
 import { ScoresTable } from "./ScoresTable";
 import { SessionShare } from "./SessionShare";
+import { useOutletContext } from "react-router-dom";
 
 export const Session = () => {
 
-    const {error, setError} = useError()
+    const [user, setUser, loading, setLoading, error, setError] = useOutletContext()
 
-    //const {user} = useSetUser()
-
-    const id = useParams().id
+    const session_id = useParams().session_id
 
     const navigate = useNavigate()
 
@@ -30,14 +29,13 @@ export const Session = () => {
     const [enterScores, setEnterScores] = useState(false)
     const [deletePlayer, setDeletePlayer] = useState(false)
     const [sessionShare, setSessionShare] = useState(false)
-    const [user, setUser] = useState({ name: false})
 
     const share_img = <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"> <path d="M13.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5zm-8.5 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm11 5.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z"/> </svg>
 
     useEffect(() => {
-        getData(`sessions/${id}`, setData, setError,
+        getData(`sessions/${session_id}`, setData, setError,
             ['session_players', 'players', 'game', 'user', 'collaborators', 'session_categories'])
-    }, [create, addPlayers, editDate, enterScores, deletePlayer, sessionShare])
+    }, [create, addPlayers, editDate, enterScores, deletePlayer, sessionShare, session_id])
 
     useEffect(() => {
         getData('user', setUser, setError)

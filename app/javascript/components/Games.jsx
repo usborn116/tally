@@ -1,34 +1,32 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { getData, newData } from "./helpers/api_helpers";
-import { Navigate } from "react-router-dom"
+import { useOutletContext } from "react-router-dom"
 import { Form } from "./Form";
 import { Input } from "./Input";
 import { Submit } from "./Submit";
 import { Switcher } from "./Switcher";
-import { useError } from "./helpers/useError";
 import { Error } from "./Error";
-import { useSetUser } from "./helpers/useSetUser";
 import { GameListing } from "./GameListing";
 import { SearchBar } from "./SearchBar";
-import { ImageHelper } from "./ImageHelper";
 
-export const Games = ({endpoint, loading, user, homeError = null}) => {
-
-    const {error, setError} = useError()
-
+export const Games = () => {
+    
+    const [user, setUser, loading, setLoading, error, setError ] = useOutletContext()
     const [data, setData] = useState([])
     const [create, setCreate] = useState(false)
     const [search, setSearch] = useState(false)
     const [numCategories, setNumCategories] = useState(0)
 
     useEffect(() => {
-        getData(`games${search ? `?name=${search}`: ''}`, setData, homeError || setError, ['sessions'])
+        getData(`games${search ? `?name=${search}`: ''}`, setData, setError, ['sessions'])
     }, [create, search, user, loading])
 
     const list = data?.map((p) => (
-        <GameListing key={p.id} data={p} endpoint={endpoint} user={user} />
+        <GameListing key={p.id} data={p} user={user} /> 
     ))
+
+    if (error) return <Error message={error} setError={setError}/>
 
     const add_categories = [...Array(numCategories)].map((x, i) => {
         let namestr = `categories_attributes;${i};name`
@@ -44,7 +42,6 @@ export const Games = ({endpoint, loading, user, homeError = null}) => {
 
     if (create) return (
         <div className="data create-data">
-        {error ? <Error message={error}/> : '' }
         <Switcher setter={setCreate} data={create}>See All Games</Switcher>
         <Form endpoint="games" item='game' updater={newData} setter={setData} setToggle={setCreate} setError={setError}>
                 <Input type="text" name="name" placeHolder='Name' />
@@ -66,10 +63,7 @@ export const Games = ({endpoint, loading, user, homeError = null}) => {
     
     return (
         <div className="data">
-            {error ? <Error message={error}/> : '' }
-            { user ? 
-            <SearchBar setSearch={setSearch} />
-            : '' }
+            { user && <SearchBar setSearch={setSearch} /> }
 
             <div className="top">
                 <h2>{user ? '' : 'Top 5 '}Games</h2>

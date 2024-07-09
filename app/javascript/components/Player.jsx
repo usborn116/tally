@@ -4,10 +4,10 @@ import { Input } from "./Input";
 import { Submit } from "./Submit";
 import { updateData } from "./helpers/api_helpers";
 
-export const Player = ({data, setData}) => {
+export const Player = ({data, setData, setError}) => {
 
     return (
-        <Form submitter={true} endpoint="players" item='player' id={data.id} updater={updateData} setter={setData}>
+        <Form submitter={true} endpoint="players" item='player' id={data.id} updater={updateData} setter={setData} setError={setError}>
             <Input type="text" name="name" value={data.name}/>
             <Submit nobutton={true}>Save</Submit>
         </Form>

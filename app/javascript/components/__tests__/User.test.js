@@ -4,17 +4,24 @@
 import {render, screen} from '@testing-library/react'
 import { User } from '../User';
 
-const fakeuser = {
-    user: {
-        name: 'John', email: 'a@a.com', sessions: [{ game_id: 1 }, { game_id: 2 }],
-        shared_sessions: [{ game_id: 1 }, { game_id: 2 }, { game_id: 1 }, { game_id: 2 }]
-    }, setLoading: () => { }
-}
+const fakecontext = [
+    {
+        name: 'John', email: 'a@a.com', 
+        sessions: [{'game_id' : 1 }, {'game_id' : 2 }],
+        shared_sessions: [{'game_id' : 2 }, {'game_id' : 2 }, {'game_id' : 2 }, {'game_id' : 2 }]
+    },
+    () => { },
+    () => { },
+    null,
+    false,
+    () => { },
+]
 
-jest.mock('../helpers/useSetUser', () => ({
-   useSetUser: () => {
-       return fakeuser;
-   },
+jest.mock('react-router-dom', () => ({
+...jest.requireActual('react-router-dom'),
+    useOutletContext: () => (fakecontext),
+    useNavigate: () => mockedFn,
+    useParams: () => jest.fn()
 }));
 
 

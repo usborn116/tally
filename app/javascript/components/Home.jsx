@@ -2,8 +2,15 @@ import React, {useEffect} from "react";
 import { Games } from "./Games";
 import { getData } from "./helpers/api_helpers";
 import { Error } from "./Error";
+import { useSetUser } from "./helpers/useSetUser";
+import { Header } from "./Header";
+import { Outlet, Navigate } from "react-router-dom";
+import { Footer } from "./Footer";
+import { Login } from "./Login";
 
-export const Home = ({user, setUser, loading, setLoading, setError, error}) => {
+export const Home = () => {
+    
+    const { user, setUser, loading, setLoading, error, setError } = useSetUser()
 
     useEffect(() => {
         setLoading(true)
@@ -11,16 +18,16 @@ export const Home = ({user, setUser, loading, setLoading, setError, error}) => {
         setLoading(false)
     }, [loading])
 
-    if (error) return (<Error message={error}/>)
+    if (error) return (<Error message={error.message} setError={setError}/>)
 
     return (
-        <div className="home">
-            <h1>Welcome To Tally, {user?.name || 'friend'}!</h1>
-            <div className="home-table">
-                <Games homeError={setError} loading={loading} user={user} endpoint='games'/>
-                
-            </div>
+        <>
+        <Header setUser={setUser} user={user} setLoading={setLoading} setError={setError} />
+            <div className="home">
+                <Outlet context={[user, setUser, loading, setLoading, error, setError]} />
         </div> 
+        <Footer />
+        </>
 
     )
 }

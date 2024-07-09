@@ -10,19 +10,27 @@ const user = userEvent.setup()
 
 const mockSearch = jest.fn()
 
-const fakeuser = {user: {name: 'John', email: 'a@a.com', 
-                games: [{'sessions': ['a','b']}, {'sessions': ['a','b','c','d']}]}, setLoading: () => {}}
+const fakecontext = [
+        {
+            name: 'John', email: 'a@a.com', 
+            games: [{ 'sessions': ['a', 'b'] }, { 'sessions': ['a', 'b', 'c', 'd'] }]
+        },
+        () => { },
+        () => { },
+        null,
+        false,
+        () => { },
+    ]
 
-jest.mock('../helpers/useSetUser', () => ({
-   useSetUser: () => {
-       return fakeuser;
-   },
+jest.mock('react-router-dom', () => ({
+...jest.requireActual('react-router-dom'),
+    useOutletContext: () => ( fakecontext ),
 }));
 
-
 describe('Games component works correctly', () => {
+
     test('you can enter a search', async () => {
-        render(<Games endpoint='games' user={true} />)
+        render(<Games />)
         const search = screen.queryByRole('textbox')
         expect(search.value).toBe('')
         await user.type(search, 'Wingspan')
@@ -50,15 +58,9 @@ describe('Games component works correctly', () => {
         expect(headers[0].closest('div').classList.contains('top')).toBe(true)
     });
 
-    test('Has no searchbar if Home', () => {
-        render(<Games/>)
-        expect(screen.queryByRole('textbox')).toBe(null)
-        expect(screen.queryByText('Add New Game')).toBe(null)
-    });
-
-    test('Has searchbar if My Games', () => {
-        render(<Games endpoint='games' user={true} />)
+    test('Has searchbar if Logged In', () => {
+        render(<Games />)
         expect(screen.queryByRole('textbox')).not.toBe(null)
         expect(screen.getByText('Add New Game')).not.toBe(null)
     });
-  })
+})

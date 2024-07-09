@@ -4,40 +4,26 @@ import { Input } from "./Input";
 import { Submit } from "./Submit";
 import { logIn, signup, getData} from "./helpers/api_helpers";
 import { Switcher } from "./Switcher";
-import {useNavigate} from 'react-router-dom'
-import { useError } from "./helpers/useError";
 import { Error } from "./Error";
+import { useOutletContext, redirect, Navigate } from "react-router-dom";
 
-export const Login = ({setUser}) => {
+export const Login = () => {
 
-    const navigate = useNavigate()
+    const [user, setUser, loading, setLoading, error, setError] = useOutletContext()
 
     const [existing, setExisting] = useState(true)
     const [notLoggedIn, setNotLoggedIn] = useState(true)
 
-    const {error, setError} = useError()
-
     useEffect(() => {
-        async () => {
-            const response = await getData('user', setUser, setError)
-            response ? navigate('/') : ''
-        }
+        getData('user', setUser, setError)
     }, [notLoggedIn])
 
-    if (!notLoggedIn){
-        navigate('/')
-    }
-
-    if (error) {
-        navigate('/login')
-        return <Error message={error} setError={setError}/>
-        
-    }
+    if (user) return <Navigate to="/" replace /> 
 
     const form = existing ? 
         <div className="data" data-testid="login-box">
         <h1>Log In</h1>
-            <Form endpoint="users/sign_in" item='login' updater={logIn} setter={setUser} setToggle={setNotLoggedIn} setError={setError} navigate={navigate} >
+            <Form endpoint="users/sign_in" item='login' updater={logIn} setToggle={setNotLoggedIn} setError={setError} >
                 <Input type="email" name="email" placeHolder='email address'/>
                 <Input type="password" name="password" placeHolder='password' />
                 <Submit/>
@@ -45,7 +31,7 @@ export const Login = ({setUser}) => {
         </div> : 
         <div className="data" data-testid="signup-box">
         <h1>Sign Up</h1>
-            <Form endpoint="users" item='signup' updater={signup} setter={setUser} setToggle={setNotLoggedIn} setError={setError} navigate={navigate} >
+            <Form endpoint="users" item='signup' updater={signup} setToggle={setNotLoggedIn} setError={setError} >
                 <Input type="text" name="name" placeHolder='name'/>
                 <Input type="email" name="email" placeHolder='email address'/>
                 <Input type="password" name="password" placeHolder='password' />

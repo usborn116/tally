@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import { useParams, Navigate } from "react-router-dom";
+import { useParams, Navigate, Outlet } from "react-router-dom";
 import { Sessions } from "./Sessions";
 import { getData, updateData, newData } from "./helpers/api_helpers";
 import { Form } from "./Form";
@@ -9,27 +9,25 @@ import { Switcher } from "./Switcher";
 import { Category } from "./Category";
 import { useError } from "./helpers/useError";
 import { Error } from "./Error";
+import { useSetUser } from "./helpers/useSetUser";
 
 export const Game = () => {
 
-    const id = useParams().id
+    const game_id = useParams()?.game_id
+    const { user, setUser, loading, setLoading, error, setError } = useSetUser()
 
-    const {error, setError} = useError()
     const [data, setData] = useState([])
-    const [user, setUser] = useState({ name: false})
     const [edit, setEdit] = useState(false)
     const [create, setCreate] = useState(false)
     const [newSession, setNewSession] = useState(false)
 
     useEffect(() => {
-        getData(`games/${id}`, setData, setError,
+        getData(`games/${game_id}`, setData, setError,
             ['categories', 'sessions', 'session_shares', 'results']
         )
     }, [edit, create, newSession])
 
-    useEffect(() => {
-        getData('user', setUser, setError)
-    }, [edit, create, newSession])
+    if (error) return <Error message={error} setError={setError}/>
 
     const categorySection = data?.categories?.map(c => <Category key={c.id} data={c} setData={setData} setError={setError}/>)
 
@@ -41,14 +39,10 @@ export const Game = () => {
         : (<div key={i}></div>)
     )
 
-    const sessionsAssociatedWithUser = data?.sessions?.filter(
-            session => session.user_id == user.id ||
+    const sessionsAssociatedWithUser = user && data?.sessions?.filter(
+            session => session?.user_id == user?.id ||
             session.session_shares?.map(share => share.collaborator_id).includes(user.id)
     )
-
-    if (!user){
-        return <h1>Nothing Here!</h1>
-    }
 
     if (edit) return (
         <div className="data edit-game-form">
@@ -66,9 +60,8 @@ export const Game = () => {
         </div>
     )
 
-    return (
+    return (user &&
         <div className="table game-table">
-            {error ? <Error message={error}/> : ''}
             {data && <div className="top-game">
 
                 <div className="data game-details">
@@ -118,7 +111,11 @@ export const Game = () => {
 
             </div>}
 
-            {sessionsAssociatedWithUser && <Sessions data={sessionsAssociatedWithUser} user={user} game_id={data?.id} setter={setNewSession} />}
+            {sessionsAssociatedWithUser &&
+                <>
+                <Sessions data={sessionsAssociatedWithUser} user={user} game_id={data?.id} setter={setNewSession} />
+                <Outlet context={[user, setUser, loading, setLoading, error, setError]}/>
+                </>}
         </div>
 
     )

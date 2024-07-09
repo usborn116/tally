@@ -9,6 +9,25 @@ import { MemoryRouter } from 'react-router-dom';
 
 const user = userEvent.setup()
 
+const fakeuser = {
+    user: {
+        name: 'John', email: 'a@a.com', 
+        games: [{ 'sessions': ['a', 'b'] }, { 'sessions': ['a', 'b', 'c', 'd'] }]
+    },
+    setUser: () => { },
+    error: null,
+    setError: () => { },
+    loading: false,
+    setLoading: () => { },
+
+}
+
+jest.mock('../helpers/useSetUser', () => ({
+   useSetUser: () => {
+       return fakeuser;
+   },
+}));
+
 
 describe('Game section works correctly',() => {
     test('has game info, categories, leaderboard, and sessions', async () => {
