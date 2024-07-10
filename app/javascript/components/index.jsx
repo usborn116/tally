@@ -4,7 +4,6 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-import { logIn } from "./helpers/api_helpers";
 import { Home } from "../components/Home";
 import { User } from "../components/User";
 import { Games } from "../components/Games";
@@ -13,7 +12,6 @@ import { Session } from "../components/Session";
 import { Login } from "../components/Login";
 import { Error } from "../components/Error";
 import { Players } from "../components/Players";
-import { useSetUser } from "./helpers/useSetUser";
 
 const router = createBrowserRouter([
   {

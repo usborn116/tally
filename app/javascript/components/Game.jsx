@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import { useParams, Navigate, Outlet } from "react-router-dom";
+import { useParams, Outlet } from "react-router-dom";
 import { Sessions } from "./Sessions";
 import { getData, updateData, newData } from "./helpers/api_helpers";
 import { Form } from "./Form";
@@ -7,7 +7,6 @@ import { Submit } from "./Submit";
 import { Input } from "./Input";
 import { Switcher } from "./Switcher";
 import { Category } from "./Category";
-import { useError } from "./helpers/useError";
 import { Error } from "./Error";
 import { useSetUser } from "./helpers/useSetUser";
 

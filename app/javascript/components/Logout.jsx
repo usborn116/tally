@@ -1,8 +1,6 @@
 import React, {useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import { getData, logout } from "./helpers/api_helpers";
-import { useError } from "./helpers/useError";
-import { useOutletContext } from "react-router-dom";
 
 export const Logout = ({setUser, setLoading, logoutMessage, setError }) => {
 
