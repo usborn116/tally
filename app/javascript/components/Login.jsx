@@ -4,7 +4,6 @@ import { Input } from "./Input";
 import { Submit } from "./Submit";
 import { logIn, signup, getData} from "./helpers/api_helpers";
 import { Switcher } from "./Switcher";
-import { Error } from "./Error";
 import { useOutletContext, redirect, Navigate } from "react-router-dom";
 
 export const Login = () => {

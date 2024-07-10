@@ -1,12 +1,10 @@
 import React, {useEffect} from "react";
-import { Games } from "./Games";
 import { getData } from "./helpers/api_helpers";
 import { Error } from "./Error";
 import { useSetUser } from "./helpers/useSetUser";
 import { Header } from "./Header";
-import { Outlet, Navigate } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { Footer } from "./Footer";
-import { Login } from "./Login";
 
 export const Home = () => {
     

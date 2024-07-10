@@ -1,23 +1,20 @@
-import React, {useEffect, useState} from "react";
-import { Navigate } from 'react-router-dom'
+import React, {useState} from "react";
 import { useSetUser } from "./helpers/useSetUser";
-import { useOutletContext } from "react-router-dom";
 import { Form } from "./Form";
 import { Input } from "./Input";
 import { Submit } from "./Submit";
-import { useError } from "./helpers/useError";
 import { updateData } from "./helpers/api_helpers";
 import { Switcher } from "./Switcher";
 
 export const User = () => {
 
     const [edit, setEdit] = useState(false)
-    const [user, setUser, loading, setLoading, error, setError] = useOutletContext()
+    const { user, setError } = useSetUser(edit)
 
     if (edit) return (
         <div className="data user-data">
         <h2>User Details</h2>
-         <Form endpoint="users" item='signup' updater={updateData} setter={setUser} setToggle={setEdit} setError={setError} >
+         <Form endpoint="users" item='signup' updater={updateData} setToggle={setEdit} setError={setError} >
             <Input type="text" name="name" value={user?.name} placeHolder='name'/>
             <Input type="email" name="email" value={user?.email} placeHolder='email address'/>
             <Submit/>
