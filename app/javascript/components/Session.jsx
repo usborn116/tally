@@ -48,7 +48,7 @@ export const Session = () => {
         <div key={i}>
             <div>Player {i + 1}</div>
             <Form submitter={true} endpoint="session_players" item='session_player' updater={newData} setter={setData} setError={setError}>
-                <Input type="select_text" name="name" options={data?.players ? data.players : [{name: 'foo'}, {name: 'bar'}]}/>
+                <Input type="select_text" name="name" options={data?.user?.players ? data.user.players : [{name: 'foo'}, {name: 'bar'}]}/>
                 <Input type="hidden" name="session_id" value={data?.id} />
                 <Submit nobutton={true}>Save</Submit>
             </Form>
