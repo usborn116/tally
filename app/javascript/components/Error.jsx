@@ -1,7 +1,6 @@
 import React from "react";
 import { Button } from "./Button";
 import { useRouteError, Link } from "react-router-dom";
-import { redirect } from "react-router-dom";
 
 export const Error = ({ message = null, setError = null }) => {
   
